@@ -1,0 +1,208 @@
+# MMO Checklist
+
+Muc tieu: theo doi trang thai san pham, phan con thieu, va roadmap cho tool.
+
+## Nen tang
+- [x] Admin va client tach rieng theo `role`
+- [x] Admin vao `/admin`
+- [x] Client vao luong workspace
+- [x] API giu auth, phan quyen, audit log
+- [x] Web chi lam giao dien va hanh dong
+- [x] Worker tach runner theo tung tool rieng
+- [x] Database thuc qua MySQL/Prisma
+
+## Admin
+- [x] Overview tong quan
+- [x] System health
+- [x] Phan tich sau
+- [x] Danh sach user
+- [x] Chi tiet user
+- [x] Sua user
+- [x] Tao user trong admin
+- [x] Xoa user trong admin
+- [x] Dieu huong admin theo route rieng, khong redirect
+- [x] Danh sach workspace
+- [x] Chi tiet workspace
+- [x] Sua workspace
+- [x] Gan goi cho workspace
+- [x] Tao workspace trong admin
+- [x] Xoa workspace trong admin
+- [x] Danh sach account
+- [x] Chi tiet account
+- [x] Sua account
+- [x] Tao account trong admin
+- [x] Xoa account trong admin
+- [x] Danh sach job
+- [x] Chi tiet job
+- [x] Sua job
+- [x] Chi tiet job run
+- [x] Chi tiet job log
+- [x] Tao job trong admin
+- [x] Xoa job trong admin
+- [x] Danh sach plan
+- [x] Sua plan
+- [x] Tao plan
+- [x] Xoa plan
+- [x] Cap nhat thong tin goi dich vu
+- [x] Danh sach tool
+- [x] Chi tiet tool
+- [x] Sua tool
+- [x] Nhan ban tool
+- [x] Tao tool
+- [x] Xoa tool
+- [x] Log cong cu trong admin
+- [x] Audit log toan he thong
+- [x] Tim kiem + phan trang cho bang lon
+- [x] Bulk action cho user
+- [x] Bulk action cho workspace/account/job/tool
+- [x] Server-side paging/filter
+
+## Client
+- [x] Dang nhap
+- [x] Dang ky
+- [x] Dashboard
+- [x] Quan ly tai khoan
+- [x] Quan ly cong cu
+- [x] Tao job tu tool
+- [x] Xem job / run / log
+- [x] Quan ly thanh vien workspace
+- [x] Xem goi dich vu
+- [x] Goi cuoc thanh toan lay tu API
+- [x] Thong bao / canh bao (Notification)
+- [x] Workspace settings
+- [x] Export du lieu (CSV/JSON)
+- [ ] Billing / thanh toan thuc (Payment Gateway)
+
+## Tool platform hien tai
+- [x] Tool registry co seed mac dinh
+- [x] Tool gan voi workspace
+- [x] Cong cu trong workspace co bat / tat va cau hinh rieng
+- [x] Tao job tu tool
+- [x] Proxy health tool
+- [x] Account health tool
+- [x] Facebook group moderation tool
+- [x] TikTok keyword monitor tool
+- [x] Workflow builder tool
+- [x] Shopee link convert tool
+- [x] Shopee affiliate video tool
+- [x] YouTube reup video tool
+- [x] Job run va log
+- [x] Admin xem job / run / log
+- [x] Admin xem chi tiet / sua / xoa / nhan ban tool
+- [x] Log cong cu trong admin
+- [x] Scheduler / cron runner
+- [x] Cancel job
+- [x] Tung tool co runner rieng
+- [x] Bulk action cho tool
+- [x] Tim kiem + phan trang tool
+- [x] Retry / resume / pause thuc su
+- [x] Versioning config tool
+- [x] Rollback ve cau hinh cu
+- [x] Template/preset co ban theo workspace
+
+## Nang cap chuyen sau
+- [ ] Phan quyen theo tung tool va tung hanh dong
+- [ ] Permission matrix ro rang: view / edit / run / export / rollback / delete
+- [ ] Dependency va validation giua tool, account, workspace, plan
+- [ ] Compare config versions truoc khi rollback
+- [ ] Audit chi tiet hon cho thay doi config tool va preset
+- [ ] Health check cho runner tung tool
+- [ ] Auto restart hoac circuit breaker khi runner loi lien tiep
+- [ ] Thong ke usage theo tool, workspace, user, ngay
+- [ ] Alert khi tool qua tai, job that bai lap lai, hoac config sai
+- [ ] Import / export cau hinh tool va preset workspace
+- [ ] Duplicate preset va clone tool flow ro rang hon
+- [ ] Tool marketplace / goi y tool theo nhu cau workspace
+- [ ] Tool detail page co tab: config, version, usage, logs, permissions
+- [ ] Bulk edit config cho nhieu workspace dung mot tool
+- [ ] Approval flow cho hanh dong nguy hiem: delete, rollback, export
+- [ ] Runtime profile: dev / staging / prod cho tung tool
+- [ ] Product data pipeline: ten san pham, gia, mo ta, loi ich, CTA, tag
+- [ ] Content pipeline: product -> angle -> hook -> script -> caption -> hashtag
+- [ ] Video pipeline: product -> video -> cover -> caption -> publish
+- [x] One-click pipeline: nhap san pham -> tu sinh content -> video -> link -> schedule
+- [ ] Auto preset theo loai san pham va kenh dang bai
+- [ ] Affiliate pipeline ro rang: san pham -> link -> script -> video -> publish
+- [ ] Video workflow co preset rieng cho TikTok, Shopee Video, YouTube Shorts
+- [ ] Product catalog sync de lay gia, tag, tone, va CTA cho video
+- [x] AI content writer co mode: short post, long post, caption, comment, title
+- [ ] Template video theo loai san pham: beauty, tech, home, fashion
+- [ ] Template bai viet theo loai san pham: review, seeding, sale, comparison
+- [ ] Template hook theo loai noi dung: pain point, benefit, social proof, urgency
+- [ ] Schedule reup va publish theo kênh va gio vang
+- [ ] Theo doi conversion theo link, video, channel, va workspace
+- [ ] Theo doi output theo tung san pham: bao nhieu bai, bao nhieu video, bao nhieu link
+
+## Tinh nang moi de them
+- [ ] Tool builder de tao tool moi tu schema va form config
+- [ ] Workflow builder de noi nhieu tool thanh pipeline
+- [ ] AI assistant de goi y config, canh bao loi va viet mo ta tool
+- [ ] Social listening / keyword alert tool
+- [ ] Facebook group moderation tool
+- [ ] Facebook auto engage tool
+- [ ] Facebook bulk messaging tool
+- [ ] TikTok auto comment tool
+- [ ] TikTok auto DM tool
+- [ ] TikTok keyword monitor tool
+- [ ] Lead scraper / contact export tool
+- [ ] Browser automation / RPA tool
+- [ ] Proxy health / account health toolkit
+- [ ] AI content writer / caption assistant tool
+- [x] Product content generator tool
+- [ ] Product video generator tool
+- [ ] Product brief to script tool
+- [ ] Product brief to caption tool
+- [ ] Affiliate link optimizer tool
+- [ ] Content scheduler / auto publish tool
+- [x] Auto content generator tool
+- [x] Auto video generator tool
+- [x] Auto link converter tool
+- [ ] Auto schedule / auto publish tool
+- [ ] Auto batch processing tool
+- [ ] Auto report tool
+- [ ] Auto notification tool
+- [ ] Auto template preset tool
+- [x] Content calendar tool
+- [x] Batch generate content theo danh sach san pham
+- [x] Batch generate video theo san pham va channel
+- [ ] Report generator tool
+- [ ] Workspace sync tool cho du lieu / tag / note
+- [ ] Notification rule engine cho canh bao theo dieu kien
+- [ ] Template library cho job, tool, va workspace
+- [ ] Marketplace co rating, tag, va suggest tool
+- [ ] Multi-tenant permission theo team hoac project
+- [ ] Webhook / integration layer cho Slack, email, CRM
+- [ ] Export bao cao theo lich sang CSV, JSON, PDF
+
+## Huong phat trien tiep
+- [ ] Uu tien P0: phan quyen theo tung tool va tung hanh dong
+- [ ] Uu tien P0: health check + alert cho runner
+- [ ] Uu tien P1: thong ke usage theo tool, workspace, user
+- [ ] Uu tien P1: compare config versions + rollback an toan
+- [ ] Uu tien P1: import / export cau hinh va preset
+- [ ] Uu tien P1: workflow builder / pipeline tool
+- [ ] Uu tien P1: affiliate pipeline san pham -> video -> link
+- [ ] Uu tien P1: product -> content -> video pipeline
+- [ ] Uu tien P1: AI content writer + caption generator
+- [ ] Uu tien P1: auto content generator + auto link converter
+- [ ] Uu tien P1: auto template preset theo san pham / channel
+- [x] Uu tien P1: content scheduler / calendar
+- [ ] Uu tien P1: auto video generator cho TikTok / Shopee Video / YouTube Shorts
+- [ ] Uu tien P1: auto batch processing cho danh sach san pham
+- [ ] Uu tien P1: auto report + notification
+- [ ] Uu tien P2: tool marketplace / goi y tool phu hop
+- [ ] Uu tien P2: AI assistant cho config va audit
+- [ ] Uu tien P2: integration layer cho webhook, CRM, Slack
+- [ ] Uu tien P2: runtime profile dev / staging / prod
+
+## Test & release
+- [x] `pnpm.cmd --filter @mmo/web typecheck`
+- [x] `pnpm.cmd --filter @mmo/api typecheck`
+- [x] Seed du lieu test co dinh
+- [x] Test keys cho tool
+- [x] Unit test cho shopee content pipeline
+- [x] Seed du lieu mau cho billing/usages
+- [x] Seed du lieu mau cho notification
+- [ ] UI test / e2e cho admin
+- [ ] Smoke test cho luong tao / sua / xoa tool
+- [ ] Smoke test cho luong tao job tu tool

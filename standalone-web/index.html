@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MMO Suite UI</title>
+  <style>
+    :root {
+      --bg: #eef2f5;
+      --side: #121b2b;
+      --panel: #ffffff;
+      --panel-soft: #f8fafc;
+      --text: #142033;
+      --muted: #657386;
+      --line: #d9e1ea;
+      --teal: #167c78;
+      --teal-dark: #0f625f;
+      --amber: #bd6b18;
+      --red: #b42318;
+      --green: #15724d;
+      --blue: #2d64b3;
+      --shadow: 0 14px 32px rgba(20, 32, 51, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .layout {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 268px 1fr;
+    }
+
+    .sidebar {
+      background: var(--side);
+      color: #ffffff;
+      padding: 20px 16px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 4px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      margin-bottom: 16px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: var(--teal);
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .brand-name {
+      font-weight: 800;
+      font-size: 18px;
+    }
+
+    .brand-sub {
+      color: #aebbd0;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .nav-label {
+      margin: 18px 8px 8px;
+      color: #7f8da3;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: grid;
+      gap: 7px;
+    }
+
+    .nav button {
+      width: 100%;
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: transparent;
+      color: #cbd6e3;
+      text-align: left;
+    }
+
+    .nav button.active {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .nav-icon {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.11);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .sidebar-card {
+      margin-top: 18px;
+      padding: 13px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .sidebar-card strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 13px;
+    }
+
+    .sidebar-card span {
+      color: #aebbd0;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .main {
+      min-width: 0;
+      padding: 22px;
+    }
+
+    .topbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 5px;
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .subhead {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .btn-primary {
+      min-height: 40px;
+      padding: 0 14px;
+      color: #ffffff;
+      background: var(--teal);
+    }
+
+    .btn-primary:hover {
+      background: var(--teal-dark);
+    }
+
+    .btn-soft {
+      min-height: 40px;
+      padding: 0 14px;
+      color: var(--text);
+      background: #e2e9ef;
+    }
+
+    .hero-band {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .overview {
+      min-height: 212px;
+      padding: 20px;
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(20, 32, 51, 0.92), rgba(16, 98, 95, 0.86)),
+        repeating-linear-gradient(45deg, #1b2a3f 0 14px, #20334d 14px 28px);
+      color: #ffffff;
+      box-shadow: var(--shadow);
+      display: grid;
+      align-content: space-between;
+    }
+
+    .overview h2 {
+      margin: 0 0 8px;
+      font-size: 26px;
+      line-height: 1.2;
+    }
+
+    .overview p {
+      max-width: 650px;
+      margin: 0;
+      color: #d5e2eb;
+      line-height: 1.55;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(120px, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .overview-tile {
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .tile-label {
+      color: #b9c8d8;
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .tile-value {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .quick-panel {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .quick-panel h2,
+    .panel h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .quick-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .quick-item {
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-soft);
+    }
+
+    .quick-icon {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 7px;
+      color: #ffffff;
+      background: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .quick-title {
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .quick-meta {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid.cols-4 {
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+    }
+
+    .grid.cols-2 {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .card,
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .card {
+      padding: 15px;
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .metric-value {
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .metric-note {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .panel {
+      padding: 16px;
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 1fr 160px 160px;
+      gap: 10px;
+      margin-bottom: 13px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #ffffff;
+      color: var(--text);
+      padding: 0 11px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 11px 9px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .main-cell {
+      font-weight: 800;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: #eef3f7;
+      color: #344154;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .pill.green {
+      color: var(--green);
+      background: #e6f4ee;
+    }
+
+    .pill.amber {
+      color: var(--amber);
+      background: #fff1dc;
+    }
+
+    .pill.red {
+      color: var(--red);
+      background: #ffe9e6;
+    }
+
+    .module-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(150px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .module-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .module-icon {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      color: #ffffff;
+      background: var(--teal);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .module-title {
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .module-text {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .day {
+      min-height: 82px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-soft);
+    }
+
+    .day-num {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .day-task {
+      padding: 6px;
+      border-radius: 6px;
+      color: #ffffff;
+      background: var(--teal);
+      font-size: 12px;
+      line-height: 1.3;
+    }
+
+    .comment-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .comment-card {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-soft);
+    }
+
+    .comment-text {
+      margin: 8px 0 0;
+      line-height: 1.5;
+      color: #344154;
+    }
+
+    @media (max-width: 1180px) {
+      .hero-band,
+      .grid.cols-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .grid.cols-4,
+      .module-strip {
+        grid-template-columns: repeat(2, minmax(150px, 1fr));
+      }
+    }
+
+    @media (max-width: 820px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+        height: auto;
+      }
+
+      .nav {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .topbar {
+        grid-template-columns: 1fr;
+      }
+
+      .top-actions {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .filters,
+      .overview-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .main {
+        padding: 14px;
+      }
+
+      h1 {
+        font-size: 23px;
+      }
+
+      .grid.cols-4,
+      .module-strip,
+      .nav {
+        grid-template-columns: 1fr;
+      }
+
+      .top-actions {
+        flex-direction: column;
+      }
+
+      .btn-primary,
+      .btn-soft {
+        width: 100%;
+      }
+
+      .calendar {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">MMO</div>
+        <div>
+          <div class="brand-name">Suite UI</div>
+          <div class="brand-sub">Operation dashboard</div>
+        </div>
+      </div>
+
+      <div class="nav-label">Workspace</div>
+      <nav class="nav">
+        <button class="active" type="button"><span class="nav-icon">DB</span>Dashboard</button>
+        <button type="button"><span class="nav-icon">TK</span>Tài khoản</button>
+        <button type="button"><span class="nav-icon">PB</span>Đăng bài</button>
+        <button type="button"><span class="nav-icon">BL</span>Bình luận</button>
+        <button type="button"><span class="nav-icon">AF</span>Affiliate</button>
+        <button type="button"><span class="nav-icon">CL</span>Checklist</button>
+      </nav>
+
+      <div class="sidebar-card">
+        <strong>Phiên bản giao diện</strong>
+        <span>Prototype tĩnh để chốt bố cục, màu sắc và module trước khi gắn dữ liệu thật.</span>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <h1>MMO Tools Dashboard</h1>
+          <div class="subhead">Bộ công cụ quản lý tài khoản, nội dung, phản hồi và affiliate cho workflow MMO.</div>
+        </div>
+        <div class="top-actions">
+          <button class="btn-soft" type="button">Xuất báo cáo</button>
+          <button class="btn-primary" type="button">Thêm công việc</button>
+        </div>
+      </div>
+
+      <section class="hero-band">
+        <div class="overview">
+          <div>
+            <h2>Trung tâm vận hành hôm nay</h2>
+            <p>Theo dõi lịch đăng, chất lượng tài khoản, mẫu phản hồi và hiệu quả affiliate trong một giao diện rõ ràng, dễ scan.</p>
+          </div>
+          <div class="overview-grid">
+            <div class="overview-tile">
+              <div class="tile-label">Việc ưu tiên</div>
+              <div class="tile-value">12</div>
+            </div>
+            <div class="overview-tile">
+              <div class="tile-label">Tài khoản khỏe</div>
+              <div class="tile-value">8/10</div>
+            </div>
+            <div class="overview-tile">
+              <div class="tile-label">ROI affiliate</div>
+              <div class="tile-value">318%</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="quick-panel">
+          <div class="panel-head">
+            <h2>Việc cần xử lý</h2>
+            <span class="pill amber">Hôm nay</span>
+          </div>
+          <div class="quick-list">
+            <div class="quick-item">
+              <div class="quick-icon">1</div>
+              <div>
+                <div class="quick-title">Đăng 3 video review</div>
+                <div class="quick-meta">TikTok Review 01, 20:00</div>
+              </div>
+              <div class="status-dot"></div>
+            </div>
+            <div class="quick-item">
+              <div class="quick-icon" style="background: var(--amber);">2</div>
+              <div>
+                <div class="quick-title">Kiểm tra link aff</div>
+                <div class="quick-meta">Shopee, Accesstrade</div>
+              </div>
+              <div class="status-dot" style="background: var(--amber);"></div>
+            </div>
+            <div class="quick-item">
+              <div class="quick-icon" style="background: var(--green);">3</div>
+              <div>
+                <div class="quick-title">Duyệt bình luận</div>
+                <div class="quick-meta">12 phản hồi cần xử lý</div>
+              </div>
+              <div class="status-dot"></div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="grid cols-4">
+        <div class="card">
+          <div class="metric-label">Tài khoản đang nuôi</div>
+          <div class="metric-value">24</div>
+          <div class="metric-note">+3 tài khoản mới tuần này</div>
+        </div>
+        <div class="card">
+          <div class="metric-label">Bài sẵn sàng đăng</div>
+          <div class="metric-value">17</div>
+          <div class="metric-note">5 bài đã gắn link aff</div>
+        </div>
+        <div class="card">
+          <div class="metric-label">Mẫu bình luận</div>
+          <div class="metric-value">48</div>
+          <div class="metric-note">Theo 6 nhóm ngữ cảnh</div>
+        </div>
+        <div class="card">
+          <div class="metric-label">Lợi nhuận tháng</div>
+          <div class="metric-value">18.4tr</div>
+          <div class="metric-note">Doanh thu 24.9tr, chi phí 6.5tr</div>
+        </div>
+      </section>
+
+      <section class="module-strip">
+        <div class="module-card">
+          <div class="module-icon">TK</div>
+          <div class="module-title">Nuôi tài khoản</div>
+          <div class="module-text">Hồ sơ tài khoản, điểm tin cậy, trạng thái và việc tiếp theo.</div>
+        </div>
+        <div class="module-card">
+          <div class="module-icon" style="background: var(--blue);">PB</div>
+          <div class="module-title">Đăng bài</div>
+          <div class="module-text">Lịch nội dung, nền tảng, tài khoản phụ trách và link.</div>
+        </div>
+        <div class="module-card">
+          <div class="module-icon" style="background: var(--amber);">BL</div>
+          <div class="module-title">Bình luận</div>
+          <div class="module-text">Mẫu trả lời theo ngữ cảnh để dùng thủ công và tự nhiên.</div>
+        </div>
+        <div class="module-card">
+          <div class="module-icon" style="background: var(--green);">AF</div>
+          <div class="module-title">Affiliate</div>
+          <div class="module-text">Offer, network, click, conversion, doanh thu và ROI.</div>
+        </div>
+        <div class="module-card">
+          <div class="module-icon" style="background: #6b5cce;">CL</div>
+          <div class="module-title">Checklist</div>
+          <div class="module-text">Quy trình kiểm tra hằng ngày để vận hành ổn định.</div>
+        </div>
+      </section>
+
+      <section class="grid cols-2">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Tài khoản</h2>
+            <button class="btn-soft" type="button">Thêm tài khoản</button>
+          </div>
+          <div class="filters">
+            <input value="" placeholder="Tìm tài khoản">
+            <select><option>Nền tảng</option></select>
+            <select><option>Trạng thái</option></select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Tài khoản</th><th>Nền tảng</th><th>Điểm</th><th>Trạng thái</th><th>Việc tiếp theo</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="main-cell">TikTok Review 01</div><div class="muted">Niche gia dụng</div></td>
+                  <td>TikTok</td>
+                  <td><span class="pill green">82/100</span></td>
+                  <td>Đang chạy</td>
+                  <td>Đăng video 20:00</td>
+                </tr>
+                <tr>
+                  <td><div class="main-cell">Fanpage Deal VN</div><div class="muted">Deal hot</div></td>
+                  <td>Facebook</td>
+                  <td><span class="pill amber">56/100</span></td>
+                  <td>Cần rà soát</td>
+                  <td>Kiểm tra lịch bài</td>
+                </tr>
+                <tr>
+                  <td><div class="main-cell">Blog SEO Aff</div><div class="muted">Hosting, phần mềm</div></td>
+                  <td>Website</td>
+                  <td><span class="pill green">91/100</span></td>
+                  <td>Ổn định</td>
+                  <td>Cập nhật bài so sánh</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Lịch đăng bài</h2>
+            <button class="btn-soft" type="button">Thêm bài</button>
+          </div>
+          <div class="calendar">
+            <div class="day"><div class="day-num">T2</div><div class="day-task">Review máy xay</div></div>
+            <div class="day"><div class="day-num">T3</div></div>
+            <div class="day"><div class="day-num">T4</div><div class="day-task" style="background: var(--blue);">Blog hosting</div></div>
+            <div class="day"><div class="day-num">T5</div></div>
+            <div class="day"><div class="day-num">T6</div><div class="day-task" style="background: var(--amber);">Deal tổng hợp</div></div>
+            <div class="day"><div class="day-num">T7</div></div>
+            <div class="day"><div class="day-num">CN</div><div class="day-task" style="background: var(--green);">Email list</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid cols-2" style="margin-top: 16px;">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Mẫu bình luận</h2>
+            <button class="btn-soft" type="button">Thêm mẫu</button>
+          </div>
+          <div class="comment-list">
+            <div class="comment-card">
+              <span class="pill">Hỏi giá</span>
+              <p class="comment-text">Giá thường thay đổi theo mã giảm và shop. Bạn kiểm tra link hiện tại trước khi mua để lấy mức tốt nhất nhé.</p>
+            </div>
+            <div class="comment-card">
+              <span class="pill">Xử lý nghi ngại</span>
+              <p class="comment-text">Nếu mới bắt đầu thì nên chọn gói vừa đủ, ưu tiên ổn định và hỗ trợ tốt thay vì mua gói quá lớn.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Affiliate</h2>
+            <button class="btn-soft" type="button">Thêm offer</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Offer</th><th>Network</th><th>Profit</th><th>ROI</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="main-cell">Máy xay mini</td><td>Shopee</td><td>3.3tr</td><td><span class="pill green">366%</span></td></tr>
+                <tr><td class="main-cell">Hosting WordPress</td><td>Accesstrade</td><td>6.2tr</td><td><span class="pill green">442%</span></td></tr>
+                <tr><td class="main-cell">App học tiếng Anh</td><td>Khác</td><td>1.1tr</td><td><span class="pill amber">128%</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

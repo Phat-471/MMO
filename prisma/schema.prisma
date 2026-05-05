@@ -1,0 +1,446 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserStatus {
+  ACTIVE
+  DISABLED
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum WorkspaceStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum MemberRole {
+  ADMIN
+  USER
+  VIEWER
+  AFFILIATE
+}
+
+enum PlanCode {
+  FREE
+  STARTER
+  PRO
+  ENTERPRISE
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  EXPIRED
+}
+
+enum PaymentTransactionStatus {
+  PENDING
+  PAID
+  CANCELED
+  EXPIRED
+}
+
+enum Platform {
+  FACEBOOK
+  TIKTOK
+  SHOPEE
+  YOUTUBE
+  SYSTEM
+  DATA
+}
+
+enum ToolCategory {
+  FACEBOOK
+  TIKTOK
+  DATA
+  AUTOMATION
+  SYSTEM
+}
+
+enum ToolStatus {
+  ACTIVE
+  DISABLED
+}
+
+enum MediaAssetType {
+  IMAGE
+  VIDEO
+  AUDIO
+  TEMPLATE
+}
+
+enum AccountStatus {
+  ALIVE
+  DEAD
+  LIMITED
+  PENDING
+}
+
+enum JobType {
+  FETCH_POSTS
+  FETCH_COMMENTS
+  FETCH_PROFILE
+  CHECK_PROXY
+  ACCOUNT_HEALTH
+  GROUP_MODERATION
+  KEYWORD_MONITOR
+  WORKFLOW_BUILD
+  FETCH_VIDEOS
+  POST_GROUP
+  NURTURE_ACCOUNT
+  AUTO_LIKE
+  AUTO_COMMENT
+  REUP_VIDEO
+  SHOPEE_VIDEO_AFF
+  SHOPEE_LINK_CONVERT
+  AI_CONTENT
+  MARKETPLACE_SCAN
+  BULK_MSG
+  AUTO_JOIN_GROUP
+  AUTO_DM
+  CHANGE_PASSWORD
+  REG_ACCOUNT
+  SHOPEE_TRENDING
+  EXPORT_DATA
+  STRESS_TEST
+  CLEANUP
+}
+
+enum JobMode {
+  ONCE
+  SCHEDULED
+  RECURRING
+}
+
+enum JobStatus {
+  DRAFT
+  QUEUED
+  RUNNING
+  PAUSED
+  DONE
+  FAILED
+}
+
+model User {
+  id              String       @id @default(cuid()) @db.VarChar(36)
+  email           String       @unique @db.VarChar(191)
+  passwordHash    String       @db.VarChar(255)
+  role            UserRole     @default(USER)
+  status          UserStatus   @default(ACTIVE)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  workspaces      Workspace[]  @relation("WorkspaceOwner")
+  memberOf        WorkspaceMember[]
+  createdByJobs   Job[]        @relation("JobCreator")
+  auditLogs       AuditLog[]
+  refreshSessions RefreshSession[]
+}
+
+model Workspace {
+  id              String           @id @default(cuid()) @db.VarChar(36)
+  ownerUserId     String           @db.VarChar(36)
+  name            String           @db.VarChar(191)
+  slug            String           @unique @db.VarChar(191)
+  status          WorkspaceStatus  @default(ACTIVE)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  owner           User             @relation("WorkspaceOwner", fields: [ownerUserId], references: [id])
+  members         WorkspaceMember[]
+  subscriptions   Subscription[]
+  paymentTransactions PaymentTransaction[]
+  accounts        Account[]
+  jobs            Job[]
+  jobRuns         JobRun[]
+  jobLogs         JobLog[]
+  snapshots       DataSnapshot[]
+  mediaAssets     MediaAsset[]
+  usages          BillingUsage[]
+  auditLogs       AuditLog[]
+  tools           WorkspaceTool[]
+  notifications   Notification[]
+}
+
+model WorkspaceMember {
+  id          String     @id @default(cuid()) @db.VarChar(36)
+  workspaceId String     @db.VarChar(36)
+  userId      String     @db.VarChar(36)
+  role        MemberRole @default(USER)
+  createdAt   DateTime   @default(now())
+  workspace   Workspace  @relation(fields: [workspaceId], references: [id])
+  user        User       @relation(fields: [userId], references: [id])
+
+  @@unique([workspaceId, userId])
+}
+
+model Plan {
+  id              String              @id @default(cuid()) @db.VarChar(36)
+  code            PlanCode            @unique
+  name            String              @db.VarChar(191)
+  priceMonthly    Decimal             @db.Decimal(12, 2)
+  maxAccounts     Int
+  maxRunningJobs  Int
+  maxWorkspaces   Int
+  maxDailyFetches Int
+  featuresJson    String              @db.LongText
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  subscriptions   Subscription[]
+}
+
+model Tool {
+  id             String          @id @default(cuid()) @db.VarChar(36)
+  code           String          @unique @db.VarChar(80)
+  name           String          @db.VarChar(191)
+  description    String          @db.LongText
+  category       ToolCategory
+  status         ToolStatus      @default(ACTIVE)
+  configJson     String          @db.LongText
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  workspaceTools WorkspaceTool[]
+}
+
+model WorkspaceTool {
+  id           String    @id @default(cuid()) @db.VarChar(36)
+  workspaceId  String    @db.VarChar(36)
+  toolId       String    @db.VarChar(36)
+  enabled      Boolean   @default(true)
+  settingsJson String    @db.LongText
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  workspace    Workspace @relation(fields: [workspaceId], references: [id])
+  tool         Tool      @relation(fields: [toolId], references: [id])
+
+  @@unique([workspaceId, toolId])
+  @@index([workspaceId, enabled])
+}
+
+model Subscription {
+  id                 String             @id @default(cuid()) @db.VarChar(36)
+  workspaceId        String             @db.VarChar(36)
+  planId             String             @db.VarChar(36)
+  status             SubscriptionStatus @default(ACTIVE)
+  currentPeriodStart DateTime
+  currentPeriodEnd   DateTime
+  renewAt            DateTime?
+  createdAt          DateTime           @default(now())
+  workspace          Workspace          @relation(fields: [workspaceId], references: [id])
+  plan               Plan               @relation(fields: [planId], references: [id])
+}
+
+model PaymentSetting {
+  id               String   @id @default(cuid()) @db.VarChar(36)
+  bankName         String   @db.VarChar(191)
+  bankCode         String   @db.VarChar(32)
+  accountName      String   @db.VarChar(191)
+  accountNumber    String   @db.VarChar(64)
+  transferPrefix   String   @db.VarChar(64)
+  note             String?  @db.LongText
+  isActive         Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model SystemSetting {
+  id         String   @id @default(cuid()) @db.VarChar(36)
+  key        String   @unique @db.VarChar(120)
+  valueJson  String   @db.LongText
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model PaymentTransaction {
+  id              String                  @id @default(cuid()) @db.VarChar(36)
+  workspaceId     String                  @db.VarChar(36)
+  planCode        PlanCode
+  planName        String                  @db.VarChar(191)
+  amount          Decimal                 @db.Decimal(12, 2)
+  status          PaymentTransactionStatus @default(PENDING)
+  checkoutCode    String                  @unique @db.VarChar(80)
+  transferContent String                  @db.VarChar(191)
+  bankName        String                  @db.VarChar(191)
+  bankCode        String                  @db.VarChar(32)
+  accountName     String                  @db.VarChar(191)
+  accountNumber   String                  @db.VarChar(64)
+  qrUrl           String?                 @db.LongText
+  metadataJson    String?                 @db.LongText
+  paidAt          DateTime?
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+  workspace       Workspace               @relation(fields: [workspaceId], references: [id])
+
+  @@index([workspaceId, status])
+  @@index([createdAt])
+}
+
+model Account {
+  id                String        @id @default(cuid()) @db.VarChar(36)
+  workspaceId       String        @db.VarChar(36)
+  platform          Platform
+  label             String        @db.VarChar(191)
+  emailCiphertext   String?       @db.LongText
+  passwordCiphertext String?      @db.LongText
+  cookieCiphertext  String?       @db.LongText
+  proxyCiphertext   String?       @db.LongText
+  twoFaCiphertext   String?       @db.LongText
+  tag               String?       @db.VarChar(191)
+  note              String?       @db.LongText
+  status            AccountStatus @default(PENDING)
+  groupName         String?       @db.VarChar(191)
+  lastLoginAt       DateTime?
+  lastFetchAt       DateTime?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  workspace         Workspace     @relation(fields: [workspaceId], references: [id])
+  jobs              Job[]
+  snapshots         DataSnapshot[]
+
+  @@index([workspaceId, platform])
+  @@index([workspaceId, status])
+}
+
+model Job {
+  id            String    @id @default(cuid()) @db.VarChar(36)
+  workspaceId   String    @db.VarChar(36)
+  accountId     String?   @db.VarChar(36)
+  platform      Platform
+  jobType       JobType
+  mode          JobMode   @default(ONCE)
+  scheduleCron  String?   @db.VarChar(191)
+  status        JobStatus @default(DRAFT)
+  optionsJson   String    @db.LongText
+  lastRunAt     DateTime?
+  nextRunAt     DateTime?
+  createdById   String?   @db.VarChar(36)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  workspace     Workspace @relation(fields: [workspaceId], references: [id])
+  account       Account?  @relation(fields: [accountId], references: [id])
+  createdBy     User?     @relation("JobCreator", fields: [createdById], references: [id])
+  runs          JobRun[]
+
+  @@index([workspaceId, status])
+  @@index([workspaceId, platform])
+}
+
+model JobRun {
+  id             String    @id @default(cuid()) @db.VarChar(36)
+  jobId          String    @db.VarChar(36)
+  workspaceId    String    @db.VarChar(36)
+  status         JobStatus
+  startedAt      DateTime?
+  finishedAt     DateTime?
+  errorMessage   String?   @db.LongText
+  metricsJson    String?   @db.LongText
+  createdAt      DateTime  @default(now())
+  job            Job       @relation(fields: [jobId], references: [id])
+  workspace      Workspace @relation(fields: [workspaceId], references: [id])
+  logs           JobLog[]
+}
+
+model JobLog {
+  id          String    @id @default(cuid()) @db.VarChar(36)
+  jobRunId    String    @db.VarChar(36)
+  workspaceId String    @db.VarChar(36)
+  level       String    @db.VarChar(30)
+  message     String    @db.LongText
+  payloadJson String?   @db.LongText
+  createdAt   DateTime  @default(now())
+  jobRun      JobRun    @relation(fields: [jobRunId], references: [id])
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+}
+
+model DataSnapshot {
+  id             String    @id @default(cuid()) @db.VarChar(36)
+  workspaceId    String    @db.VarChar(36)
+  accountId      String?   @db.VarChar(36)
+  sourcePlatform Platform
+  dataType       String    @db.VarChar(60)
+  payloadJson    String    @db.LongText
+  fetchedAt      DateTime
+  createdAt      DateTime  @default(now())
+  workspace      Workspace @relation(fields: [workspaceId], references: [id])
+  account        Account?  @relation(fields: [accountId], references: [id])
+}
+
+model MediaAsset {
+  id            String         @id @default(cuid()) @db.VarChar(36)
+  workspaceId   String         @db.VarChar(36)
+  label         String         @db.VarChar(191)
+  assetType     MediaAssetType
+  sourceUrl     String         @db.LongText
+  thumbnailUrl   String?        @db.LongText
+  approved      Boolean        @default(true)
+  tagsJson      String         @db.LongText
+  metadataJson  String         @db.LongText
+  usageCount    Int            @default(0)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  workspace     Workspace      @relation(fields: [workspaceId], references: [id])
+
+  @@index([workspaceId, approved])
+  @@index([workspaceId, assetType])
+}
+
+model BillingUsage {
+  id                   String    @id @default(cuid()) @db.VarChar(36)
+  workspaceId          String    @db.VarChar(36)
+  day                  DateTime  @db.Date
+  fetchCount           Int       @default(0)
+  runningJobCountPeak  Int       @default(0)
+  accountCount         Int       @default(0)
+  createdAt            DateTime  @default(now())
+  workspace            Workspace @relation(fields: [workspaceId], references: [id])
+
+  @@unique([workspaceId, day])
+}
+
+model Notification {
+  id          String   @id @default(cuid()) @db.VarChar(36)
+  workspaceId String   @db.VarChar(36)
+  userId      String?  @db.VarChar(36)
+  title       String   @db.VarChar(191)
+  content     String   @db.LongText
+  type        String   @db.VarChar(30) // INFO, WARNING, ERROR, SUCCESS
+  isRead      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+
+  @@index([workspaceId, isRead])
+}
+
+model AuditLog {
+  id          String    @id @default(cuid()) @db.VarChar(36)
+  workspaceId String    @db.VarChar(36)
+  userId      String?   @db.VarChar(36)
+  action      String    @db.VarChar(120)
+  entityType  String    @db.VarChar(80)
+  entityId    String?   @db.VarChar(191)
+  metadataJson String?  @db.LongText
+  createdAt   DateTime  @default(now())
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  user        User?     @relation(fields: [userId], references: [id])
+}
+
+model RefreshSession {
+  id           String   @id @default(cuid()) @db.VarChar(36)
+  userId       String   @db.VarChar(36)
+  tokenHash    String   @db.VarChar(255)
+  expiresAt    DateTime
+  revokedAt    DateTime?
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([expiresAt])
+}
