@@ -254,7 +254,7 @@ export default function AdminJobDetailClient({ jobId }: { jobId: string }) {
                 </tr>
               </thead>
               <tbody>
-                {detail?.runs.flatMãp((run) => run.logs.map((log) => (
+                {detail?.runs.flatMap((run) => run.logs.map((log) => (
                   <tr key={log.id}>
                     <td className="table-main">{run.id.slice(0, 8)}</td>
                     <td>{new Date(log.createdAt).toLocaleString("vi-VN")}</td>
