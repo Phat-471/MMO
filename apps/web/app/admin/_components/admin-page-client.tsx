@@ -180,7 +180,7 @@ const BANK_OPTIONS = [
 ] as const;
 
 function normalizeSection(value: string | null | undefined): AdminSection { return sections.includes(value as AdminSection) ? (value as AdminSection) : "dashboard"; }
-function parsePage<T>(data: PageData<T> | T[]): { items: T[]; meta: PageMeta } { return Array.isArray(data) ? { items: data, meta: { total: data.length, page: 1, pageSize, pageCount: Mãth.max(1, Mãth.ceil(data.length / pageSize)) } } : { items: data.items, meta: { total: data.total, page: data.page, pageSize: data.pageSize, pageCount: data.pageCount } }; }
+function parsePage<T>(data: PageData<T> | T[]): { items: T[]; meta: PageMeta } { return Array.isArray(data) ? { items: data, meta: { total: data.length, page: 1, pageSize, pageCount: Math.max(1, Math.ceil(data.length / pageSize)) } } : { items: data.items, meta: { total: data.total, page: data.page, pageSize: data.pageSize, pageCount: data.pageCount } }; }
 function safeSetter<T>(setter: (items: T[]) => void, section: AdminSection, data: PageData<T> | T[], setMeta: React.Dispatch<React.SetStateAction<Partial<Record<AdminSection, PageMeta>>>>) { const parsed = parsePage(data); setter(parsed.items); setMeta((current) => ({ ...current, [section]: parsed.meta })); }
 function selectedOrEmpty(value?: string[]) { return value ?? []; }
 function noop() { return undefined; }
@@ -1148,11 +1148,11 @@ function SearchBox({ value, onChange, label }: { value: string; onChange: (value
 function Pager({ meta, page, setPage }: { meta: PageMeta; page: number; setPage: (value: number) => void }) { 
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, marginTop: 32, padding: "0 16px" }}>
-      <div style={{ fontSize: 13, color: "var(--text-dim)" }}>Hiển thị <b>{Mãth.min(meta.total, meta.pageSize)}</b> trong số <b>{meta.total}</b> bản ghi</div>
+      <div style={{ fontSize: 13, color: "var(--text-dim)" }}>Hiển thị <b>{Math.min(meta.total, meta.pageSize)}</b> trong số <b>{meta.total}</b> bản ghi</div>
       <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
         <span style={{ fontSize: 12, marginRight: 8, color: "var(--text-dim)" }}>Trang {page} / {meta.pageCount}</span>
-        <button className="button button-soft" style={{ width: 40, height: 40, padding: 0, borderRadius: 12 }} disabled={page <= 1} onClick={() => setPage(Mãth.max(1, page - 1))}>◀</button>
-        <button className="button button-soft" style={{ width: 40, height: 40, padding: 0, borderRadius: 12 }} disabled={page >= meta.pageCount} onClick={() => setPage(Mãth.min(meta.pageCount, page + 1))}>▶</button>
+        <button className="button button-soft" style={{ width: 40, height: 40, padding: 0, borderRadius: 12 }} disabled={page <= 1} onClick={() => setPage(Math.max(1, page - 1))}>◀</button>
+        <button className="button button-soft" style={{ width: 40, height: 40, padding: 0, borderRadius: 12 }} disabled={page >= meta.pageCount} onClick={() => setPage(Math.min(meta.pageCount, page + 1))}>▶</button>
       </div>
     </div>
   ); 
@@ -1219,7 +1219,7 @@ function DashboardSection({ tools, plans, auditLogs, system, onSectionChange }: 
             <span style={{ fontSize: 24 }}>{c.icon}</span>
             <div style={{ textAlign: "left" }}>
               <div style={{ fontWeight: 800, fontSize: 15 }}>{c.label}</div>
-              <div style={{ fontSize: 11, color: "var(--text-dim)", textTransform: "uppercase" }}>Mãnagement</div>
+              <div style={{ fontSize: 11, color: "var(--text-dim)", textTransform: "uppercase" }}>Management</div>
             </div>
           </button>
         ))}
@@ -1312,10 +1312,10 @@ function PlansSection({ plans, request }: { plans: AdminPlan[]; request: Request
   const [selectedCode, setSelectedCode] = useState<AdminPlan["code"] | "">("");
   const [name, setName] = useState("");
   const [priceMonthly, setPriceMonthly] = useState("");
-  const [maxAccounts, setMãxAccounts] = useState("0");
-  const [maxRunningJobs, setMãxRunningJobs] = useState("0");
-  const [maxWorkspaces, setMãxWorkspaces] = useState("0");
-  const [maxDailyFetches, setMãxDailyFetches] = useState("0");
+  const [maxAccounts, setMaxAccounts] = useState("0");
+  const [maxRunningJobs, setMaxRunningJobs] = useState("0");
+  const [maxWorkspaces, setMaxWorkspaces] = useState("0");
+  const [maxDailyFetches, setMaxDailyFetches] = useState("0");
   const [featuresJson, setFeaturesJson] = useState("[]");
 
   useEffect(() => {
@@ -1324,10 +1324,10 @@ function PlansSection({ plans, request }: { plans: AdminPlan[]; request: Request
     setSelectedCode(selected.code);
     setName(selected.name);
     setPriceMonthly(selected.priceMonthly);
-    setMãxAccounts(String(selected.maxAccounts));
-    setMãxRunningJobs(String(selected.maxRunningJobs));
-    setMãxWorkspaces(String(selected.maxWorkspaces));
-    setMãxDailyFetches(String(selected.maxDailyFetches));
+    setMaxAccounts(String(selected.maxAccounts));
+    setMaxRunningJobs(String(selected.maxRunningJobs));
+    setMaxWorkspaces(String(selected.maxWorkspaces));
+    setMaxDailyFetches(String(selected.maxDailyFetches));
     setFeaturesJson(selected.featuresJson || "[]");
   }, [plans, selectedCode]);
 
@@ -1371,20 +1371,20 @@ function PlansSection({ plans, request }: { plans: AdminPlan[]; request: Request
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
                  <div className="input-group">
-                    <label style={{ display: "block", fontSize: 10, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Mãx Accounts</label>
-                    <input type="number" value={maxAccounts} onChange={(e) => setMãxAccounts(e.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
+                    <label style={{ display: "block", fontSize: 10, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Max Accounts</label>
+                    <input type="number" value={maxAccounts} onChange={(e) => setMaxAccounts(e.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
                  </div>
                  <div className="input-group">
-                    <label style={{ display: "block", fontSize: 10, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Mãx Running Jobs</label>
-                    <input type="number" value={maxRunningJobs} onChange={(e) => setMãxRunningJobs(e.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
+                    <label style={{ display: "block", fontSize: 10, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Max Running Jobs</label>
+                    <input type="number" value={maxRunningJobs} onChange={(e) => setMaxRunningJobs(e.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
                  </div>
                  <div className="input-group">
-                    <label style={{ display: "block", fontSize: 10, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Mãx Workspaces</label>
-                    <input type="number" value={maxWorkspaces} onChange={(e) => setMãxWorkspaces(e.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
+                    <label style={{ display: "block", fontSize: 10, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Max Workspaces</label>
+                    <input type="number" value={maxWorkspaces} onChange={(e) => setMaxWorkspaces(e.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
                  </div>
                  <div className="input-group">
                     <label style={{ display: "block", fontSize: 10, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Lượt Fetch / ngày</label>
-                    <input type="number" value={maxDailyFetches} onChange={(e) => setMãxDailyFetches(e.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
+                    <input type="number" value={maxDailyFetches} onChange={(e) => setMaxDailyFetches(e.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
                  </div>
               </div>
               <div className="input-group">
