@@ -806,26 +806,26 @@ function SystemConnectivityTab({ system }: { system: AdminSystem | null; request
     ].join("\n");
     const text = kind === "local" ? local : vps;
     await navigator.clipboard.writeText(text);
-    setCopiedHint(kind === "local" ? "Da copy mau local" : "Da copy mau VPS");
+    setCopiedHint(kind === "local" ? "Đã copy mẫu local" : "Đã copy mẫu VPS");
     window.setTimeout(() => setCopiedHint(""), 1800);
   }
 
   return (
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "start" }}>
       <div className="panel" style={{ padding: 24 }}>
-        <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Huong dan ket noi local / VPS</h3>
+        <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Hướng dẫn kết nối local / VPS</h3>
         <div style={{ display: "grid", gap: 16, color: "var(--text-dim)", fontSize: 13, lineHeight: 1.7 }}>
           <div style={{ padding: 16, borderRadius: 16, background: "rgba(255,255,255,0.03)", border: "1px solid var(--border)" }}>
             <div style={{ fontWeight: 800, color: "#fff", marginBottom: 8 }}>Local</div>
-            <div>1. Chay API backend tren <b style={{ color: "#fff" }}>localhost:4000</b>.</div>
-            <div>2. Web vao qua <b style={{ color: "#fff" }}>/api</b> de goi backend.</div>
-            <div>3. Socket ket noi toi <b style={{ color: "#fff" }}>http://localhost:4000</b>.</div>
+            <div>1. Chạy API backend trên <b style={{ color: "#fff" }}>localhost:4000</b>.</div>
+            <div>2. Web vào qua <b style={{ color: "#fff" }}>/api</b> để gọi backend.</div>
+            <div>3. Socket kết nối tới <b style={{ color: "#fff" }}>http://localhost:4000</b>.</div>
           </div>
           <div style={{ padding: 16, borderRadius: 16, background: "rgba(255,255,255,0.03)", border: "1px solid var(--border)" }}>
             <div style={{ fontWeight: 800, color: "#fff", marginBottom: 8 }}>VPS / Production</div>
-            <div>1. De web goi API qua <b style={{ color: "#fff" }}>/api</b> cung origin.</div>
-            <div>2. Gan <b style={{ color: "#fff" }}>API_ORIGIN</b> ve <b style={{ color: "#fff" }}>127.0.0.1:4000</b> va <b style={{ color: "#fff" }}>NEXT_PUBLIC_SOCKET_URL</b> ve IP public.</div>
-            <div>3. Restart web de rewrite co hieu luc.</div>
+            <div>1. Để web gọi API qua <b style={{ color: "#fff" }}>/api</b> cùng origin.</div>
+            <div>2. Gắn <b style={{ color: "#fff" }}>API_ORIGIN</b> về <b style={{ color: "#fff" }}>127.0.0.1:4000</b> và <b style={{ color: "#fff" }}>NEXT_PUBLIC_SOCKET_URL</b> về IP public.</div>
+            <div>3. Restart web để rewrite có hiệu lực.</div>
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
             <button className="button button-soft" onClick={() => void copyEnv("local")}>Copy env local</button>
@@ -833,7 +833,7 @@ function SystemConnectivityTab({ system }: { system: AdminSystem | null; request
           </div>
           {copiedHint ? <div style={{ color: "var(--success)", fontWeight: 700 }}>{copiedHint}</div> : null}
           <div style={{ padding: 16, borderRadius: 16, background: "rgba(124,58,237,0.08)", border: "1px solid rgba(124,58,237,0.35)" }}>
-            <div style={{ fontWeight: 800, color: "#fff", marginBottom: 6 }}>Mau file .env</div>
+            <div style={{ fontWeight: 800, color: "#fff", marginBottom: 6 }}>Mẫu file .env</div>
             <pre style={{ margin: 0, whiteSpace: "pre-wrap", fontSize: 12, color: "var(--text-dim)" }}>
 {`NEXT_PUBLIC_API_URL=/api
 NEXT_PUBLIC_SOCKET_URL=http://localhost:4000
@@ -847,13 +847,13 @@ NODE_ENV=development`}
       </div>
 
       <div className="panel" style={{ padding: 24 }}>
-        <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Kiem tra thuc te</h3>
+        <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Kiểm tra thực tế</h3>
         <div style={{ display: "grid", gap: 16 }}>
           <div style={{ padding: 16, borderRadius: 16, background: "rgba(255,255,255,0.03)", border: "1px solid var(--border)" }}>
             <div style={{ fontSize: 12, color: "var(--text-dim)", textTransform: "uppercase", fontWeight: 800 }}>API Health</div>
             <div style={{ marginTop: 8, fontWeight: 800, color: apiStatus === "ok" ? "var(--success)" : apiStatus === "error" ? "var(--danger)" : "#fff" }}>{apiMessage}</div>
             <button className="button button-primary" style={{ marginTop: 12 }} onClick={() => void testApi()} disabled={apiStatus === "checking"}>
-              {apiStatus === "checking" ? "Dang test..." : "Test API"}
+              {apiStatus === "checking" ? "Đang test..." : "Test API"}
             </button>
           </div>
 
@@ -864,12 +864,12 @@ NODE_ENV=development`}
               Socket origin: <b style={{ color: "#fff" }}>{process.env.NEXT_PUBLIC_SOCKET_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000"}</b>
             </div>
             <button className="button button-primary" style={{ marginTop: 12 }} onClick={() => void testSocket()} disabled={socketStatus === "checking"}>
-              {socketStatus === "checking" ? "Dang test..." : "Test Socket"}
+              {socketStatus === "checking" ? "Đang test..." : "Test Socket"}
             </button>
           </div>
 
           <div style={{ padding: 16, borderRadius: 16, background: "rgba(255,255,255,0.03)", border: "1px solid var(--border)" }}>
-            <div style={{ fontSize: 12, color: "var(--text-dim)", textTransform: "uppercase", fontWeight: 800 }}>Thong tin he thong</div>
+            <div style={{ fontSize: 12, color: "var(--text-dim)", textTransform: "uppercase", fontWeight: 800 }}>Thông tin hệ thống</div>
             <div style={{ marginTop: 8, color: "var(--text-dim)", lineHeight: 1.75 }}>
               Database: <b style={{ color: "#fff" }}>{system?.database.status ?? "-"}</b>
               <br />
@@ -964,16 +964,16 @@ function SystemStorageTab({ system, request }: { system: AdminSystem | null; req
           </div>
           <label style={{ display: "flex", gap: 10, alignItems: "center", fontSize: 13, color: "var(--text-muted)" }}>
             <input type="checkbox" checked={isActive} onChange={(event) => setIsActive(event.target.checked)} />
-            Kich hoat cau hinh storage nay
+            Kích hoạt cấu hình storage này
           </label>
           <button className="button button-primary" style={{ height: 48, borderRadius: 12, fontWeight: 800 }} onClick={saveStorageSettings}>
-            Luu cau hinh storage
+            Lưu cấu hình storage
           </button>
         </div>
       </div>
 
       <div className="panel" style={{ padding: 24 }}>
-        <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Huong dan van hanh</h3>
+        <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Hướng dẫn vận hành</h3>
         <div style={{ color: "var(--text-dim)", fontSize: 13, lineHeight: 1.75, display: "grid", gap: 10 }}>
           <div>Asset Base URL: <b style={{ color: "#fff" }}>{system?.storage.assetBaseUrl || "-"}</b></div>
           <div>CDN Base URL: <b style={{ color: "#fff" }}>{system?.storage.cdnBaseUrl || "-"}</b></div>
@@ -1053,16 +1053,16 @@ function SystemSecurityTab({ system, request }: { system: AdminSystem | null; re
           </div>
           <label style={{ display: "flex", gap: 10, alignItems: "center", fontSize: 13, color: "var(--text-muted)" }}>
             <input type="checkbox" checked={isActive} onChange={(event) => setIsActive(event.target.checked)} />
-            Kich hoat cau hinh bao mat nay
+            Kích hoạt cấu hình bảo mật này
           </label>
           <button className="button button-primary" style={{ height: 48, borderRadius: 12, fontWeight: 800 }} onClick={saveSecuritySettings}>
-            Luu cau hinh bao mat
+            Lưu cấu hình bảo mật
           </button>
         </div>
       </div>
 
       <div className="panel" style={{ padding: 24 }}>
-        <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Gia tri hien tai</h3>
+        <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Giá trị hiện tại</h3>
         <div style={{ color: "var(--text-dim)", fontSize: 13, lineHeight: 1.75, display: "grid", gap: 10 }}>
           <div>Maintenance: <b style={{ color: "#fff" }}>{system?.security.maintenanceMode ? "YES" : "NO"}</b></div>
           <div>2FA: <b style={{ color: "#fff" }}>{system?.security.requireTwoFactor ? "YES" : "NO"}</b></div>
@@ -1095,17 +1095,17 @@ function SystemAuditTab({
     <TablePanel
       title="Audit logs"
       count={meta.total}
-      action={<Link className="button button-soft" href="/admin?section=audit-logs">Mo trang audit log day du</Link>}
+      action={<Link className="button button-soft" href="/admin?section=audit-logs">Mở trang audit log đầy đủ</Link>}
     >
-      <SearchBox value={query} onChange={(value) => { setQuery(value); setPage(1); }} label="Tim kiem audit log" />
+      <SearchBox value={query} onChange={(value) => { setQuery(value); setPage(1); }} label="Tìm kiếm audit log" />
       <table className="table">
         <thead>
           <tr>
-            <th>Thoi gian</th>
-            <th>Hanh dong</th>
+            <th>Thời gian</th>
+            <th>Hành động</th>
             <th>Workspace</th>
-            <th>Nguoi dung</th>
-            <th>Thong tin</th>
+            <th>Người dùng</th>
+            <th>Thông tin</th>
           </tr>
         </thead>
         <tbody>

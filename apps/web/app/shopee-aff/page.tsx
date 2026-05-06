@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
@@ -141,7 +141,7 @@ type RuntimeSystemStatus = {
 
 const SHOPEE_JOB_TYPES: ShopeeJobType[] = ["SHOPEE_VIDEO_AFF", "SHOPEE_LINK_CONVERT", "SHOPEE_TRENDING"];
 const SHOPEE_TEST_PRODUCT = {
-  title: "Qu蘯｡t C蘯ｧm Tay Mini T盻祖 ﾄ雪ｻ・Cao 100 M盻ｩc Giﾃｳ Mﾃn Hﾃｬnh Led Hi盻㌻ Th盻・ Qu蘯｡t Tﾃｭch ﾄ進盻㌻ Pin Dung Lﾆｰ盻｣ng L盻嬾",
+  title: "Quạt Cầm Tay Mini Tốc Độ Cao 100 Mức Gió Màn Hình Led Hiển Thị, Quạt Tích Điện Pin Dung Lượng Lớn",
   productUrl: "https://shopee.vn/product/841091795/40656929708",
   affiliateLink: "https://s.shopee.vn/6pxHMzEEMK",
   sourceUrl:
@@ -155,11 +155,11 @@ const SAMPLE_ASSET_IMPORT = [
 ].join("\n");
 
 const GUIDE_REQUIREMENTS = [
-  "API va Web dang chay dung port local.",
-  "Redis dang chay khi muon Run qua queue that.",
-  "Worker dang online de xu ly JobRun va ghi log/metrics.",
-  "Chrome/Chromium co san tren may render video preview.",
-  "Asset video/anh can la link co the truy cap cong khai hoac tu VPS/CDN noi bo."
+  "API và Web đang chạy đúng port local.",
+  "Redis đang chạy khi muốn Run qua queue thật.",
+  "Worker đang online để xử lý JobRun và ghi log/metrics.",
+  "Chrome/Chromium có sẵn trên máy render video preview.",
+  "Asset video/ảnh cần là link có thể truy cập công khai hoặc từ VPS/CDN nội bộ."
 ];
 
 function isShopeeJobType(value: string): value is ShopeeJobType {
@@ -230,8 +230,8 @@ function createDefaultForm(jobType: ShopeeJobType = "SHOPEE_VIDEO_AFF"): ShopeeC
         mode: "once",
         schedulePreset: "immediate",
         scheduleCron: "",
-        productTitle: "San pham Shopee",
-        productNameQuery: "San pham Shopee",
+        productTitle: "Sản phẩm Shopee",
+        productNameQuery: "Sản phẩm Shopee",
         productUrl: "https://shopee.vn/product/seed-01",
         sourceType: "video",
         sourceUrl: "https://www.tiktok.com/@seed/video/1",
@@ -241,13 +241,13 @@ function createDefaultForm(jobType: ShopeeJobType = "SHOPEE_VIDEO_AFF"): ShopeeC
         templateId: "shopee-vertical-basic",
         durationSeconds: "15",
         musicTrack: "ambient-light",
-        voiceoverText: "Gioi thieu san pham theo kieu hook - benefit - CTA.",
-        subtitleText: "Demo san pham, loi ich, va CTA.",
+        voiceoverText: "Giới thiệu sản phẩm theo kiểu hook - benefit - CTA.",
+        subtitleText: "Demo sản phẩm, lợi ích, và CTA.",
         productUrls: "",
         affiliateId: "AFF-001",
         subId: "admin",
-        hook: "San pham dang hot, xem demo nhanh.",
-        script: "Mo ta loi ich san pham, gan lien ket va CTA ro rang.",
+        hook: "Sản phẩm đang hot, xem demo nhanh.",
+        script: "Mô tả lợi ích sản phẩm, gắn liên kết và CTA rõ ràng.",
         note: ""
       };
   }
@@ -662,17 +662,17 @@ function buildVideoPreview(form: ShopeeConfigForm) {
 
   const steps = [
     sourceType === "images"
-      ? "Dﾃｹng 蘯｣nh s蘯｣n ph蘯ｩm lﾃm khung video 9:16."
+      ? "Dùng ảnh sản phẩm làm khung video 9:16."
       : sourceType === "mixed"
-        ? "K蘯ｿt h盻｣p video demo + 蘯｣nh s蘯｣n ph蘯ｩm + overlay."
+        ? "Kết hợp video demo + ảnh sản phẩm + overlay."
         : sourceType === "template"
-          ? "ﾄ雪ｻ・input vﾃo template d盻ｱng s蘯ｵn."
-          : "C蘯ｯt demo video theo ﾄ双蘯｡n hook ng蘯ｯn.",
-    `Chﾃｨn hook: ${form.hook.trim() || "Hook m蘯ｷc ﾄ黛ｻ杵h"}.`,
-    `Overlay tﾃｪn s蘯｣n ph蘯ｩm vﾃ giﾃ｡ tr盻・chﾃｭnh: ${form.productTitle.trim() || "S蘯｣n ph蘯ｩm"}.`,
-    `Thﾃｪm voiceover: ${form.voiceoverText.trim() || "Voiceover m蘯ｷc ﾄ黛ｻ杵h"}.`,
-    `Subtitles: ${form.subtitleText.trim() || "Text ph盻･ ﾄ黛ｻ・m蘯ｷc ﾄ黛ｻ杵h"}.`,
-    `Xu蘯･t video ${durationSeconds}s, khung 9:16, nh蘯｡c n盻］ ${form.musicTrack.trim() || "ambient-light"}.`
+          ? "Để input vào template dựng sẵn."
+          : "Cắt demo video theo đoạn hook ngắn.",
+    `Chèn hook: ${form.hook.trim() || "Hook mặc định"}.`,
+    `Overlay tên sản phẩm và giá trị chính: ${form.productTitle.trim() || "Sản phẩm"}.`,
+    `Thêm voiceover: ${form.voiceoverText.trim() || "Voiceover mặc định"}.`,
+    `Subtitles: ${form.subtitleText.trim() || "Text phụ đề mặc định"}.`,
+    `Xuất video ${durationSeconds}s, khung 9:16, nhạc nền ${form.musicTrack.trim() || "ambient-light"}.`
   ];
 
   return {
@@ -699,13 +699,13 @@ function buildAssetRegistryPreview(form: ShopeeConfigForm) {
     approvedAssetCount: approvedAssetUrls.length,
     approvedAssetUrls,
     steps: [
-      "Nhap ten san pham de enrichment va tim asset hop le.",
+      "Nhập tên sản phẩm để enrichment và tìm asset hợp lệ.",
       form.assetPolicy === "approved_only"
-        ? "Chi su dung asset duoc cap quyen va danh sach da duyet."
+        ? "Chỉ sử dụng asset được cấp quyền và danh sách đã duyệt."
         : form.assetPolicy === "product_page_only"
-          ? "Chi su dung asset tu trang san pham."
-          : "Ket hop asset duyet va asset tu trang san pham.",
-      approvedAssetUrls.length > 0 ? "Uu tien asset da duyet va loai bo asset trung lap." : "Neu chua co asset duyet, fallback sang metadata san pham."
+          ? "Chỉ sử dụng asset từ trang sản phẩm."
+          : "Kết hợp asset duyệt và asset từ trang sản phẩm.",
+      approvedAssetUrls.length > 0 ? "Ưu tiên asset đã duyệt và loại bỏ asset trùng lặp." : "Nếu chưa có asset duyệt, fallback sang metadata sản phẩm."
     ]
   };
 }
