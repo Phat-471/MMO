@@ -59,7 +59,7 @@ function resolveRuntimeEnvPaths(cwd, mode = getRuntimeMode()) {
   const legacyPath = path.join(root, ".env");
 
   if (mode === "vps") {
-    return [vpsPath];
+    return [vpsPath, legacyPath];
   }
 
   return [localPath, legacyPath];
@@ -87,7 +87,7 @@ function loadRuntimeEnv(cwd, mode = getRuntimeMode()) {
 
   if (mode === "vps" && !loadedPath) {
     throw new Error(
-      "Missing env/vps.env. Copy env/vps.env.example to env/vps.env on the VPS."
+      "Missing env/vps.env or root .env. Copy env/vps.env.example to env/vps.env or fill root .env on the VPS."
     );
   }
 

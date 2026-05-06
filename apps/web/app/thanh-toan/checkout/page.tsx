@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import Sidebar from "../../../components/Sidebar";
@@ -33,7 +34,7 @@ function formatMoney(value: number) {
   return value.toLocaleString("vi-VN");
 }
 
-export default function CheckoutPage() {
+function CheckoutContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const checkoutId = searchParams.get("checkoutId");
@@ -266,5 +267,13 @@ export default function CheckoutPage() {
         )}
       </main>
     </div>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={null}>
+      <CheckoutContent />
+    </Suspense>
   );
 }

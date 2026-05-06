@@ -1,8 +1,8 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
+import { CanActivate, ExecutionContext, Injectable, InternalServerErrorException, UnauthorizedException } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
-import { bearerToken, verifyToken, type TokenPayload } from "../lib/token";
 import type { AuthContext, RequestWithAuth } from "./auth-context";
 import { IS_PUBLIC_KEY } from "./public.decorator";
+import { bearerToken, verifyToken, type TokenPayload } from "../lib/token";
 
 @Injectable()
 export class AccessTokenGuard implements CanActivate {
@@ -26,7 +26,7 @@ export class AccessTokenGuard implements CanActivate {
 
     const secret = process.env.JWT_ACCESS_SECRET;
     if (!secret) {
-      throw new Error("Thiếu biến môi trường JWT_ACCESS_SECRET.");
+      throw new InternalServerErrorException("Server missing JWT_ACCESS_SECRET.");
     }
 
     let payload: TokenPayload;

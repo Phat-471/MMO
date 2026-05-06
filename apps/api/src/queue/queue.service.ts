@@ -2,8 +2,7 @@ import { Injectable, Logger, OnModuleDestroy, OnModuleInit } from "@nestjs/commo
 import { Queue } from "bullmq";
 import Redis from "ioredis";
 import { JobRunQueuePayload } from "./queue.types";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { buildRedisConnection, canConnectToRedis, getRuntimeMode } = require("../../../../env/runtime-env.cjs");
+import { buildRedisConnection, canConnectToRedis, getRuntimeMode } from "../runtime-env";
 
 @Injectable()
 export class QueueService implements OnModuleInit, OnModuleDestroy {

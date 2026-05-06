@@ -1,1 +1,3 @@
-ALTER TABLE `User` ADD COLUMN `role` ENUM('USER', 'ADMIN') NOT NULL DEFAULT 'USER';
+-- No-op migration.
+-- The initial schema already defines User.role, so this migration is kept only to preserve
+-- migration ordering for existing databases.

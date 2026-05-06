@@ -788,8 +788,8 @@ function SystemConnectivityTab({ system }: { system: AdminSystem | null; request
       "APP_URL=http://localhost:3000",
       "NEXT_PUBLIC_API_URL=/api",
       "NEXT_PUBLIC_SOCKET_URL=http://localhost:4000",
-      "API_URL=http://localhost:4000/api",
-      "API_ORIGIN=http://localhost:4000",
+      "API_URL=http://127.0.0.1:4000/api",
+      "API_ORIGIN=http://127.0.0.1:4000",
       "DATABASE_URL=mysql://root:root@127.0.0.1:3306/mmo",
       "REDIS_URL=redis://127.0.0.1:6379"
     ].join("\n");
@@ -799,9 +799,9 @@ function SystemConnectivityTab({ system }: { system: AdminSystem | null; request
       "APP_URL=https://your-domain.com",
       "NEXT_PUBLIC_API_URL=/api",
       "NEXT_PUBLIC_SOCKET_URL=https://your-domain.com",
-      "API_URL=https://your-domain.com/api",
-      "API_ORIGIN=https://your-domain.com",
-      "DATABASE_URL=mysql://root:change-this-password@127.0.0.1:3306/mmo",
+      "API_URL=http://127.0.0.1:4000/api",
+      "API_ORIGIN=http://127.0.0.1:4000",
+      "DATABASE_URL=mysql://mmo:change-this-password@127.0.0.1:3306/mmo",
       "REDIS_URL=redis://127.0.0.1:6379"
     ].join("\n");
     const text = kind === "local" ? local : vps;
@@ -823,9 +823,9 @@ function SystemConnectivityTab({ system }: { system: AdminSystem | null; request
           </div>
           <div style={{ padding: 16, borderRadius: 16, background: "rgba(255,255,255,0.03)", border: "1px solid var(--border)" }}>
             <div style={{ fontWeight: 800, color: "#fff", marginBottom: 8 }}>VPS / Production</div>
-            <div>1. Dat backend sau domain API rieng.</div>
-            <div>2. Gan <b style={{ color: "#fff" }}>API_URL</b> va <b style={{ color: "#fff" }}>NEXT_PUBLIC_SOCKET_URL</b> dung domain that.</div>
-            <div>3. Restart web de rewrite va socket co hieu luc.</div>
+            <div>1. De web goi API qua <b style={{ color: "#fff" }}>/api</b> cung origin.</div>
+            <div>2. Gan <b style={{ color: "#fff" }}>API_ORIGIN</b> ve <b style={{ color: "#fff" }}>127.0.0.1:4000</b> va <b style={{ color: "#fff" }}>NEXT_PUBLIC_SOCKET_URL</b> ve IP public.</div>
+            <div>3. Restart web de rewrite co hieu luc.</div>
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
             <button className="button button-soft" onClick={() => void copyEnv("local")}>Copy env local</button>
@@ -837,8 +837,8 @@ function SystemConnectivityTab({ system }: { system: AdminSystem | null; request
             <pre style={{ margin: 0, whiteSpace: "pre-wrap", fontSize: 12, color: "var(--text-dim)" }}>
 {`NEXT_PUBLIC_API_URL=/api
 NEXT_PUBLIC_SOCKET_URL=http://localhost:4000
-API_URL=http://localhost:4000/api
-API_ORIGIN=http://localhost:4000
+API_URL=http://127.0.0.1:4000/api
+API_ORIGIN=http://127.0.0.1:4000
 APP_ENV=local
 NODE_ENV=development`}
             </pre>

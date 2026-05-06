@@ -10,6 +10,7 @@
     "allowJs": false,
     "jsx": "preserve",
     "incremental": true,
+    "tsBuildInfoFile": ".next/cache/tsconfig.tsbuildinfo",
     "types": [
       "node"
     ],

@@ -1,5 +1,10 @@
+import { Suspense } from "react";
 import { AdminPage } from "../_components/admin-page-client";
 
 export default function AdminWorkspacesPage() {
-  return <AdminPage sectionOverride="workspaces" />;
+  return (
+    <Suspense fallback={null}>
+      <AdminPage sectionOverride="workspaces" />
+    </Suspense>
+  );
 }

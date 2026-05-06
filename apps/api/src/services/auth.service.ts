@@ -1,9 +1,9 @@
 import crypto from "node:crypto";
-import { ConflictException, Injectable, UnauthorizedException } from "@nestjs/common";
-import { PrismaService } from "../prisma.service";
+import { ConflictException, Injectable, InternalServerErrorException, UnauthorizedException } from "@nestjs/common";
 import { AuthLoginDto, AuthRegisterDto } from "../dto/auth.dto";
-import { hashPassword, verifyPassword } from "../lib/password";
 import { bearerToken, signToken, verifyToken, type TokenPayload } from "../lib/token";
+import { hashPassword, verifyPassword } from "../lib/password";
+import { PrismaService } from "../prisma.service";
 import { WorkspaceService } from "./workspace.service";
 
 @Injectable()
@@ -16,7 +16,7 @@ export class AuthService {
   private accessSecret(): string {
     const secret = process.env.JWT_ACCESS_SECRET;
     if (!secret) {
-      throw new Error("Thiếu biến môi trường JWT_ACCESS_SECRET.");
+      throw new InternalServerErrorException("Server missing JWT_ACCESS_SECRET.");
     }
     return secret;
   }
@@ -24,7 +24,7 @@ export class AuthService {
   private refreshSecret(): string {
     const secret = process.env.JWT_REFRESH_SECRET;
     if (!secret) {
-      throw new Error("Thiếu biến môi trường JWT_REFRESH_SECRET.");
+      throw new InternalServerErrorException("Server missing JWT_REFRESH_SECRET.");
     }
     return secret;
   }
@@ -44,14 +44,15 @@ export class AuthService {
   }
 
   async register(dto: AuthRegisterDto) {
-    const existing = await this.prisma.user.findUnique({ where: { email: dto.email.toLowerCase() } });
+    const email = dto.email.toLowerCase();
+    const existing = await this.prisma.user.findUnique({ where: { email } });
     if (existing) {
       throw new ConflictException("Email này đã được sử dụng.");
     }
 
     const user = await this.prisma.user.create({
       data: {
-        email: dto.email.toLowerCase(),
+        email,
         passwordHash: hashPassword(dto.password)
       }
     });
@@ -64,7 +65,6 @@ export class AuthService {
       user.id
     );
     const workspace = workspaceResult.data;
-
     const tokens = await this.issueTokens(user.id, workspace.id);
 
     return {
@@ -93,9 +93,7 @@ export class AuthService {
     let workspace = await this.prisma.workspace.findFirst({
       where: {
         OR: [
-          {
-            ownerUserId: user.id
-          },
+          { ownerUserId: user.id },
           {
             members: {
               some: {
@@ -119,7 +117,7 @@ export class AuthService {
       workspace = workspaceResult.data;
     }
 
-    const tokens = await this.issueTokens(user.id, workspace?.id);
+    const tokens = await this.issueTokens(user.id, workspace.id);
 
     return {
       message: "Đăng nhập thành công.",
@@ -146,6 +144,10 @@ export class AuthService {
       payload = verifyToken(token, this.accessSecret());
     } catch {
       throw new UnauthorizedException("Phiên đăng nhập không hợp lệ hoặc đã hết hạn.");
+    }
+
+    if (payload.type !== "access") {
+      throw new UnauthorizedException("Mã đăng nhập không hợp lệ.");
     }
 
     const user = await this.prisma.user.findUnique({
@@ -296,6 +298,7 @@ export class AuthService {
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "");
+
     return `${normalized || "khong-gian"}-${suffix.slice(0, 6)}`;
   }
 }

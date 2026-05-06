@@ -27,7 +27,7 @@ type AuthMeResponse = ApiEnvelope<{
 }>;
 
 export function getApiBaseUrl(): string {
-  return process.env.NEXT_PUBLIC_API_URL || "/api";
+  return "/api";
 }
 
 export function loadSession(): SessionState | null {

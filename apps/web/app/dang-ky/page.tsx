@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { apiRequest, saveSession } from "../../lib/api";
@@ -19,7 +20,7 @@ type RegisterResponse = {
   tokenType: string;
 };
 
-export default function DangKyPage() {
+function DangKyContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedPlan = searchParams.get("plan") || "FREE";
@@ -138,5 +139,13 @@ export default function DangKyPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function DangKyPage() {
+  return (
+    <Suspense fallback={null}>
+      <DangKyContent />
+    </Suspense>
   );
 }

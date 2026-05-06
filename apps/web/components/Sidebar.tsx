@@ -30,6 +30,7 @@ export default function Sidebar({ userEmail, workspaceId, userRole }: SidebarPro
     
     { label: "Khởi tạo Automation", href: "/tao-tac-vu", icon: "⚡", category: "Vận hành" },
     { label: "Shopee Affiliate", href: "/shopee-aff", icon: "🧡", category: "Vận hành" },
+    { label: "Webhook Auto-Deploy", href: "/auto-deploy", icon: "🚀", category: "Vận hành" },
     
     { label: "Gói cước & Billing", href: "/thanh-toan", icon: "💳", category: "Tài khoản" },
     { label: "Thông báo", href: "/thong-bao", icon: "🔔", category: "Tài khoản" },

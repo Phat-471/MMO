@@ -2,8 +2,7 @@ import { Module } from "@nestjs/common";
 import { APP_GUARD } from "@nestjs/core";
 import { AccessTokenGuard } from "./auth/access-token.guard";
 import { ConfigModule } from "@nestjs/config";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { resolveRuntimeEnvPaths } = require("../../../env/runtime-env.cjs");
+import { resolveRuntimeEnvPaths } from "./runtime-env";
 import { ScheduleModule } from "@nestjs/schedule";
 import { AccountController } from "./controllers/account.controller";
 import { AdminController } from "./controllers/admin.controller";

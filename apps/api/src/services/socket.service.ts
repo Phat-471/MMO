@@ -2,8 +2,7 @@ import { Injectable, OnModuleInit, OnModuleDestroy, Logger } from '@nestjs/commo
 import Redis from 'ioredis';
 import { EventsGateway } from '../gateways/events.gateway';
 import { PrismaService } from '../prisma.service';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { buildRedisConnection, canConnectToRedis, getRuntimeMode } = require("../../../../env/runtime-env.cjs");
+import { buildRedisConnection, canConnectToRedis, getRuntimeMode } from "../runtime-env";
 
 @Injectable()
 export class SocketService implements OnModuleInit, OnModuleDestroy {

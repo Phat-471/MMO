@@ -68,6 +68,7 @@ Hoặc chạy từng module riêng lẻ:
 
 - Local env: copy `env/local.env.example` to `env/local.env`
 - VPS env: copy `env/vps.env.example` to `env/vps.env`
+- VPS by IP: copy `env/vps-ip.env.example` to `env/vps.env` and replace the IP/ports
 - Web local: `apps/web/.env.local`
 - Web production: `apps/web/.env.production`
 - Select the backend mode with `APP_ENV=local` or `APP_ENV=vps`

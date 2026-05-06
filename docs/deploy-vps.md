@@ -17,14 +17,18 @@ You can run MySQL and Redis from `docker-compose.yml`, or use managed services.
 
 ## Required env files
 
-1. Copy `env/vps.env.example` to `env/vps.env`
-2. Fill in real values:
+1. Prisma CLI reads the repo-root `.env` when you run `pnpm db:*`.
+2. Keep `.env` aligned with your VPS values, or copy the VPS env example into `.env`.
+3. Copy `env/vps.env.example` to `env/vps.env`
+4. If you do not have a domain, copy `env/vps-ip.env.example` to `env/vps.env` and replace the IP
+5. Fill in real values:
    - `APP_URL`
    - `API_URL`
+   - `API_ORIGIN`
    - `NEXT_PUBLIC_API_URL`
    - `NEXT_PUBLIC_SOCKET_URL`
-   - `DATABASE_URL`
-   - `REDIS_URL`
+- `DATABASE_URL`
+- `REDIS_URL`
    - `JWT_ACCESS_SECRET`
    - `JWT_REFRESH_SECRET`
    - `ENCRYPTION_KEY_BASE64`
@@ -74,6 +78,11 @@ Suggested routes:
 - `/api` -> api on `4000`
 - `/socket.io` -> api on `4000`
 
+For the web app itself, the recommended client API setup is:
+
+- `NEXT_PUBLIC_API_URL=/api`
+- `API_ORIGIN=http://127.0.0.1:4000`
+
 ## Health checks
 
 Use these after deployment:
@@ -84,6 +93,9 @@ Use these after deployment:
 
 ## Notes
 
+- If you run by IP directly, use `http://<VPS_IP>:3000` for web. Keep the web client on `NEXT_PUBLIC_API_URL=/api` and let Next proxy `/api` to `API_ORIGIN=http://127.0.0.1:4000`.
+- Use `http://<VPS_IP>:4000` only for socket and direct health checks if you have opened the port publicly.
+- If your WPanel already created the MySQL user `mmo`, put that username into `DATABASE_URL` instead of `root`.
 - Do not use `NEXT_PUBLIC_SOCKET_URL=http://localhost:4000` on VPS.
 - Keep `DATABASE_URL` and `REDIS_URL` pointed at real services.
-- If you move API to another domain, update both `API_URL` and `NEXT_PUBLIC_SOCKET_URL`.
+- If you move API to another domain, update both `API_URL`, `API_ORIGIN`, and `NEXT_PUBLIC_SOCKET_URL`.
