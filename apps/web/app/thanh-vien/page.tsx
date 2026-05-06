@@ -31,7 +31,7 @@ export default function ThanhVienPage() {
   const router = useRouter();
   const [workspaceId, setWorkspaceId] = useState<string | null>(null);
   const [members, setMembers] = useState<WorkspaceMember[]>([]);
-  const [message, setMessage] = useState("Dang tai danh sach thanh vien...");
+  const [message, setMessage] = useState("Đang tải danh sách thành viên...");
   const [form, setForm] = useState<MemberForm>(emptyForm);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function ThanhVienPage() {
     apiRequest<WorkspaceMember[]>(`/workspaces/${currentWorkspaceId}/members`)
       .then((res) => {
         setMembers(res.data);
-        setMessage("Da tai danh sach thanh vien.");
+        setMessage("Đã tải danh sách thành viên.");
       })
       .catch((error: Error) => setMessage(error.message));
   }
@@ -73,7 +73,7 @@ export default function ThanhVienPage() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!workspaceId) {
-      setMessage("Khong co workspace de quan ly thanh vien.");
+      setMessage("Không có workspace để quản lý thành viên.");
       return;
     }
 
@@ -86,7 +86,7 @@ export default function ThanhVienPage() {
       setForm(emptyForm);
       loadMembers(workspaceId);
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Them thanh vien that bai.");
+      setMessage(error instanceof Error ? error.message : "Thêm thành viên thất bại.");
     }
   }
 
@@ -108,7 +108,7 @@ export default function ThanhVienPage() {
       return;
     }
 
-    if (!confirm("Xoa thanh vien nay khoi workspace?")) {
+    if (!confirm("Xóa thành viên này khỏi workspace?")) {
       return;
     }
 
@@ -126,31 +126,31 @@ export default function ThanhVienPage() {
           <div className="brand-mark">MMO</div>
           <div>
             <div className="brand-title">Workspace</div>
-            <div className="brand-sub">Quan ly thanh vien</div>
+            <div className="brand-sub">Quản lý thành viên</div>
           </div>
         </div>
 
         <nav className="nav">
-          <Link className="nav-item" href="/">Bang dieu khien</Link>
-          <Link className="nav-item" href="/tai-khoan">Tai khoan</Link>
-          <Link className="nav-item" href="/cong-cu">Cong cu</Link>
-          <Link className="nav-item" href="/tao-tac-vu">Tao tac vu</Link>
-          <Link className="nav-item active" href="/thanh-vien">Thanh vien</Link>
-          <Link className="nav-item" href="/thanh-toan">Thanh toan</Link>
-          <Link className="nav-item" href="/cai-dat">Cai dat</Link>
-          <Link className="nav-item" href="/admin">Admin</Link>
+          <Link className="nav-item" href="/">Bảng điều khiển</Link>
+          <Link className="nav-item" href="/tai-khoan">Tài khoản</Link>
+          <Link className="nav-item" href="/cong-cu">Công cụ</Link>
+          <Link className="nav-item" href="/tao-tac-vu">Tạo tác vụ</Link>
+          <Link className="nav-item active" href="/thanh-vien">Thành viên</Link>
+          <Link className="nav-item" href="/thanh-toan">Thanh toán</Link>
+          <Link className="nav-item" href="/cai-dat">Cài đặt</Link>
+          <Link className="nav-item" href="/admin">Admin Hub</Link>
         </nav>
       </aside>
 
       <main className="main">
         <header className="topbar">
           <div>
-            <h1>Quan ly thanh vien workspace</h1>
-            <p>Moi, cap quyen, va xoa thanh vien trong workspace hien tai.</p>
+            <h1>Quản lý thành viên workspace</h1>
+            <p>Mời, cấp quyền, và xóa thành viên trong workspace hiện tại.</p>
           </div>
           <div className="topbar-actions">
             <button className="button button-ghost" type="button" onClick={() => workspaceId && loadMembers(workspaceId)}>
-              Tai lai
+              Tải lại
             </button>
           </div>
         </header>
@@ -162,7 +162,7 @@ export default function ThanhVienPage() {
         <section className="content-grid">
           <article className="panel">
             <div className="panel-head">
-              <h2>Them thanh vien</h2>
+              <h2>Thêm thành viên</h2>
             </div>
             <form className="auth-form" onSubmit={handleSubmit}>
               <label>
@@ -170,7 +170,7 @@ export default function ThanhVienPage() {
                 <input value={form.email} onChange={(event) => updateForm("email", event.target.value)} type="email" placeholder="user@example.com" />
               </label>
               <label>
-                Vai tro
+                Vai trò
                 <select value={form.role} onChange={(event) => updateForm("role", event.target.value as MemberForm["role"])}>
                   <option value="USER">USER</option>
                   <option value="ADMIN">ADMIN</option>
@@ -179,24 +179,24 @@ export default function ThanhVienPage() {
                 </select>
               </label>
               <button className="button button-primary" type="submit">
-                Them vao workspace
+                Thêm vào workspace
               </button>
             </form>
           </article>
 
           <article className="panel table-panel">
             <div className="panel-head">
-              <h2>Danh sach thanh vien</h2>
-              <span className="badge badge-green">{members.length} muc</span>
+              <h2>Danh sách thành viên</h2>
+              <span className="badge badge-green">{members.length} mục</span>
             </div>
 
             <table className="table">
               <thead>
                 <tr>
                   <th>Email</th>
-                  <th>Trang thai</th>
-                  <th>Vai tro</th>
-                  <th>Ngay tham gia</th>
+                  <th>Trạng thái</th>
+                  <th>Vai trò</th>
+                  <th>Ngày tham gia</th>
                   <th></th>
                 </tr>
               </thead>
@@ -217,14 +217,14 @@ export default function ThanhVienPage() {
                       <td>{new Date(member.createdAt).toLocaleDateString("vi-VN")}</td>
                       <td>
                         <button className="button button-soft" type="button" onClick={() => removeMember(member)}>
-                          Xoa
+                          Xóa
                         </button>
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={5}>Chua co thanh vien nao.</td>
+                    <td colSpan={5}>Chưa có thành viên nào.</td>
                   </tr>
                 )}
               </tbody>

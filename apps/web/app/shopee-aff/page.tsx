@@ -1248,7 +1248,7 @@ export default function ShopeeAffPage() {
         productUrls: SHOPEE_TEST_PRODUCT.productUrl,
         affiliateId: "AFF-TEST-001",
         subId: "test",
-        note: `Test v盻嬖 s蘯｣n ph蘯ｩm: ${SHOPEE_TEST_PRODUCT.title}`
+        note: `Test vỉ sản phẩm: ${SHOPEE_TEST_PRODUCT.title}`
       });
     } else {
       setForm({
@@ -1265,17 +1265,17 @@ export default function ShopeeAffPage() {
         templateId: "shopee-vertical-basic",
         durationSeconds: "15",
         musicTrack: "ambient-light",
-        voiceoverText: `Gi盻嬖 thi盻㎡ ${SHOPEE_TEST_PRODUCT.title}`,
-        subtitleText: "Demo s蘯｣n ph蘯ｩm, l盻｣i ﾃｭch, vﾃ CTA.",
+        voiceoverText: `Giới thiệu ${SHOPEE_TEST_PRODUCT.title}`,
+        subtitleText: "Demo sản phẩm, lợi ích, và CTA.",
         affiliateId: "AFF-TEST-001",
         subId: "test",
-        hook: "Test lu盻渡g video affiliate v盻嬖 s蘯｣n ph蘯ｩm m蘯ｫu.",
-        script: "Dﾃｹng preset nﾃy ﾄ黛ｻ・test pipeline t盻ｫ source video -> s蘯｣n ph蘯ｩm -> affiliate link.",
-        note: `Affiliate link tham kh蘯｣o: ${SHOPEE_TEST_PRODUCT.affiliateLink}`
+        hook: "Test luồng video affiliate với sản phẩm mẫu.",
+        script: "Dùng preset này để test pipeline từ source video -> sản phẩm -> affiliate link.",
+        note: `Affiliate link tham khảo: ${SHOPEE_TEST_PRODUCT.affiliateLink}`
       });
     }
     setActiveTab("config");
-    setMessage(`ﾄ静｣ n蘯｡p preset test ${kind === "link" ? "link converter" : "video affiliate"}.`);
+    setMessage(`Đã nạp preset test ${kind === "link" ? "link converter" : "video affiliate"}.`);
   }
 
   function openEditForm(job: JobDetail) {
@@ -1415,14 +1415,14 @@ export default function ShopeeAffPage() {
     return (
       <div className="panel" style={{ padding: 24, height: "100%" }}>
         <div className="panel-head" style={{ marginBottom: 16 }}>
-          <h2 style={{ margin: 0 }}>Thﾃｴng tin tool</h2>
+          <h2 style={{ margin: 0 }}>Thông tin tool</h2>
           {contract ? (
             <span className="badge" style={toneStyle(contract.stage)}>{contract.stage}</span>
           ) : null}
         </div>
 
         {!contract ? (
-          <p style={{ color: "var(--text-muted)", margin: 0 }}>Ch盻肱 m盻冲 c蘯･u hﾃｬnh Shopee h盻｣p l盻・ﾄ黛ｻ・xem metadata.</p>
+          <p style={{ color: "var(--text-muted)", margin: 0 }}>Chọn một cấu hình Shopee hợp lệ để xem metadata.</p>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 12 }}>
@@ -1431,11 +1431,11 @@ export default function ShopeeAffPage() {
                 <div style={{ fontWeight: 700 }}>{contract.code}</div>
               </div>
               <div>
-                <div style={{ color: "var(--text-muted)", fontSize: 13 }}>Nhﾃｳm</div>
+                <div style={{ color: "var(--text-muted)", fontSize: 13 }}>Nhóm</div>
                 <div style={{ fontWeight: 700 }}>{contract.category}</div>
               </div>
               <div>
-                <div style={{ color: "var(--text-muted)", fontSize: 13 }}>N盻］ t蘯｣ng</div>
+                <div style={{ color: "var(--text-muted)", fontSize: 13 }}>Nền tảng</div>
                 <div style={{ fontWeight: 700 }}>{contract.platform}</div>
               </div>
               <div>
@@ -1445,9 +1445,9 @@ export default function ShopeeAffPage() {
             </div>
 
             <div>
-              <div style={{ color: "var(--text-muted)", fontSize: 13, marginBottom: 8 }}>Yﾃｪu c蘯ｧu runtime</div>
+              <div style={{ color: "var(--text-muted)", fontSize: 13, marginBottom: 8 }}>Yêu cầu runtime</div>
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                {(contract.requiredRuntime?.length ? contract.requiredRuntime : ["Khﾃｴng cﾃｳ"]).map((item) => (
+                {(contract.requiredRuntime?.length ? contract.requiredRuntime : ["Không có"]).map((item) => (
                   <span key={item} className="badge" style={toneStyle(item as any)}>
                     {item}
                   </span>
@@ -1462,7 +1462,7 @@ export default function ShopeeAffPage() {
                   <div key={input.key} style={{ padding: 12, borderRadius: 14, border: "1px solid var(--border)", background: "rgba(255,255,255,0.03)" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
                       <strong>{input.key}</strong>
-                      <span style={{ color: "var(--text-muted)", fontSize: 12 }}>{input.type}{input.required ? " ﾂｷ b蘯ｯt bu盻冂" : ""}</span>
+                      <span style={{ color: "var(--text-muted)", fontSize: 12 }}>{input.type}{input.required ? " · bắt buộc" : ""}</span>
                     </div>
                     <div style={{ color: "var(--text-dim)", marginTop: 6, fontSize: 13 }}>{input.description}</div>
                   </div>
@@ -1514,14 +1514,14 @@ export default function ShopeeAffPage() {
         <section className="panel" style={{ padding: 24 }}>
           <div className="panel-head" style={{ marginBottom: 18 }}>
             <div>
-              <h2 style={{ margin: 0 }}>Huong dan su dung Shopee Aff</h2>
+              <h2 style={{ margin: 0 }}>Hướng dẫn sử dụng Shopee Aff</h2>
               <p style={{ marginTop: 6, color: "var(--text-muted)" }}>
-                Quy trinh chuan de tao cau hinh, nap asset, chay tool va kiem tra ket qua that.
+                Quy trình chuẩn để tạo cấu hình, nạp asset, chạy tool và kiểm tra kết quả thật.
               </p>
             </div>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               <button type="button" className="button button-primary" onClick={() => loadShopeeTestPreset("video")}>
-                Nap preset video
+                Nạp preset video
               </button>
               <button
                 type="button"
@@ -1529,13 +1529,13 @@ export default function ShopeeAffPage() {
                 onClick={() => {
                   setAssetImportText(SAMPLE_ASSET_IMPORT);
                   setActiveTab("assets");
-                  setMessage("Da nap du lieu mau vao o import asset.");
+                  setMessage("Đã nạp dữ liệu mẫu vào ô import asset.");
                 }}
               >
-                Mo asset mau
+                Mở asset mẫu
               </button>
               <button type="button" className="button button-ghost" onClick={refreshRuntimeStatus} disabled={runtimeLoading || userRole !== "ADMIN"}>
-                {runtimeLoading ? "Dang kiem tra..." : "Kiem tra he thong"}
+                {runtimeLoading ? "Đang kiểm tra..." : "Kiểm tra hệ thống"}
               </button>
             </div>
           </div>
@@ -1657,49 +1657,48 @@ export default function ShopeeAffPage() {
       <form className="panel" onSubmit={submitConfig} style={{ padding: "40px" }}>
         <div className="panel-head" style={{ marginBottom: "40px" }}>
           <div>
-            <h2 style={{ margin: 0, fontSize: "2rem" }}>{editingJobId ? "C蘯･u hﾃｬnh chi蘯ｿn d盻議h" : "T蘯｡o chi蘯ｿn d盻議h m盻嬖"}</h2>
+            <h2 style={{ margin: 0, fontSize: "2rem" }}>{editingJobId ? "Cấu hình chiến dịch" : "Tạo chiến dịch mới"}</h2>
             <p style={{ marginTop: 8, color: "var(--text-muted)", fontSize: "1.05rem" }}>
-              Thi蘯ｿt l蘯ｭp cﾃ｡c thﾃｴng s盻・t盻ｱ ﾄ黛ｻ冢g hﾃｳa cho Shopee Affiliate.
+              Thiết lập các thông số tự động hóa cho Shopee Affiliate.
             </p>
           </div>
           <div style={{ display: "flex", gap: 12 }}>
             <button type="button" className="button button-soft" onClick={() => loadShopeeTestPreset("video")}>
-              Th盻ｭ m蘯ｫu Video
+              Thử mẫu Video
             </button>
             <button type="submit" className="button button-primary" disabled={isSubmitting}>
-              {isSubmitting ? "ﾄ紳ng x盻ｭ lﾃｽ..." : editingJobId ? "C蘯ｭp nh蘯ｭt" : "Kﾃｭch ho蘯｡t ngay"}
+              {isSubmitting ? "Đang xử lý..." : editingJobId ? "Cập nhật" : "Kích hoạt ngay"}
             </button>
           </div>
         </div>
 
         <div className="content-grid" style={{ gridTemplateColumns: "1.2fr 0.8fr", gap: "40px" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
-            {/* Section: Thﾃｴng tin cﾆ｡ b蘯｣n */}
+            {/* Section: Thông tin cơ bản */}
             <section>
               <h3 style={{ fontSize: "1.1rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--primary)", marginBottom: "20px", display: "flex", alignItems: "center", gap: "10px" }}>
                 <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--primary)", boxShadow: "0 0 10px var(--primary)" }}></span>
-                Thﾃｴng tin cﾆ｡ b蘯｣n
+                Thông tin cơ bản
               </h3>
               <div style={{ display: "grid", gap: "20px" }}>
                 <label className="field">
-                  <span>Tﾃｪn c蘯･u hﾃｬnh / Chi蘯ｿn d盻議h</span>
-                  <input className="input" value={form.title} onChange={(event) => setField("title", event.target.value)} placeholder="VD: Chi蘯ｿn d盻議h Qu蘯｡t Mini thﾃ｡ng 5" />
+                  <span>Tên cấu hình / Chiến dịch</span>
+                  <input className="input" value={form.title} onChange={(event) => setField("title", event.target.value)} placeholder="VD: Chiến dịch Quạt Mini tháng 5" />
                 </label>
 
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
                   <label className="field">
-                    <span>Lo蘯｡i cﾃｴng c盻･</span>
+                    <span>Loại công cụ</span>
                     <select className="input" value={form.jobType} onChange={(event) => setField("jobType", event.target.value as ShopeeJobType)}>
-                      <option value="SHOPEE_VIDEO_AFF">Video Affiliate (T盻ｱ ﾄ黛ｻ冢g d盻ｱng)</option>
-                      <option value="SHOPEE_LINK_CONVERT">Link Convert (Chuy盻ハ ﾄ黛ｻ品 hﾃng lo蘯｡t)</option>
-                      <option value="SHOPEE_TRENDING">Trending (Khﾃ｡m phﾃ｡ xu hﾆｰ盻嬾g)</option>
+                      <option value="SHOPEE_VIDEO_AFF">Video Affiliate (Tự động dựng)</option>
+                      <option value="SHOPEE_LINK_CONVERT">Link Convert (Chuyển đổi hàng loạt)</option>
+                      <option value="SHOPEE_TRENDING">Trending (Khám phá xu hướng)</option>
                     </select>
                   </label>
 
                   <label className="field">
-                    <span>Ch蘯ｿ ﾄ黛ｻ・v蘯ｭn hﾃnh</span>
+                    <span>Chế độ vận hành</span>
                     <select className="input" value={form.mode} onChange={(event) => setField("mode", event.target.value as JobModeValue)}>
-                      <option value="once">Ch蘯｡y m盻冲 l蘯ｧn duy nh蘯･t</option>
                       <option value="scheduled">Ch蘯｡y theo l盻議h ch盻・ﾄ黛ｻ杵h</option>
                       <option value="recurring">Ch蘯｡y l蘯ｷp l蘯｡i ﾄ黛ｻ杵h k盻ｳ</option>
                     </select>
@@ -1730,75 +1729,75 @@ export default function ShopeeAffPage() {
 
             {form.jobType === "SHOPEE_VIDEO_AFF" && (
               <>
-                {/* Section: Ngu盻渡 d盻ｯ li盻㎡ */}
+                {/* Section: Nguồn dữ liệu */}
                 <section>
                   <h3 style={{ fontSize: "1.1rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--accent)", marginBottom: "20px", display: "flex", alignItems: "center", gap: "10px" }}>
                     <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--accent)", boxShadow: "0 0 10px var(--accent)" }}></span>
-                    Ngu盻渡 d盻ｯ li盻㎡ & S蘯｣n ph蘯ｩm
+                    Nguồn dữ liệu & Sản phẩm
                   </h3>
                   <div style={{ display: "grid", gap: "20px" }}>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
                       <label className="field">
-                        <span>Tﾃｪn s蘯｣n ph蘯ｩm (Hi盻ハ th盻・</span>
-                        <input className="input" value={form.productTitle} onChange={(event) => setField("productTitle", event.target.value)} placeholder="Tﾃｪn s蘯｣n ph蘯ｩm trﾃｪn video" />
+                        <span>Tên sản phẩm (Hiển thị)</span>
+                        <input className="input" value={form.productTitle} onChange={(event) => setField("productTitle", event.target.value)} placeholder="Tên sản phẩm trên video" />
                       </label>
                       <label className="field">
                         <span>Affiliate ID</span>
-                        <input className="input" value={form.affiliateId} onChange={(event) => setField("affiliateId", event.target.value)} placeholder="Mﾃ｣ ﾄ黛ｻ杵h danh Affiliate" />
+                        <input className="input" value={form.affiliateId} onChange={(event) => setField("affiliateId", event.target.value)} placeholder="Mã định danh Affiliate" />
                       </label>
                     </div>
 
                     <label className="field">
-                      <span>Link s蘯｣n ph蘯ｩm Shopee</span>
+                      <span>Link sản phẩm Shopee</span>
                       <input className="input" value={form.productUrl} onChange={(event) => setField("productUrl", event.target.value)} placeholder="https://shopee.vn/..." />
                     </label>
 
                     <label className="field">
-                      <span>Link video g盻祖 (TikTok/Douyin/FB)</span>
+                      <span>Link video gốc (TikTok/Douyin/FB)</span>
                       <input className="input" value={form.sourceUrl} onChange={(event) => setField("sourceUrl", event.target.value)} placeholder="https://www.tiktok.com/..." />
                     </label>
 
                     <div style={{ padding: "24px", borderRadius: "20px", background: "rgba(139, 92, 246, 0.05)", border: "1px solid var(--primary-border)" }}>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-                        <span style={{ fontWeight: 700, color: "var(--primary)" }}>Thﾆｰ vi盻㌻ Asset & Thﾃｴng minh AI</span>
+                        <span style={{ fontWeight: 700, color: "var(--primary)" }}>Thư viện Asset & Thông minh AI</span>
                         <div style={{ display: "flex", gap: "8px" }}>
-                          <button type="button" className="button button-soft" style={{ padding: "8px 16px", fontSize: "0.8rem" }} onClick={() => setActiveTab("assets")}>Thﾆｰ vi盻㌻</button>
-                          <button type="button" className="button button-primary" style={{ padding: "8px 16px", fontSize: "0.8rem" }} onClick={enrichConfigFromAssets}>T盻ｱ ﾄ黛ｻ冢g n蘯｡p</button>
+                          <button type="button" className="button button-soft" style={{ padding: "8px 16px", fontSize: "0.8rem" }} onClick={() => setActiveTab("assets")}>Thư viện</button>
+                          <button type="button" className="button button-primary" style={{ padding: "8px 16px", fontSize: "0.8rem" }} onClick={enrichConfigFromAssets}>Tự động nạp</button>
                         </div>
                       </div>
                       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
                         <label className="field">
-                          <span>Chﾃｭnh sﾃ｡ch ch盻肱 Asset</span>
+                          <span>Chính sách chọn Asset</span>
                           <select className="input" value={form.assetPolicy} onChange={(event) => setField("assetPolicy", event.target.value as ShopeeConfigForm["assetPolicy"])}>
-                            <option value="mixed">H盻溶 h盻｣p (AI ﾄ黛ｻ・xu蘯･t)</option>
-                            <option value="approved_only">Ch盻・dﾃｹng Asset ﾄ妥｣ duy盻㏄</option>
-                            <option value="product_page_only">Ch盻・dﾃｹng t盻ｫ trang Shopee</option>
+                            <option value="mixed">Hỗn hợp (AI đề xuất)</option>
+                            <option value="approved_only">Chỉ dùng Asset đã duyệt</option>
+                            <option value="product_page_only">Chỉ dùng từ trang Shopee</option>
                           </select>
                         </label>
                         <label className="field">
-                          <span>T盻ｫ khﾃｳa tﾃｬm ki蘯ｿm Asset</span>
-                          <input className="input" value={form.productNameQuery} onChange={(event) => setField("productNameQuery", event.target.value)} placeholder="VD: qu蘯｡t mini c蘯ｧm tay" />
+                          <span>Từ khóa tìm kiếm Asset</span>
+                          <input className="input" value={form.productNameQuery} onChange={(event) => setField("productNameQuery", event.target.value)} placeholder="VD: quạt mini cầm tay" />
                         </label>
                       </div>
                     </div>
                   </div>
                 </section>
 
-                {/* Section: N盻冓 dung & Sﾃ｡ng t蘯｡o */}
+                {/* Section: Nội dung & Sáng tạo */}
                 <section>
                   <h3 style={{ fontSize: "1.1rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--success)", marginBottom: "20px", display: "flex", alignItems: "center", gap: "10px" }}>
                     <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--success)", boxShadow: "0 0 10px var(--success)" }}></span>
-                    N盻冓 dung & Sﾃ｡ng t蘯｡o
+                    Nội dung & Sáng tạo
                   </h3>
                   <div style={{ display: "grid", gap: "20px" }}>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
                       <label className="field">
-                        <span>Phﾆｰﾆ｡ng th盻ｩc d盻ｱng</span>
+                        <span>Phương thức dựng</span>
                         <select className="input" value={form.sourceType} onChange={(event) => setField("sourceType", event.target.value as VideoSourceType)}>
-                          <option value="video">D盻ｱng t盻ｫ Video G盻祖</option>
-                          <option value="images">D盻ｱng t盻ｫ 蘯｢nh S蘯｣n Ph蘯ｩm</option>
-                          <option value="mixed">K蘯ｿt h盻｣p Video + 蘯｢nh</option>
-                          <option value="template">S盻ｭ d盻･ng Template m蘯ｫu</option>
+                          <option value="video">Dựng từ Video Gốc</option>
+                          <option value="images">Dựng từ Ảnh Sản Phẩm</option>
+                          <option value="mixed">Kết hợp Video + Ảnh</option>
+                          <option value="template">Sử dụng Template mẫu</option>
                         </select>
                       </label>
                       <label className="field">
@@ -1809,41 +1808,41 @@ export default function ShopeeAffPage() {
 
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "20px" }}>
                       <label className="field">
-                        <span>Th盻拱 lﾆｰ盻｣ng (s)</span>
+                        <span>Thời lượng (s)</span>
                         <input className="input" value={form.durationSeconds} onChange={(event) => setField("durationSeconds", event.target.value)} placeholder="15" />
                       </label>
                       <label className="field">
-                        <span>Nh蘯｡c n盻］</span>
+                        <span>Nhạc nền</span>
                         <input className="input" value={form.musicTrack} onChange={(event) => setField("musicTrack", event.target.value)} placeholder="VD: lofi-chill" />
                       </label>
                       <label className="field">
                         <span>Voiceover (Text)</span>
-                        <input className="input" value={form.voiceoverText} onChange={(event) => setField("voiceoverText", event.target.value)} placeholder="N盻冓 dung ﾄ黛ｻ皇" />
+                        <input className="input" value={form.voiceoverText} onChange={(event) => setField("voiceoverText", event.target.value)} placeholder="Nội dung đọc" />
                       </label>
                     </div>
 
                     <label className="field">
-                      <span>L盻拱 chﾃo ﾄ黛ｺｧu (Hook)</span>
-                      <textarea className="input" value={form.hook} onChange={(event) => setField("hook", event.target.value)} rows={2} placeholder="Cﾃ｢u thu hﾃｺt 3s ﾄ黛ｺｧu tiﾃｪn..." />
+                      <span>Lời chào đầu (Hook)</span>
+                      <textarea className="input" value={form.hook} onChange={(event) => setField("hook", event.target.value)} rows={2} placeholder="Câu thu hút 3s đầu tiên..." />
                     </label>
 
                     <label className="field">
-                      <span>K盻議h b蘯｣n chi ti蘯ｿt (Script)</span>
-                      <textarea className="input" value={form.script} onChange={(event) => setField("script", event.target.value)} rows={3} placeholder="Mﾃｴ t蘯｣ n盻冓 dung video..." />
+                      <span>Kịch bản chi tiết (Script)</span>
+                      <textarea className="input" value={form.script} onChange={(event) => setField("script", event.target.value)} rows={3} placeholder="Mô tả nội dung video..." />
                     </label>
 
                     <label className="field">
-                      <span>Ph盻･ ﾄ黛ｻ・(Subtitles)</span>
-                      <textarea className="input" value={form.subtitleText} onChange={(event) => setField("subtitleText", event.target.value)} rows={2} placeholder="Text hi盻ハ th盻・trﾃｪn video..." />
+                      <span>Phụ đề (Subtitles)</span>
+                      <textarea className="input" value={form.subtitleText} onChange={(event) => setField("subtitleText", event.target.value)} rows={2} placeholder="Text hiển thị trên video..." />
                     </label>
                   </div>
                 </section>
 
-                {/* Section: Nﾃ｢ng cao */}
+                {/* Section: Nâng cao */}
                 <section>
                   <h3 style={{ fontSize: "1.1rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-dim)", marginBottom: "20px", display: "flex", alignItems: "center", gap: "10px" }}>
                     <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--text-dim)", boxShadow: "0 0 10px var(--text-dim)" }}></span>
-                    Nﾃ｢ng cao & Metadata
+                    Nâng cao & Metadata
                   </h3>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
                     <label className="field">
@@ -1851,8 +1850,8 @@ export default function ShopeeAffPage() {
                       <input className="input" value={form.subId} onChange={(event) => setField("subId", event.target.value)} placeholder="Tracking ID" />
                     </label>
                     <label className="field">
-                      <span>Ghi chu noi bo</span>
-                      <input className="input" value={form.note} onChange={(event) => setField("note", event.target.value)} placeholder="Ghi chﾃｺ chi蘯ｿn d盻議h" />
+                      <span>Ghi chú nội bộ</span>
+                      <input className="input" value={form.note} onChange={(event) => setField("note", event.target.value)} placeholder="Ghi chú chiến dịch" />
                     </label>
                   </div>
                 </section>
@@ -1861,10 +1860,10 @@ export default function ShopeeAffPage() {
 
             {form.jobType === "SHOPEE_LINK_CONVERT" && (
               <section>
-                <h3 style={{ fontSize: "1.1rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--primary)", marginBottom: "20px" }}>C蘯･u hﾃｬnh Chuy盻ハ ﾄ黛ｻ品 Link</h3>
+                <h3 style={{ fontSize: "1.1rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--primary)", marginBottom: "20px" }}>Cấu hình Chuyển đổi Link</h3>
                 <div style={{ display: "grid", gap: "20px" }}>
                   <label className="field">
-                    <span>Danh sﾃ｡ch Link s蘯｣n ph蘯ｩm (m盻擁 dﾃｲng 1 link)</span>
+                    <span>Danh sách Link sản phẩm (mỗi dòng 1 link)</span>
                     <textarea className="input" value={form.productUrls} onChange={(event) => setField("productUrls", event.target.value)} rows={8} />
                   </label>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
@@ -1897,13 +1896,13 @@ export default function ShopeeAffPage() {
                     <div style={{ fontWeight: 700, fontSize: "0.9rem" }}>{videoPreview.templateId}</div>
                   </div>
                   <div style={{ padding: "16px", borderRadius: "14px", background: "rgba(0,0,0,0.2)", border: "1px solid var(--border)" }}>
-                    <div style={{ color: "var(--text-dim)", fontSize: "0.7rem", textTransform: "uppercase", marginBottom: "4px" }}>Th盻拱 lﾆｰ盻｣ng</div>
+                    <div style={{ color: "var(--text-dim)", fontSize: "0.7rem", textTransform: "uppercase", marginBottom: "4px" }}>Thời lượng</div>
                     <div style={{ fontWeight: 700, fontSize: "0.9rem" }}>{videoPreview.durationSeconds}s</div>
                   </div>
                 </div>
 
                 <div style={{ padding: "16px", borderRadius: "14px", background: "rgba(0,0,0,0.2)", border: "1px solid var(--border)" }}>
-                  <div style={{ color: "var(--text-dim)", fontSize: "0.7rem", textTransform: "uppercase", marginBottom: "8px" }}>Quy trﾃｬnh x盻ｭ lﾃｽ</div>
+                  <div style={{ color: "var(--text-dim)", fontSize: "0.7rem", textTransform: "uppercase", marginBottom: "8px" }}>Quy trình xử lý</div>
                   <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                     {videoPreview.steps.map((step, i) => (
                       <div key={i} style={{ fontSize: "0.85rem", display: "flex", gap: "10px" }}>
@@ -1937,21 +1936,21 @@ export default function ShopeeAffPage() {
       <div className="panel" style={{ padding: "40px" }}>
         <div className="panel-head" style={{ marginBottom: "40px" }}>
           <div>
-            <h2 style={{ margin: 0, fontSize: "1.8rem" }}>Chi蘯ｿn d盻議h ﾄ妥｣ thi蘯ｿt l蘯ｭp</h2>
+            <h2 style={{ margin: 0, fontSize: "1.8rem" }}>Chiến dịch đã thiết lập</h2>
             <p style={{ marginTop: 8, color: "var(--text-muted)", fontSize: "1.05rem" }}>
-              Qu蘯｣n lﾃｽ, theo dﾃｵi vﾃ v蘯ｭn hﾃnh cﾃ｡c k盻議h b蘯｣n Shopee Affiliate t盻ｱ ﾄ黛ｻ冢g.
+              Quản lý, theo dõi và vận hành các kịch bản Shopee Affiliate tự động.
             </p>
           </div>
           <button type="button" className="button button-primary" onClick={() => setActiveTab("config")}>
-            + Thi蘯ｿt l蘯ｭp chi蘯ｿn d盻議h m盻嬖
+            + Thiết lập chiến dịch mới
           </button>
         </div>
 
         {jobs.length === 0 ? (
           <div style={{ textAlign: "center", padding: "100px", background: "rgba(255,255,255,0.02)", borderRadius: "24px", border: "2px dashed var(--border)" }}>
-            <div style={{ fontSize: "4rem", marginBottom: "20px", opacity: 0.1 }}>刀</div>
-            <h3 style={{ margin: "0 0 10px", color: "var(--text-muted)" }}>H盻・th盻創g chﾆｰa cﾃｳ d盻ｯ li盻㎡</h3>
-            <p style={{ color: "var(--text-dim)", maxWidth: "400px", margin: "0 auto" }}>B蘯ｯt ﾄ黛ｺｧu b蘯ｱng vi盻㌘ t蘯｡o m盻冲 k盻議h b蘯｣n Video Affiliate ho蘯ｷc Link Convert ﾄ黛ｺｧu tiﾃｪn.</p>
+            <div style={{ fontSize: "4rem", marginBottom: "20px", opacity: 0.1 }}>📭</div>
+            <h3 style={{ margin: "0 0 10px", color: "var(--text-muted)" }}>Hệ thống chưa có dữ liệu</h3>
+            <p style={{ color: "var(--text-dim)", maxWidth: "400px", margin: "0 auto" }}>Bắt đầu bằng việc tạo một kịch bản Video Affiliate hoặc Link Convert đầu tiên.</p>
           </div>
         ) : (
           <div style={{ display: "grid", gap: "24px" }}>
@@ -1994,39 +1993,39 @@ export default function ShopeeAffPage() {
 
                       {latestRun && (
                         <div style={{ marginTop: "16px", padding: "12px 16px", borderRadius: "12px", background: "rgba(0,0,0,0.2)", border: "1px solid var(--border)", fontSize: "0.85rem" }}>
-                          <span style={{ color: "var(--text-dim)" }}>G蘯ｧn nh蘯･t:</span>{" "}
+                          <span style={{ color: "var(--text-dim)" }}>Gần nhất:</span>{" "}
                           <span style={{ color: "var(--text-muted)", fontWeight: 600 }}>{formatDateTime(latestRun.createdAt)}</span>{" "}
                           <span style={{ margin: "0 8px", opacity: 0.3 }}>|</span>
                           <span style={{ color: latestRun.status === "DONE" ? "var(--success)" : "var(--danger)" }}>
-                            {latestRun.status === "DONE" ? (latestMetrics.note || "Thﾃnh cﾃｴng") : (latestRun.errorMessage || "L盻擁 h盻・th盻創g")}
+                            {latestRun.status === "DONE" ? (latestMetrics.note || "Thành công") : (latestRun.errorMessage || "Lỗi hệ thống")}
                           </span>
                         </div>
                       )}
                     </div>
 
                     <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-                      <button className="button button-ghost" onClick={() => selectJob(job.id)}>Chi ti蘯ｿt</button>
-                      <button className="button button-soft" onClick={() => openEditForm(job)}>S盻ｭa</button>
+                      <button className="button button-ghost" onClick={() => selectJob(job.id)}>Chi tiết</button>
+                      <button className="button button-soft" onClick={() => openEditForm(job)}>Sửa</button>
                       <button className="button button-primary" onClick={() => runJob(job.id)} disabled={busyJobId === job.id}>
-                        {busyJobId === job.id ? "..." : "Kﾃｭch ho蘯｡t"}
+                        {busyJobId === job.id ? "..." : "Kích hoạt"}
                       </button>
                       <div style={{ display: "flex", gap: "8px" }}>
                         {job.status === "PAUSED" ? (
-                          <button className="button button-soft" onClick={() => resumeJob(job.id)} disabled={busyJobId === job.id}>Tiep tuc</button>
+                          <button className="button button-soft" onClick={() => resumeJob(job.id)} disabled={busyJobId === job.id}>Tiếp tục</button>
                         ) : (
-                          <button className="button button-soft" onClick={() => pauseJob(job.id)} disabled={busyJobId === job.id}>Tam dung</button>
+                          <button className="button button-soft" onClick={() => pauseJob(job.id)} disabled={busyJobId === job.id}>Tạm dừng</button>
                         )}
-                        <button className="button button-soft" style={{ color: "var(--danger)" }} onClick={() => removeJob(job.id)} disabled={busyJobId === job.id}>Xoa</button>
+                        <button className="button button-soft" style={{ color: "var(--danger)" }} onClick={() => removeJob(job.id)} disabled={busyJobId === job.id}>Xóa</button>
                       </div>
                     </div>
                   </div>
 
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px", marginTop: "24px" }}>
                     {[
-                      { label: "T盻貧g lﾆｰ盻｣t ch蘯｡y", value: job.runs.length, icon: "売" },
-                      { label: "Thanh cong", value: job.runs.filter(r => r.status === "DONE").length, icon: "OK", color: "var(--success)" },
-                      { label: "That bai", value: job.runs.filter(r => r.status === "FAILED").length, icon: "ERR", color: "var(--danger)" },
-                      { label: "Hieu suat", value: job.runs.length > 0 ? Math.round((job.runs.filter(r => r.status === "DONE").length / job.runs.length) * 100) + "%" : "0%", icon: "RATE" }
+                      { label: "Tổng lượt chạy", value: job.runs.length, icon: "📊" },
+                      { label: "Thành công", value: job.runs.filter(r => r.status === "DONE").length, icon: "OK", color: "var(--success)" },
+                      { label: "Thất bại", value: job.runs.filter(r => r.status === "FAILED").length, icon: "ERR", color: "var(--danger)" },
+                      { label: "Hiệu suất", value: job.runs.length > 0 ? Math.round((job.runs.filter(r => r.status === "DONE").length / job.runs.length) * 100) + "%" : "0%", icon: "RATE" }
                     ].map((stat, i) => (
                       <div key={i} style={{ padding: "16px", borderRadius: "16px", background: "rgba(255,255,255,0.03)", border: "1px solid var(--border)" }}>
                         <div style={{ fontSize: "0.75rem", color: "var(--text-dim)", textTransform: "uppercase", marginBottom: "8px", display: "flex", alignItems: "center", gap: "6px" }}>
@@ -2053,43 +2052,43 @@ export default function ShopeeAffPage() {
         <div className="panel" style={{ padding: "32px" }}>
           <div className="panel-head" style={{ marginBottom: "24px" }}>
             <div>
-              <h2 style={{ margin: 0, fontSize: "1.8rem" }}>Thﾆｰ vi盻㌻ Asset Thﾃｴng minh</h2>
+              <h2 style={{ margin: 0, fontSize: "1.8rem" }}>Thư viện Asset Thông minh</h2>
               <p style={{ marginTop: 8, color: "var(--text-muted)", fontSize: "1.05rem" }}>
-                H盻・th盻創g lﾆｰu tr盻ｯ vﾃ qu蘯｣n lﾃｽ tﾃi nguyﾃｪn Media ph盻･c v盻･ cho vi盻㌘ ph盻訴 tr盻冢 video AI.
+                Hệ thống lưu trữ và quản lý tài nguyên Media phục vụ cho việc phối trộn video AI.
               </p>
             </div>
             <button type="button" className="button button-primary" onClick={openAssetCreate}>
-              + Thﾃｪm tﾃi nguyﾃｪn m盻嬖
+              + Thêm tài nguyên mới
             </button>
           </div>
 
           <div className="content-grid" style={{ gridTemplateColumns: "1.4fr 0.6fr", gap: "24px", marginBottom: "32px" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
               <label className="field">
-                <span>B盻・l盻皇 thﾃｴng minh</span>
+                <span>Bộ lọc thông minh</span>
                 <div style={{ position: "relative" }}>
                   <input
                     className="input"
                     style={{ paddingLeft: "40px" }}
                     value={assetFilter}
                     onChange={(event) => setAssetFilter(event.target.value)}
-                    placeholder="Tﾃｬm theo tﾃｪn s蘯｣n ph蘯ｩm, nhﾃ｣n dﾃ｡n, ho蘯ｷc mﾃ｣ tﾃi nguyﾃｪn..."
+                    placeholder="Tìm theo tên sản phẩm, nhãn dán, hoặc mã tài nguyên..."
                   />
-                  <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", opacity: 0.5 }}>剥</span>
+                  <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", opacity: 0.5 }}>🔍</span>
                 </div>
               </label>
               
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
                 <div style={{ padding: "20px", borderRadius: "16px", background: "rgba(139, 92, 246, 0.05)", border: "1px solid var(--primary-border)" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                    <strong style={{ color: "var(--primary)" }}>Enrich t盻ｫ Shopee</strong>
-                    <button type="button" className="button button-soft" style={{ padding: "6px 12px", fontSize: "0.8rem" }} onClick={enrichAssetsFromProduct} disabled={isSubmitting}>Kﾃｭch ho蘯｡t</button>
+                    <strong style={{ color: "var(--primary)" }}>Enrich từ Shopee</strong>
+                    <button type="button" className="button button-soft" style={{ padding: "6px 12px", fontSize: "0.8rem" }} onClick={enrichAssetsFromProduct} disabled={isSubmitting}>Kích hoạt</button>
                   </div>
-                  <div style={{ color: "var(--text-dim)", fontSize: "0.8rem" }}>{form.productUrl ? "Ngu盻渡: " + form.productUrl.slice(0, 40) + "..." : "Chﾆｰa ch盻肱 s蘯｣n ph蘯ｩm ngu盻渡"}</div>
+                  <div style={{ color: "var(--text-dim)", fontSize: "0.8rem" }}>{form.productUrl ? "Nguồn: " + form.productUrl.slice(0, 40) + "..." : "Chưa chọn sản phẩm nguồn"}</div>
                 </div>
                 <div style={{ padding: "20px", borderRadius: "16px", background: "rgba(255,255,255,0.03)", border: "1px solid var(--border)" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                    <strong>Nh蘯ｭp hﾃng lo蘯｡t</strong>
+                    <strong>Nhập hàng loạt</strong>
                     <button type="button" className="button button-soft" style={{ padding: "6px 12px", fontSize: "0.8rem" }} onClick={importAssets} disabled={isSubmitting}>Import</button>
                   </div>
                   <textarea
@@ -2106,11 +2105,11 @@ export default function ShopeeAffPage() {
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "12px" }}>
               <div className="metric-card" style={{ padding: "20px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span className="metric-label">T盻貧g tﾃi nguyﾃｪn</span>
+                <span className="metric-label">Tổng tài nguyên</span>
                 <span className="metric-value" style={{ fontSize: "2rem" }}>{assets.length}</span>
               </div>
               <div className="metric-card" style={{ padding: "20px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span className="metric-label">ﾄ静｣ phﾃｪ duy盻㏄</span>
+                <span className="metric-label">Đã phê duyệt</span>
                 <span className="metric-value" style={{ fontSize: "2rem", color: "var(--success)" }}>{approvedCount}</span>
               </div>
             </div>
@@ -2119,7 +2118,7 @@ export default function ShopeeAffPage() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "20px" }}>
             {filteredAssets.length === 0 ? (
               <div style={{ gridColumn: "1/-1", textAlign: "center", padding: "60px", color: "var(--text-dim)" }}>
-                Khﾃｴng tﾃｬm th蘯･y tﾃi nguyﾃｪn phﾃｹ h盻｣p v盻嬖 t盻ｫ khﾃｳa.
+                Không tìm thấy tài nguyên phù hợp với từ khóa.
               </div>
             ) : (
               filteredAssets.map((asset) => (
@@ -2144,12 +2143,12 @@ export default function ShopeeAffPage() {
                     </div>
                   </div>
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "8px", marginTop: "16px" }}>
-                    <button className="button button-soft" style={{ padding: "8px", fontSize: "0.8rem" }} onClick={() => openAssetEdit(asset)}>S盻ｭa</button>
-                    <button className="button button-soft" style={{ padding: "8px", fontSize: "0.8rem" }} onClick={() => toggleAssetApproved(asset)}>{asset.approved ? "Nhﾃ｡p" : "Duy盻㏄"}</button>
-                    <button className="button button-soft" style={{ padding: "8px", fontSize: "0.8rem", color: "var(--danger)" }} onClick={() => removeAsset(asset)}>Xﾃｳa</button>
+                    <button className="button button-soft" style={{ padding: "8px", fontSize: "0.8rem" }} onClick={() => openAssetEdit(asset)}>Sửa</button>
+                    <button className="button button-soft" style={{ padding: "8px", fontSize: "0.8rem" }} onClick={() => toggleAssetApproved(asset)}>{asset.approved ? "Nháp" : "Duyệt"}</button>
+                    <button className="button button-soft" style={{ padding: "8px", fontSize: "0.8rem", color: "var(--danger)" }} onClick={() => removeAsset(asset)}>Xóa</button>
                   </div>
                   <button className="button button-primary" style={{ width: "100%", marginTop: "10px", padding: "8px", fontSize: "0.85rem" }} onClick={() => useAssetInConfig(asset)}>
-                    G蘯ｯn vﾃo c蘯･u hﾃｬnh hi盻㌻ t蘯｡i
+                    Gắn vào cấu hình hiện tại
                   </button>
                 </article>
               ))
@@ -2159,31 +2158,31 @@ export default function ShopeeAffPage() {
 
         <form className="panel" style={{ padding: "32px", border: "1px solid var(--primary-border)", background: "rgba(139, 92, 246, 0.02)" }} onSubmit={submitAsset}>
           <div className="panel-head" style={{ marginBottom: "24px" }}>
-            <h2 style={{ margin: 0 }}>{editingAssetId ? "C蘯ｭp nh蘯ｭt tﾃi nguyﾃｪn" : "Khai bﾃ｡o tﾃi nguyﾃｪn m盻嬖"}</h2>
-            <button type="button" className="button button-ghost" onClick={() => { setEditingAssetId(null); setAssetForm(createDefaultAssetForm()); }}>Lﾃm m盻嬖 form</button>
+            <h2 style={{ margin: 0 }}>{editingAssetId ? "Cập nhật tài nguyên" : "Khai báo tài nguyên mới"}</h2>
+            <button type="button" className="button button-ghost" onClick={() => { setEditingAssetId(null); setAssetForm(createDefaultAssetForm()); }}>Làm mới form</button>
           </div>
           
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               <label className="field">
-                <span>Tﾃｪn ﾄ黛ｻ杵h danh</span>
-                <input className="input" value={assetForm.label} onChange={(e) => setAssetForm(prev => ({ ...prev, label: e.target.value }))} placeholder="VD: Video Review Qu蘯｡t Mini A1" />
+                <span>Tên định danh</span>
+                <input className="input" value={assetForm.label} onChange={(e) => setAssetForm(prev => ({ ...prev, label: e.target.value }))} placeholder="VD: Video Review Quạt Mini A1" />
               </label>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
                 <label className="field">
-                  <span>Lo蘯｡i tﾃi nguyﾃｪn</span>
+                  <span>Loại tài nguyên</span>
                   <select className="input" value={assetForm.assetType} onChange={(e) => setAssetForm(prev => ({ ...prev, assetType: e.target.value as MediaAssetType }))}>
-                    <option value="IMAGE">Hﾃｬnh 蘯｣nh (PNG/JPG)</option>
+                    <option value="IMAGE">Hình ảnh (PNG/JPG)</option>
                     <option value="VIDEO">Video (MP4)</option>
-                    <option value="AUDIO">ﾃＮ thanh (MP3)</option>
+                    <option value="AUDIO">Âm thanh (MP3)</option>
                     <option value="TEMPLATE">Template Pipeline</option>
                   </select>
                 </label>
                 <label className="field">
-                  <span>Tr蘯｡ng thﾃ｡i</span>
+                  <span>Trạng thái</span>
                   <select className="input" value={assetForm.approved ? "yes" : "no"} onChange={(e) => setAssetForm(prev => ({ ...prev, approved: e.target.value === "yes" }))}>
-                    <option value="yes">ﾄ静｣ phﾃｪ duy盻㏄</option>
-                    <option value="no">Ch盻・x盻ｭ lﾃｽ (Draft)</option>
+                    <option value="yes">Đã phê duyệt</option>
+                    <option value="no">Chờ xử lý (Draft)</option>
                   </select>
                 </label>
               </div>
@@ -2191,11 +2190,11 @@ export default function ShopeeAffPage() {
             
             <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               <label className="field">
-                <span>ﾄ脆ｰ盻拵g d蘯ｫn ngu盻渡 (URL)</span>
+                <span>Đường dẫn nguồn (URL)</span>
                 <input className="input" value={assetForm.sourceUrl} onChange={(e) => setAssetForm(prev => ({ ...prev, sourceUrl: e.target.value }))} placeholder="https://..." />
               </label>
               <label className="field">
-                <span>Tags (Phﾃ｢n cﾃ｡ch b蘯ｱng d蘯･u ph蘯ｩy)</span>
+                <span>Tags (Phân cách bằng dấu phẩy)</span>
                 <input className="input" value={assetForm.tags} onChange={(e) => setAssetForm(prev => ({ ...prev, tags: e.target.value }))} placeholder="quat-mini, review, hot-trend" />
               </label>
             </div>
@@ -2203,7 +2202,7 @@ export default function ShopeeAffPage() {
 
           <div style={{ marginTop: "24px", display: "flex", gap: "16px" }}>
              <button type="submit" className="button button-primary" style={{ flex: 1, padding: "14px" }} disabled={isSubmitting}>
-               {isSubmitting ? "H盻・th盻創g ﾄ疎ng lﾆｰu..." : editingAssetId ? "Lﾆｰu thay ﾄ黛ｻ品" : "Khai bﾃ｡o Asset"}
+               {isSubmitting ? "Hệ thống đang lưu..." : editingAssetId ? "Lưu thay đổi" : "Khai báo Asset"}
              </button>
           </div>
         </form>
@@ -2216,22 +2215,22 @@ export default function ShopeeAffPage() {
       <div style={{ display: "grid", gap: "32px" }}>
         <section className="metric-grid">
           <article className="metric-card">
-            <div className="metric-label">T盻貧g chi蘯ｿn d盻議h</div>
+            <div className="metric-label">Tổng chiến dịch</div>
             <div className="metric-value">{overview.totalConfigs}</div>
-            <div style={{ fontSize: "0.8rem", color: "var(--success)", marginTop: "8px" }}>竊・Active & Ready</div>
+            <div style={{ fontSize: "0.8rem", color: "var(--success)", marginTop: "8px" }}>📊 Active & Ready</div>
           </article>
           <article className="metric-card">
-            <div className="metric-label">ﾄ紳ng x盻ｭ lﾃｽ</div>
+            <div className="metric-label">Đang xử lý</div>
             <div className="metric-value">{overview.runningRuns + overview.queuedRuns}</div>
             <div style={{ fontSize: "0.8rem", color: "var(--primary)", marginTop: "8px" }}>Jobs in queue</div>
           </article>
           <article className="metric-card">
-            <div className="metric-label">T盻ｷ l盻・thﾃnh cﾃｴng</div>
+            <div className="metric-label">Tỷ lệ thành công</div>
             <div className="metric-value" style={{ color: "var(--success)" }}>{overview.successRate}%</div>
             <div style={{ fontSize: "0.8rem", color: "var(--text-dim)", marginTop: "8px" }}>Last 7 days avg</div>
           </article>
           <article className="metric-card">
-            <div className="metric-label">T盻貧g lﾆｰ盻｣t Run</div>
+            <div className="metric-label">Tổng lượt Run</div>
             <div className="metric-value">{overview.totalRuns}</div>
             <div style={{ fontSize: "0.8rem", color: "var(--text-dim)", marginTop: "8px" }}>All-time executions</div>
           </article>
@@ -2240,7 +2239,7 @@ export default function ShopeeAffPage() {
         <div className="content-grid" style={{ gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
           <div className="panel" style={{ padding: "32px" }}>
             <div className="panel-head" style={{ marginBottom: "24px" }}>
-              <h2 style={{ margin: 0, fontSize: "1.4rem" }}>Tr蘯｡ng thﾃ｡i v蘯ｭn hﾃnh</h2>
+              <h2 style={{ margin: 0, fontSize: "1.4rem" }}>Trạng thái vận hành</h2>
             </div>
             <div style={{ display: "grid", gap: "12px" }}>
               {([
@@ -2264,7 +2263,7 @@ export default function ShopeeAffPage() {
 
           <div className="panel" style={{ padding: "32px" }}>
             <div className="panel-head" style={{ marginBottom: "24px" }}>
-              <h2 style={{ margin: 0, fontSize: "1.4rem" }}>Phﾃ｢n b盻・Stage</h2>
+              <h2 style={{ margin: 0, fontSize: "1.4rem" }}>Phân bổ Stage</h2>
             </div>
             <div style={{ display: "grid", gap: "12px" }}>
               {([
@@ -2283,23 +2282,23 @@ export default function ShopeeAffPage() {
 
         <div className="panel" style={{ padding: "32px" }}>
           <div className="panel-head" style={{ marginBottom: "24px" }}>
-            <h2 style={{ margin: 0, fontSize: "1.4rem" }}>Bﾃ｡o cﾃ｡o Hi盻㎡ nﾄハg Chi蘯ｿn d盻議h</h2>
+            <h2 style={{ margin: 0, fontSize: "1.4rem" }}>Báo cáo Hiệu năng Chiến dịch</h2>
           </div>
 
           {jobs.length === 0 ? (
-            <div style={{ textAlign: "center", padding: "40px", color: "var(--text-dim)" }}>Chﾆｰa cﾃｳ d盻ｯ li盻㎡ chi蘯ｿn d盻議h.</div>
+            <div style={{ textAlign: "center", padding: "40px", color: "var(--text-dim)" }}>Chưa có dữ liệu chiến dịch.</div>
           ) : (
             <div style={{ overflowX: "auto" }}>
               <table className="table">
                 <thead>
                   <tr>
-                    <th>Tﾃｪn chi蘯ｿn d盻議h</th>
-                    <th>Lo蘯｡i</th>
+                    <th>Tên chiến dịch</th>
+                    <th>Loại</th>
                     <th>Stage</th>
-                    <th>Tr蘯｡ng thﾃ｡i</th>
-                    <th>T盻貧g Run</th>
-                    <th>Thﾃnh cﾃｴng</th>
-                    <th style={{ textAlign: "right" }}>Ty le</th>
+                    <th>Trạng thái</th>
+                    <th>Tổng Run</th>
+                    <th>Thành công</th>
+                    <th style={{ textAlign: "right" }}>Tỷ lệ</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -2328,11 +2327,11 @@ export default function ShopeeAffPage() {
 
         <div className="panel" style={{ padding: "32px" }}>
           <div className="panel-head" style={{ marginBottom: "24px" }}>
-            <h2 style={{ margin: 0, fontSize: "1.4rem" }}>Nh蘯ｭt kﾃｽ V蘯ｭn hﾃnh H盻・th盻創g</h2>
+            <h2 style={{ margin: 0, fontSize: "1.4rem" }}>Nhật ký Vận hành Hệ thống</h2>
           </div>
 
           {overview.latestRuns.length === 0 ? (
-            <div style={{ textAlign: "center", padding: "40px", color: "var(--text-dim)" }}>H盻・th盻創g chﾆｰa ghi nh蘯ｭn lﾆｰ盻｣t run nﾃo.</div>
+            <div style={{ textAlign: "center", padding: "40px", color: "var(--text-dim)" }}>Hệ thống chưa ghi nhận lượt run nào.</div>
           ) : (
             <div style={{ display: "grid", gap: "12px" }}>
               {overview.latestRuns.map((run) => (
@@ -2340,7 +2339,7 @@ export default function ShopeeAffPage() {
                   <div style={{ flex: 1 }}>
                     <div style={{ fontWeight: 700, fontSize: "1.05rem", marginBottom: "4px" }}>{run.title}</div>
                     <div style={{ color: "var(--text-dim)", fontSize: "0.85rem" }}>
-                      <span style={{ color: "var(--primary)" }}>{formatJobType(run.jobType)}</span> 窶｢ {formatDateTime(run.createdAt)}
+                      <span style={{ color: "var(--primary)" }}>{formatJobType(run.jobType)}</span> • {formatDateTime(run.createdAt)}
                     </div>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>

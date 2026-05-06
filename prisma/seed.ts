@@ -15,13 +15,13 @@ const plans: Array<{
 }> = [
   {
     code: "FREE",
-    name: "Mien phi",
+    name: "Miễn phí",
     priceMonthly: new Prisma.Decimal(0),
     maxAccounts: 5,
     maxRunningJobs: 1,
     maxWorkspaces: 1,
     maxDailyFetches: 100,
-    features: ["Quan ly tai khoan co ban", "Tao tac vu thu cong"]
+    features: ["Quản lý tài khoản cơ bản", "Thao tác thủ công"]
   },
   {
     code: "STARTER",
@@ -31,7 +31,7 @@ const plans: Array<{
     maxRunningJobs: 3,
     maxWorkspaces: 2,
     maxDailyFetches: 1000,
-    features: ["Tu dong hoa lich chay", "Dashboard su dung", "Canh bao tai khoan"]
+    features: ["Tự động hóa lịch chạy", "Dashboard sử dụng", "Cảnh báo tài khoản"]
   },
   {
     code: "PRO",
@@ -41,7 +41,7 @@ const plans: Array<{
     maxRunningJobs: 10,
     maxWorkspaces: 5,
     maxDailyFetches: 10000,
-    features: ["Hang doi uu tien", "Bao cao nang cao", "Ho tro nhieu workspace"]
+    features: ["Hàng đợi ưu tiên", "Báo cáo nâng cao", "Hỗ trợ nhiều workspace"]
   },
   {
     code: "ENTERPRISE",
@@ -51,7 +51,7 @@ const plans: Array<{
     maxRunningJobs: 50,
     maxWorkspaces: 20,
     maxDailyFetches: 100000,
-    features: ["Han muc tuy chinh", "Ho tro rieng", "Tich hop theo yeu cau"]
+    features: ["Hạn mức tùy chỉnh", "Hỗ trợ riêng", "Tích hợp theo yêu cầu"]
   }
 ];
 
@@ -64,155 +64,155 @@ const tools: Array<{
 }> = [
   {
     code: "facebook-post-fetcher",
-    name: "Lay bai viet Facebook",
-    description: "Thu thap danh sach bai viet, thoi gian dang va chu de co ban tu tai khoan Facebook.",
+    name: "Lấy bài viết Facebook",
+    description: "Thu thập danh sách bài viết, thời gian đăng và chủ đề cơ bản từ tài khoản Facebook.",
     category: "FACEBOOK",
     config: { jobType: "FETCH_POSTS", platform: "FACEBOOK" }
   },
   {
     code: "facebook-comment-fetcher",
-    name: "Lay binh luan Facebook",
-    description: "Thu thap binh luan theo bai viet phuc vu luu du lieu va chuan bi bao cao.",
+    name: "Lấy bình luận Facebook",
+    description: "Thu thập bình luận theo bài viết phục vụ lưu dữ liệu và chuẩn bị báo cáo.",
     category: "FACEBOOK",
     config: { jobType: "FETCH_COMMENTS", platform: "FACEBOOK" }
   },
   {
     code: "tiktok-profile-checker",
-    name: "Kiem tra ho so TikTok",
-    description: "Kiem tra trang thai ho so, thong tin cong khai va dau hieu gioi han cua tai khoan TikTok.",
+    name: "Kiểm tra hồ sơ TikTok",
+    description: "Kiểm tra trạng thái hồ sơ, thông tin công khai và dấu hiệu giới hạn của tài khoản TikTok.",
     category: "TIKTOK",
     config: { jobType: "FETCH_PROFILE", platform: "TIKTOK" }
   },
   {
     code: "tiktok-video-fetcher",
-    name: "Lay video TikTok",
-    description: "Lay video tu user hoac hashtag TikTok.",
+    name: "Lấy video TikTok",
+    description: "Lấy video từ user hoặc hashtag TikTok.",
     category: "TIKTOK",
     config: { jobType: "FETCH_VIDEOS", platform: "TIKTOK" }
   },
   {
     code: "facebook-group-poster",
-    name: "Dang bai group Facebook",
-    description: "Tu dong dang bai len cac hoi nhom Facebook.",
+    name: "Đăng bài group Facebook",
+    description: "Tự động đăng bài lên các hội nhóm Facebook.",
     category: "FACEBOOK",
     config: { jobType: "POST_GROUP", platform: "FACEBOOK" }
   },
   {
     code: "facebook-account-nurturer",
-    name: "Nuoi tai khoan Facebook",
-    description: "Mo phong hanh dong nguoi dung de tang trust cho tai khoan Facebook.",
+    name: "Nuôi tài khoản Facebook",
+    description: "Mô phỏng hành động người dùng để tăng trust cho tài khoản Facebook.",
     category: "AUTOMATION",
     config: { jobType: "NURTURE_ACCOUNT", platform: "FACEBOOK" }
   },
   {
     code: "facebook-auto-liker",
     name: "Auto Like Facebook",
-    description: "Tu dong thich bai viet chi dinh.",
+    description: "Tự động thích bài viết chỉ định.",
     category: "AUTOMATION",
     config: { jobType: "AUTO_LIKE", platform: "FACEBOOK" }
   },
   {
     code: "facebook-auto-commenter",
     name: "Auto Comment Facebook",
-    description: "Tu dong binh luan vao bai viet chi dinh.",
+    description: "Tự động bình luận vào bài viết chỉ định.",
     category: "AUTOMATION",
     config: { jobType: "AUTO_COMMENT", platform: "FACEBOOK" }
   },
   {
     code: "account-health-monitor",
-    name: "Theo doi suc khoe tai khoan",
-    description: "Tong hop canh bao tai khoan chet, gioi han hoac chua kiem tra trong workspace.",
+    name: "Theo dõi sức khỏe tài khoản",
+    description: "Tổng hợp cảnh báo tài khoản chết, giới hạn hoặc chưa kiểm tra trong workspace.",
     category: "SYSTEM",
     config: { jobType: "ACCOUNT_HEALTH", platform: "FACEBOOK" }
   },
   {
     code: "facebook-group-moderation",
-    name: "Duyet group Facebook",
-    description: "Kiem duyet bai viet va phan loai noi dung trong group Facebook theo tu khoa chan.",
+    name: "Duyệt group Facebook",
+    description: "Kiểm duyệt bài viết và phân loại nội dung trong group Facebook theo từ khóa chặn.",
     category: "FACEBOOK",
     config: { jobType: "GROUP_MODERATION", platform: "FACEBOOK" }
   },
   {
     code: "tiktok-keyword-monitor",
-    name: "Theo doi tu khoa TikTok",
-    description: "Theo doi keyword va hashtag tren TikTok de tao canh bao nhanh.",
+    name: "Theo dõi từ khóa TikTok",
+    description: "Theo dõi keyword và hashtag trên TikTok để tạo cảnh báo nhanh.",
     category: "TIKTOK",
     config: { jobType: "KEYWORD_MONITOR", platform: "TIKTOK" }
   },
   {
     code: "workflow-builder",
     name: "Workflow Builder",
-    description: "Lap workflow nhieu buoc de chay chuoi tool va canh bao theo thu tu.",
+    description: "Lập workflow nhiều bước để chạy chuỗi tool và cảnh báo theo thứ tự.",
     category: "AUTOMATION",
     config: { jobType: "WORKFLOW_BUILD", platform: "FACEBOOK" }
   },
   {
     code: "data-export",
-    name: "Xuat du lieu",
-    description: "Chuan bi du lieu snapshot de xuat bao cao CSV hoac JSON.",
+    name: "Xuất dữ liệu",
+    description: "Chuẩn bị dữ liệu snapshot để xuất báo cáo CSV hoặc JSON.",
     category: "DATA",
     config: { jobType: "EXPORT_DATA", platform: "DATA", formats: ["csv", "json"] }
   },
   {
     code: "ai-content-writer",
     name: "AI Content Writer",
-    description: "Su dung AI de tao noi dung bai viet va binh luan doc nhat, tranh bi quet trung lap.",
+    description: "Sử dụng AI để tạo nội dung bài viết và bình luận độc nhất, tránh bị quét trùng lặp.",
     category: "AUTOMATION",
     config: { jobType: "AI_CONTENT", platform: "FACEBOOK" }
   },
   {
     code: "facebook-marketplace-scanner",
-    name: "Quet Marketplace FB",
-    description: "Theo doi gia va tim kiem san pham theo tu khoa tren Marketplace.",
+    name: "Quét Marketplace FB",
+    description: "Theo dõi giá và tìm kiếm sản phẩm theo từ khóa trên Marketplace.",
     category: "DATA",
     config: { jobType: "MARKETPLACE_SCAN", platform: "FACEBOOK" }
   },
   {
     code: "facebook-bulk-messaging",
-    name: "Gui tin nhan hang loat",
-    description: "Gui tin nhan tiep can khach hang theo danh sach UID hoac tin nhan cho.",
+    name: "Gửi tin nhắn hàng loạt",
+    description: "Gửi tin nhắn tiếp cận khách hàng theo danh sách UID hoặc tin nhắn chờ.",
     category: "AUTOMATION",
     config: { jobType: "BULK_MSG", platform: "FACEBOOK" }
   },
   {
     code: "facebook-auto-joiner",
-    name: "Tu dong vao Group",
-    description: "Tim kiem va tu dong tham gia cac nhom theo tu khoa muc tieu.",
+    name: "Tự động vào Group",
+    description: "Tìm kiếm và tự động tham gia các nhóm theo từ khóa mục tiêu.",
     category: "AUTOMATION",
     config: { jobType: "AUTO_JOIN_GROUP", platform: "FACEBOOK" }
   },
   {
     code: "tiktok-auto-dm",
     name: "Auto DM TikTok",
-    description: "Gui tin nhan truc tiep cho nguoi follow hoac danh sach user TikTok.",
+    description: "Gửi tin nhắn trực tiếp cho người follow hoặc danh sách user TikTok.",
     category: "AUTOMATION",
     config: { jobType: "AUTO_DM", platform: "TIKTOK" }
   },
   {
     code: "password-changer",
-    name: "Doi mat khau hang loat",
-    description: "Tu dong doi mat khau cho danh sach tai khoan de bao mat.",
+    name: "Đổi mật khẩu hàng loạt",
+    description: "Tự động đổi mật khẩu cho danh sách tài khoản để bảo mật.",
     category: "SYSTEM",
     config: { jobType: "CHANGE_PASSWORD", platform: "FACEBOOK" }
   },
   {
     code: "account-reg-tool",
-    name: "Reg tai khoan tu dong",
-    description: "Ho tro quy trinh dang ky tai khoan moi tu dong.",
+    name: "Reg tài khoản tự động",
+    description: "Hỗ trợ quy trình đăng ký tài khoản mới tự động.",
     category: "SYSTEM",
     config: { jobType: "REG_ACCOUNT", platform: "FACEBOOK" }
   },
   {
     code: "video-reup-tool",
-    name: "Reup Video da nen tang",
-    description: "Tu dong tai video tu nguon va dang len TikTok/YouTube Shorts.",
+    name: "Reup Video đa nền tảng",
+    description: "Tự động tải video từ nguồn và đăng lên TikTok/YouTube Shorts.",
     category: "AUTOMATION",
     config: { jobType: "REUP_VIDEO", platform: "YOUTUBE" }
   },
   {
     code: "proxy-checker",
-    name: "Kiem tra Proxy",
-    description: "Kiem tra trang thai song/chet va toc do (latency) cua Proxy tai khoan.",
+    name: "Kiểm tra Proxy",
+    description: "Kiểm tra trạng thái sống/chết và tốc độ (latency) của Proxy tài khoản.",
     category: "SYSTEM",
     config: { jobType: "CHECK_PROXY", platform: "FACEBOOK" }
   },
@@ -240,7 +240,7 @@ const tools: Array<{
   {
     code: "system-stress-test",
     name: "Stress Test (WebSocket)",
-    description: "Chay tac vu gia lap keo dai de kiem tra log va trang thai real-time qua WebSocket.",
+    description: "Chạy tác vụ giả lập kéo dài để kiểm tra log và trạng thái real-time qua WebSocket.",
     category: "SYSTEM",
     config: { jobType: "STRESS_TEST", platform: "SYSTEM" }
   }
@@ -333,7 +333,7 @@ const seedAccounts = [
     status: "ALIVE" as const,
     tag: "growth",
     groupName: "Growth",
-    note: "Tai khoan Facebook chinh cho workspace growth"
+    note: "Tài khoản Facebook chính cho workspace growth"
   },
   {
     workspaceSlug: "workspace-test-mmo",
@@ -342,7 +342,7 @@ const seedAccounts = [
     status: "PENDING" as const,
     tag: "content",
     groupName: "Content",
-    note: "Tai khoan TikTok cho workflow noi dung"
+    note: "Tài khoản TikTok cho workflow nội dung"
   },
   {
     workspaceSlug: "workspace-test-mmo",
@@ -351,7 +351,7 @@ const seedAccounts = [
     status: "ALIVE" as const,
     tag: "affiliate",
     groupName: "Affiliate",
-    note: "Tai khoan Shopee dung cho luong affiliate"
+    note: "Tài khoản Shopee dùng cho luồng affiliate"
   },
   {
     workspaceSlug: "workspace-admin-mmo",
@@ -360,7 +360,7 @@ const seedAccounts = [
     status: "ALIVE" as const,
     tag: "affiliate",
     groupName: "Affiliate",
-    note: "Tai khoan Shopee dung cho workspace admin affiliate"
+    note: "Tài khoản Shopee dùng cho workspace admin affiliate"
   },
   {
     workspaceSlug: "workspace-bot-lab",
@@ -369,7 +369,7 @@ const seedAccounts = [
     status: "LIMITED" as const,
     tag: "ops",
     groupName: "Ops",
-    note: "Tai khoan Facebook dung de theo doi suc khoe va han muc"
+    note: "Tài khoản Facebook dùng để theo dõi sức khỏe và hạn mức"
   },
   {
     workspaceSlug: "workspace-bot-lab",
@@ -378,7 +378,7 @@ const seedAccounts = [
     status: "ALIVE" as const,
     tag: "video",
     groupName: "Video",
-    note: "Tai khoan YouTube dung cho reup shorts"
+    note: "Tài khoản YouTube dùng cho reup shorts"
   }
 ];
 

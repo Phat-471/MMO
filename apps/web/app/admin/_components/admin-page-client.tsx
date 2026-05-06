@@ -924,22 +924,22 @@ function SystemStorageTab({ system, request }: { system: AdminSystem | null; req
   return (
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "start" }}>
       <div className="panel" style={{ padding: 24 }}>
-        <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Asset / Storage config</h3>
+        <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Cấu hình Tài nguyên / Lưu trữ</h3>
         <div style={{ display: "grid", gap: 16 }}>
           <div className="input-group">
-            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Asset Base URL</label>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>URL Cơ sở tài nguyên</label>
             <input value={assetBaseUrl} onChange={(event) => setAssetBaseUrl(event.target.value)} placeholder="https://assets.example.com" style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
           </div>
           <div className="input-group">
-            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>CDN Base URL</label>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>URL Cơ sở CDN</label>
             <input value={cdnBaseUrl} onChange={(event) => setCdnBaseUrl(event.target.value)} placeholder="https://cdn.example.com" style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
           </div>
           <div className="input-group">
-            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Upload Path</label>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Đường dẫn Tải lên</label>
             <input value={uploadPath} onChange={(event) => setUploadPath(event.target.value)} placeholder="/uploads" style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
           </div>
           <div className="input-group">
-            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Asset mode</label>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Chế độ Tài nguyên</label>
             <select value={assetMode} onChange={(event) => setAssetMode(event.target.value as SystemStorageMode)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }}>
               <option value="LOCAL">LOCAL</option>
               <option value="CDN">CDN</option>
@@ -948,26 +948,26 @@ function SystemStorageTab({ system, request }: { system: AdminSystem | null; req
           </div>
           <label style={{ display: "flex", gap: 10, alignItems: "center", fontSize: 13, color: "var(--text-muted)" }}>
             <input type="checkbox" checked={autoApproveAssets} onChange={(event) => setAutoApproveAssets(event.target.checked)} />
-            Auto approve assets
+            Tự động duyệt tài nguyên (Auto approve)
           </label>
           <label style={{ display: "flex", gap: 10, alignItems: "center", fontSize: 13, color: "var(--text-muted)" }}>
             <input type="checkbox" checked={allowRemoteFetch} onChange={(event) => setAllowRemoteFetch(event.target.checked)} />
-            Allow remote fetch
+            Cho phép thu thập từ xa (Remote fetch)
           </label>
           <label style={{ display: "flex", gap: 10, alignItems: "center", fontSize: 13, color: "var(--text-muted)" }}>
             <input type="checkbox" checked={defaultVideoWatermark} onChange={(event) => setDefaultVideoWatermark(event.target.checked)} />
-            Default video watermark
+            Watermark video mặc định
           </label>
           <div className="input-group">
-            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Note</label>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Ghi chú</label>
             <textarea value={note} onChange={(event) => setNote(event.target.value)} rows={4} style={{ width: "100%", padding: 14, borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none", resize: "vertical" }} />
           </div>
           <label style={{ display: "flex", gap: 10, alignItems: "center", fontSize: 13, color: "var(--text-muted)" }}>
             <input type="checkbox" checked={isActive} onChange={(event) => setIsActive(event.target.checked)} />
-            Kích hoạt cấu hình storage này
+            Kích hoạt cấu hình lưu trữ này
           </label>
           <button className="button button-primary" style={{ height: 48, borderRadius: 12, fontWeight: 800 }} onClick={saveStorageSettings}>
-            Lưu cấu hình storage
+            Lưu cấu hình lưu trữ
           </button>
         </div>
       </div>
@@ -978,11 +978,11 @@ function SystemStorageTab({ system, request }: { system: AdminSystem | null; req
           <div>Asset Base URL: <b style={{ color: "#fff" }}>{system?.storage.assetBaseUrl || "-"}</b></div>
           <div>CDN Base URL: <b style={{ color: "#fff" }}>{system?.storage.cdnBaseUrl || "-"}</b></div>
           <div>Upload Path: <b style={{ color: "#fff" }}>{system?.storage.uploadPath || "-"}</b></div>
-          <div>Mode: <b style={{ color: "#fff" }}>{system?.storage.assetMode || "-"}</b></div>
-          <div>Auto approve: <b style={{ color: "#fff" }}>{system?.storage.autoApproveAssets ? "YES" : "NO"}</b></div>
-          <div>Remote fetch: <b style={{ color: "#fff" }}>{system?.storage.allowRemoteFetch ? "YES" : "NO"}</b></div>
-          <div>Watermark: <b style={{ color: "#fff" }}>{system?.storage.defaultVideoWatermark ? "YES" : "NO"}</b></div>
-          <div>Active: <b style={{ color: "#fff" }}>{system?.storage.isActive ? "YES" : "NO"}</b></div>
+          <div>Chế độ: <b style={{ color: "#fff" }}>{system?.storage.assetMode || "-"}</b></div>
+          <div>Tự động duyệt: <b style={{ color: "#fff" }}>{system?.storage.autoApproveAssets ? "BẬT" : "TẮT"}</b></div>
+          <div>Thu thập từ xa: <b style={{ color: "#fff" }}>{system?.storage.allowRemoteFetch ? "BẬT" : "TẮT"}</b></div>
+          <div>Watermark: <b style={{ color: "#fff" }}>{system?.storage.defaultVideoWatermark ? "BẬT" : "TẮT"}</b></div>
+          <div>Trạng thái: <b style={{ color: "#fff" }}>{system?.storage.isActive ? "HOẠT ĐỘNG" : "VÔ HIỆU"}</b></div>
         </div>
       </div>
     </div>
@@ -1025,30 +1025,30 @@ function SystemSecurityTab({ system, request }: { system: AdminSystem | null; re
   return (
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "start" }}>
       <div className="panel" style={{ padding: 24 }}>
-        <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Security config</h3>
+        <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Cấu hình Bảo mật</h3>
         <div style={{ display: "grid", gap: 16 }}>
           <label style={{ display: "flex", gap: 10, alignItems: "center", fontSize: 13, color: "var(--text-muted)" }}>
             <input type="checkbox" checked={maintenanceMode} onChange={(event) => setMaintenanceMode(event.target.checked)} />
-            Maintenance mode
+            Chế độ bảo trì (Maintenance mode)
           </label>
           <label style={{ display: "flex", gap: 10, alignItems: "center", fontSize: 13, color: "var(--text-muted)" }}>
             <input type="checkbox" checked={requireTwoFactor} onChange={(event) => setRequireTwoFactor(event.target.checked)} />
-            Require two-factor for admin
+            Yêu cầu 2FA cho quản trị viên
           </label>
           <div className="input-group">
-            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>API Rate Limit / Minute</label>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Giới hạn API / Phút</label>
             <input type="number" value={apiRateLimitPerMinute} onChange={(event) => setApiRateLimitPerMinute(event.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
           </div>
           <div className="input-group">
-            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Session TTL (hours)</label>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Thời gian Session (giờ)</label>
             <input type="number" value={sessionTtlHours} onChange={(event) => setSessionTtlHours(event.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
           </div>
           <div className="input-group">
-            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Admin IP whitelist</label>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Danh sách IP trắng (Admin)</label>
             <textarea value={adminIpWhitelist} onChange={(event) => setAdminIpWhitelist(event.target.value)} rows={4} placeholder="192.168.1.10\n10.0.0.0/24" style={{ width: "100%", padding: 14, borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none", resize: "vertical" }} />
           </div>
           <div className="input-group">
-            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Note</label>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Ghi chú bảo mật</label>
             <textarea value={note} onChange={(event) => setNote(event.target.value)} rows={4} style={{ width: "100%", padding: 14, borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none", resize: "vertical" }} />
           </div>
           <label style={{ display: "flex", gap: 10, alignItems: "center", fontSize: 13, color: "var(--text-muted)" }}>
@@ -1064,12 +1064,12 @@ function SystemSecurityTab({ system, request }: { system: AdminSystem | null; re
       <div className="panel" style={{ padding: 24 }}>
         <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Giá trị hiện tại</h3>
         <div style={{ color: "var(--text-dim)", fontSize: 13, lineHeight: 1.75, display: "grid", gap: 10 }}>
-          <div>Maintenance: <b style={{ color: "#fff" }}>{system?.security.maintenanceMode ? "YES" : "NO"}</b></div>
-          <div>2FA: <b style={{ color: "#fff" }}>{system?.security.requireTwoFactor ? "YES" : "NO"}</b></div>
-          <div>Rate limit: <b style={{ color: "#fff" }}>{system?.security.apiRateLimitPerMinute ?? 0}/min</b></div>
-          <div>Session TTL: <b style={{ color: "#fff" }}>{system?.security.sessionTtlHours ?? 0}h</b></div>
-          <div>IP whitelist: <b style={{ color: "#fff" }}>{system?.security.adminIpWhitelist || "-"}</b></div>
-          <div>Active: <b style={{ color: "#fff" }}>{system?.security.isActive ? "YES" : "NO"}</b></div>
+          <div>Bảo trì: <b style={{ color: "#fff" }}>{system?.security.maintenanceMode ? "BẬT" : "TẮT"}</b></div>
+          <div>Yêu cầu 2FA: <b style={{ color: "#fff" }}>{system?.security.requireTwoFactor ? "BẬT" : "TẮT"}</b></div>
+          <div>Giới hạn: <b style={{ color: "#fff" }}>{system?.security.apiRateLimitPerMinute ?? 0}/phút</b></div>
+          <div>Session TTL: <b style={{ color: "#fff" }}>{system?.security.sessionTtlHours ?? 0} giờ</b></div>
+          <div>IP trắng: <b style={{ color: "#fff" }}>{system?.security.adminIpWhitelist || "-"}</b></div>
+          <div>Trạng thái: <b style={{ color: "#fff" }}>{system?.security.isActive ? "HOẠT ĐỘNG" : "VÔ HIỆU"}</b></div>
         </div>
       </div>
     </div>
