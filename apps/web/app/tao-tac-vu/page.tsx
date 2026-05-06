@@ -67,7 +67,7 @@ const jobTypeOptions: Array<{ value: JobType; label: string }> = [
   { value: "SHOPEE_VIDEO_AFF", label: "Shopee video affiliate" },
   { value: "SHOPEE_LINK_CONVERT", label: "Shopee link convert" },
   { value: "AI_CONTENT", label: "Viết nội dung AI" },
-  { value: "MARKETPLACE_SCAN", label: "Quét Marketplace" },
+  { value: "MARKETPLACE_SCAN", label: "Quét Mãrketplace" },
   { value: "BULK_MSG", label: "Gửi tin nhắn hàng loạt" },
   { value: "AUTO_JOIN_GROUP", label: "Tự động vào group" },
   { value: "CHANGE_PASSWORD", label: "Đổi mật khẩu" },

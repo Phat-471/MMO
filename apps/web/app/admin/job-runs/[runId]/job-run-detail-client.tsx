@@ -47,7 +47,7 @@ type AdminJobRunDetail = {
 
 export default function AdminJobRunDetailClient({ runId }: { runId: string }) {
   const [detail, setDetail] = useState<AdminJobRunDetail | null>(null);
-  const [message, setMessage] = useState("Dang tai chi tiet lan chay...");
+  const [message, setMessage] = useState("Đang tải chi tiết lần chạy...");
 
   useEffect(() => {
     let mounted = true;
@@ -57,14 +57,14 @@ export default function AdminJobRunDetailClient({ runId }: { runId: string }) {
         return;
       }
       if (!session || session.role !== "ADMIN") {
-        setMessage("Can quyen admin.");
+        setMessage("Cần quyền admin.");
         return;
       }
 
       apiRequest<AdminJobRunDetail>(`/admin/job-runs/${runId}/detail`)
         .then((res) => {
           setDetail(res.data);
-          setMessage("Da tai chi tiet lan chay.");
+          setMessage("Đã tải chi tiết lần chạy.");
         })
         .catch((error: Error) => setMessage(error.message));
     };
@@ -96,25 +96,25 @@ export default function AdminJobRunDetailClient({ runId }: { runId: string }) {
         </header>
 
         <section className="metric-grid">
-          <article className="metric-card"><div className="metric-label">Trang thai</div><div className="metric-value">{detail ? formatJobStatus(detail.status) : "-"}</div></article>
-          <article className="metric-card"><div className="metric-label">Nen tang</div><div className="metric-value">{detail ? formatPlatform(detail.job.platform) : "-"}</div></article>
-          <article className="metric-card"><div className="metric-label">Loai</div><div className="metric-value">{detail ? formatJobType(detail.job.jobType) : "-"}</div></article>
-          <article className="metric-card"><div className="metric-label">Che do</div><div className="metric-value">{detail ? formatJobMode(detail.job.mode) : "-"}</div></article>
+          <article className="metric-card"><div className="metric-label">Trạng thái</div><div className="metric-value">{detail ? formatJobStatus(detail.status) : "-"}</div></article>
+          <article className="metric-card"><div className="metric-label">Nền tảng</div><div className="metric-value">{detail ? formatPlatform(detail.job.platform) : "-"}</div></article>
+          <article className="metric-card"><div className="metric-label">Loại</div><div className="metric-value">{detail ? formatJobType(detail.job.jobType) : "-"}</div></article>
+          <article className="metric-card"><div className="metric-label">Chế độ</div><div className="metric-value">{detail ? formatJobMode(detail.job.mode) : "-"}</div></article>
         </section>
 
         <section className="content-grid">
           <article className="panel table-panel">
-            <div className="panel-head"><h2>Thong tin run</h2></div>
+            <div className="panel-head"><h2>Thông tin run</h2></div>
             <table className="table">
               <tbody>
                 <tr><td className="table-main">Job</td><td>{detail?.job.id ?? "-"}</td></tr>
                 <tr><td className="table-main">Workspace</td><td>{detail?.job.workspace.name ?? "-"}</td></tr>
                 <tr><td className="table-main">Owner</td><td>{detail?.job.workspace.owner.email ?? "-"}</td></tr>
                 <tr><td className="table-main">Account</td><td>{detail?.job.account?.label ?? "-"}</td></tr>
-                <tr><td className="table-main">Nguoi tao</td><td>{detail?.job.createdBy?.email ?? "-"}</td></tr>
-                <tr><td className="table-main">Bat dau</td><td>{detail?.startedAt ? new Date(detail.startedAt).toLocaleString("vi-VN") : "-"}</td></tr>
-                <tr><td className="table-main">Ket thuc</td><td>{detail?.finishedAt ? new Date(detail.finishedAt).toLocaleString("vi-VN") : "-"}</td></tr>
-                <tr><td className="table-main">Loi</td><td>{detail?.errorMessage ?? "-"}</td></tr>
+                <tr><td className="table-main">Người tạo</td><td>{detail?.job.createdBy?.email ?? "-"}</td></tr>
+                <tr><td className="table-main">Bắt đầu</td><td>{detail?.startedAt ? new Date(detail.startedAt).toLocaleString("vi-VN") : "-"}</td></tr>
+                <tr><td className="table-main">Kết thúc</td><td>{detail?.finishedAt ? new Date(detail.finishedAt).toLocaleString("vi-VN") : "-"}</td></tr>
+                <tr><td className="table-main">Lỗi</td><td>{detail?.errorMessage ?? "-"}</td></tr>
                 <tr><td className="table-main">Metrics</td><td><pre style={{ margin: 0, whiteSpace: "pre-wrap" }}>{detail?.metricsJson ?? "-"}</pre></td></tr>
               </tbody>
             </table>
@@ -123,14 +123,14 @@ export default function AdminJobRunDetailClient({ runId }: { runId: string }) {
           <article className="panel table-panel">
             <div className="panel-head">
               <h2>Log</h2>
-              <span className="badge badge-green">{detail?.logs.length ?? 0} muc</span>
+              <span className="badge badge-green">{detail?.logs.length ?? 0} mục</span>
             </div>
             <table className="table">
               <thead>
                 <tr>
-                  <th>Thoi gian</th>
-                  <th>Muc</th>
-                  <th>Thong diep</th>
+                  <th>Thời gian</th>
+                  <th>Mức</th>
+                  <th>Thông điệp</th>
                 </tr>
               </thead>
               <tbody>
@@ -144,7 +144,7 @@ export default function AdminJobRunDetailClient({ runId }: { runId: string }) {
                     </td>
                   </tr>
                 )) : (
-                  <tr><td colSpan={3}>Khong co log.</td></tr>
+                  <tr><td colSpan={3}>Không có log.</td></tr>
                 )}
               </tbody>
             </table>

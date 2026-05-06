@@ -125,7 +125,7 @@ export default function AdminToolDetailClient({ toolId }: { toolId: string }) {
   async function loadDetail() {
     const session = await syncSessionProfile();
     if (!session || session.role !== "ADMIN") {
-      setMessage("Can quyen admin.");
+      setMessage("Cần quyền admin.");
       return;
     }
 
@@ -174,7 +174,7 @@ export default function AdminToolDetailClient({ toolId }: { toolId: string }) {
       const res = await apiRequest<{ id: string; code: string }>(`/admin/tools/${toolId}/clone`, {
         method: "POST"
       });
-      setMessage(`${res.message} Ma moi: ${res.data.code}.`);
+      setMessage(`${res.message} Mã moi: ${res.data.code}.`);
       router.push(`/admin/tools/${res.data.id}`);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Khong the nhan ban cong cu.");
@@ -211,20 +211,20 @@ export default function AdminToolDetailClient({ toolId }: { toolId: string }) {
           </div>
           <div className="topbar-actions">
             <Link className="button button-ghost" href="/admin">
-              Quay lai
+              Quay lại
             </Link>
             <button className="button button-soft" type="button" onClick={cloneTool} disabled={cloning || !detail}>
               {cloning ? "Dang nhan ban..." : "Nhan ban cong cu"}
             </button>
             <button className="button button-primary" type="button" onClick={saveTool} disabled={!draft || saving}>
-              {saving ? "Dang luu..." : "Luu cong cu"}
+              {saving ? "Đang lưu..." : "Luu cong cu"}
             </button>
           </div>
         </header>
 
         <section className="metric-grid">
-          <article className="metric-card"><div className="metric-label">Trang thai</div><div className="metric-value">{detail?.status ?? "-"}</div></article>
-          <article className="metric-card"><div className="metric-label">Danh muc</div><div className="metric-value">{detail?.category ?? "-"}</div></article>
+          <article className="metric-card"><div className="metric-label">Trạng thái</div><div className="metric-value">{detail?.status ?? "-"}</div></article>
+          <article className="metric-card"><div className="metric-label">Danh mục</div><div className="metric-value">{detail?.category ?? "-"}</div></article>
           <article className="metric-card"><div className="metric-label">Stage</div><div className="metric-value">{detail?.contract?.stage ?? "-"}</div></article>
           <article className="metric-card"><div className="metric-label">Runtime</div><div className="metric-value" style={{ fontSize: 22 }}>{detail?.contract?.requiredRuntime?.join(", ") || "-"}</div></article>
           <article className="metric-card"><div className="metric-label">Workspace dung</div><div className="metric-value">{detail?.workspaceTools.length ?? 0}</div></article>
@@ -234,16 +234,16 @@ export default function AdminToolDetailClient({ toolId }: { toolId: string }) {
 
         <section className="panel" style={{ marginBottom: 20 }}>
           <div className="panel-head">
-            <h2>Hanh dong</h2>
+            <h2>Hành động</h2>
           </div>
           {draft ? (
             <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
               <label className="field">
-                <span>Ten cong cu</span>
+                <span>Tên cong cu</span>
                 <input value={draft.name} onChange={(event) => setDraft((current) => (current ? { ...current, name: event.target.value } : current))} />
               </label>
               <label className="field">
-                <span>Trang thai</span>
+                <span>Trạng thái</span>
                 <select value={draft.status} onChange={(event) => setDraft((current) => (current ? { ...current, status: event.target.value as "ACTIVE" | "DISABLED" } : current))}>
                   <option value="ACTIVE">ACTIVE</option>
                   <option value="DISABLED">DISABLED</option>
@@ -299,14 +299,14 @@ export default function AdminToolDetailClient({ toolId }: { toolId: string }) {
           <article className="panel table-panel">
             <div className="panel-head">
               <h2>Workspace su dung</h2>
-              <span className="badge badge-green">{detail?.workspaceTools.length ?? 0} muc</span>
+              <span className="badge badge-green">{detail?.workspaceTools.length ?? 0} mục</span>
             </div>
             <table className="table">
               <thead>
                 <tr>
                   <th>Workspace</th>
-                  <th>Chu so huu</th>
-                  <th>Trang thai</th>
+                  <th>Chủ sở hữu</th>
+                  <th>Trạng thái</th>
                   <th>Bat</th>
                   <th>Ngay</th>
                 </tr>
@@ -331,17 +331,17 @@ export default function AdminToolDetailClient({ toolId }: { toolId: string }) {
 
           <article className="panel table-panel" style={{ gridColumn: "1 / -1" }}>
             <div className="panel-head">
-              <h2>Phien ban cau hinh</h2>
-              <span className="badge badge-green">{detail?.configVersions.length ?? 0} muc</span>
+              <h2>Phiên bản cau hinh</h2>
+              <span className="badge badge-green">{detail?.configVersions.length ?? 0} mục</span>
             </div>
             <table className="table">
               <thead>
                 <tr>
-                  <th>Thoi gian</th>
-                  <th>Nguoi thuc hien</th>
-                  <th>Hanh dong</th>
-                  <th>Ten</th>
-                  <th>Trang thai</th>
+                  <th>Thời gian</th>
+                  <th>Người thực hiện</th>
+                  <th>Hành động</th>
+                  <th>Tên</th>
+                  <th>Trạng thái</th>
                   <th></th>
                 </tr>
               </thead>
@@ -389,19 +389,19 @@ export default function AdminToolDetailClient({ toolId }: { toolId: string }) {
                     <div style={{ display: "grid", gap: 12, marginTop: 12 }}>
                       <div style={{ display: "grid", gap: 8, gridTemplateColumns: "repeat(4, minmax(0, 1fr))" }}>
                         <div>
-                          <div className="metric-label">Tac vu</div>
+                          <div className="metric-label">Tác vụ</div>
                           <div className="table-main">{run.job.id.slice(0, 8)}</div>
                         </div>
                         <div>
-                          <div className="metric-label">Trang thai</div>
+                          <div className="metric-label">Trạng thái</div>
                           <div className="table-main">{run.status}</div>
                         </div>
                         <div>
-                          <div className="metric-label">Bat dau</div>
+                          <div className="metric-label">Bắt đầu</div>
                           <div className="table-main">{run.startedAt ? new Date(run.startedAt).toLocaleString("vi-VN") : "-"}</div>
                         </div>
                         <div>
-                          <div className="metric-label">Ket thuc</div>
+                          <div className="metric-label">Kết thúc</div>
                           <div className="table-main">{run.finishedAt ? new Date(run.finishedAt).toLocaleString("vi-VN") : "-"}</div>
                         </div>
                       </div>
@@ -415,9 +415,9 @@ export default function AdminToolDetailClient({ toolId }: { toolId: string }) {
                       <table className="table">
                         <thead>
                           <tr>
-                            <th>Thoi gian</th>
-                            <th>Muc</th>
-                            <th>Thong diep</th>
+                            <th>Thời gian</th>
+                            <th>Mức</th>
+                            <th>Thông điệp</th>
                             <th>Payload</th>
                           </tr>
                         </thead>
@@ -452,15 +452,15 @@ export default function AdminToolDetailClient({ toolId }: { toolId: string }) {
           <article className="panel table-panel" style={{ gridColumn: "1 / -1" }}>
             <div className="panel-head">
               <h2>Audit log</h2>
-              <span className="badge badge-green">{detail?.auditLogs.length ?? 0} muc</span>
+              <span className="badge badge-green">{detail?.auditLogs.length ?? 0} mục</span>
             </div>
             <table className="table">
               <thead>
                 <tr>
-                  <th>Thoi gian</th>
-                  <th>Hanh dong</th>
+                  <th>Thời gian</th>
+                  <th>Hành động</th>
                   <th>Workspace</th>
-                  <th>Nguoi thuc hien</th>
+                  <th>Người thực hiện</th>
                 </tr>
               </thead>
               <tbody>
@@ -472,7 +472,7 @@ export default function AdminToolDetailClient({ toolId }: { toolId: string }) {
                     <td>{log.user?.email ?? "-"}</td>
                   </tr>
                 )) : (
-                  <tr><td colSpan={4}>Khong co log.</td></tr>
+                  <tr><td colSpan={4}>Không có log.</td></tr>
                 )}
               </tbody>
             </table>

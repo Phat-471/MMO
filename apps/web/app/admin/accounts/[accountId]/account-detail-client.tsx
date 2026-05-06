@@ -50,7 +50,7 @@ type AccountDetail = {
 
 export default function AdminAccountDetailClient({ accountId }: { accountId: string }) {
   const [detail, setDetail] = useState<AccountDetail | null>(null);
-  const [message, setMessage] = useState("Dang tai chi tiet tai khoan...");
+  const [message, setMessage] = useState("Đang tải chi tiết tài khoản...");
   const [label, setLabel] = useState("");
   const [platform, setPlatform] = useState<"FACEBOOK" | "TIKTOK">("FACEBOOK");
   const [status, setStatus] = useState<"ALIVE" | "DEAD" | "LIMITED" | "PENDING">("PENDING");
@@ -67,7 +67,7 @@ export default function AdminAccountDetailClient({ accountId }: { accountId: str
         return;
       }
       if (!session || session.role !== "ADMIN") {
-        setMessage("Can quyen admin.");
+        setMessage("Cần quyền admin.");
         return;
       }
 
@@ -80,7 +80,7 @@ export default function AdminAccountDetailClient({ accountId }: { accountId: str
           setTag(res.data.tag ?? "");
           setGroupName(res.data.groupName ?? "");
           setNote(res.data.note ?? "");
-          setMessage("Da tai chi tiet tai khoan.");
+          setMessage("Đã tải chi tiết tài khoản.");
         })
         .catch((error: Error) => setMessage(error.message));
     };
@@ -120,7 +120,7 @@ export default function AdminAccountDetailClient({ accountId }: { accountId: str
       );
       setMessage(res.message);
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Khong the cap nhat tai khoan.");
+      setMessage(error instanceof Error ? error.message : "Không thể cập nhật tài khoản.");
     } finally {
       setSaving(false);
     }
@@ -139,33 +139,33 @@ export default function AdminAccountDetailClient({ accountId }: { accountId: str
         </header>
 
         <section className="metric-grid">
-          <article className="metric-card"><div className="metric-label">Trang thai</div><div className="metric-value">{detail ? formatAccountStatus(detail.status) : "-"}</div></article>
-          <article className="metric-card"><div className="metric-label">Nen tang</div><div className="metric-value">{detail ? formatPlatform(detail.platform) : "-"}</div></article>
+          <article className="metric-card"><div className="metric-label">Trạng thái</div><div className="metric-value">{detail ? formatAccountStatus(detail.status) : "-"}</div></article>
+          <article className="metric-card"><div className="metric-label">Nền tảng</div><div className="metric-value">{detail ? formatPlatform(detail.platform) : "-"}</div></article>
           <article className="metric-card"><div className="metric-label">Job</div><div className="metric-value">{detail?.jobs.length ?? 0}</div></article>
           <article className="metric-card"><div className="metric-label">Audit log</div><div className="metric-value">{detail?.auditLogs.length ?? 0}</div></article>
         </section>
 
         <section className="panel" style={{ marginBottom: 20 }}>
           <div className="panel-head">
-            <h2>Hanh dong</h2>
+            <h2>Hành động</h2>
             <button className="button button-primary" type="button" onClick={saveAccount} disabled={saving || !detail}>
-              {saving ? "Dang luu..." : "Luu cap nhat"}
+              {saving ? "Đang lưu..." : "Lưu cập nhật"}
             </button>
           </div>
           <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" }}>
             <label className="field">
-              <span>Ten tai khoan</span>
+              <span>Tên tài khoản</span>
               <input value={label} onChange={(event) => setLabel(event.target.value)} />
             </label>
             <label className="field">
-              <span>Nen tang</span>
+              <span>Nền tảng</span>
               <select value={platform} onChange={(event) => setPlatform(event.target.value as "FACEBOOK" | "TIKTOK")}>
                 <option value="FACEBOOK">FACEBOOK</option>
                 <option value="TIKTOK">TIKTOK</option>
               </select>
             </label>
             <label className="field">
-              <span>Trang thai</span>
+              <span>Trạng thái</span>
               <select value={status} onChange={(event) => setStatus(event.target.value as "ALIVE" | "DEAD" | "LIMITED" | "PENDING")}>
                 <option value="ALIVE">ALIVE</option>
                 <option value="DEAD">DEAD</option>
@@ -182,7 +182,7 @@ export default function AdminAccountDetailClient({ accountId }: { accountId: str
               <input value={tag} onChange={(event) => setTag(event.target.value)} />
             </label>
             <label className="field">
-              <span>Ghi chu</span>
+              <span>Ghi chú</span>
               <textarea value={note} onChange={(event) => setNote(event.target.value)} />
             </label>
           </div>
@@ -193,29 +193,29 @@ export default function AdminAccountDetailClient({ accountId }: { accountId: str
             <div className="panel-head"><h2>Workspace</h2></div>
             <table className="table">
               <tbody>
-                <tr><td className="table-main">Ten</td><td>{detail?.workspace.name ?? "-"}</td></tr>
+                <tr><td className="table-main">Tên</td><td>{detail?.workspace.name ?? "-"}</td></tr>
                 <tr><td className="table-main">Owner</td><td>{detail?.workspace.owner.email ?? "-"}</td></tr>
-                <tr><td className="table-main">Trang thai</td><td>{detail?.workspace.status ?? "-"}</td></tr>
+                <tr><td className="table-main">Trạng thái</td><td>{detail?.workspace.status ?? "-"}</td></tr>
               </tbody>
             </table>
           </article>
 
           <article className="panel table-panel">
-            <div className="panel-head"><h2>Thong tin</h2></div>
+            <div className="panel-head"><h2>Thông tin</h2></div>
             <table className="table">
               <tbody>
-                <tr><td className="table-main">Ngay tao</td><td>{detail ? new Date(detail.createdAt).toLocaleString("vi-VN") : "-"}</td></tr>
-                <tr><td className="table-main">Cap nhat</td><td>{detail ? new Date(detail.updatedAt).toLocaleString("vi-VN") : "-"}</td></tr>
-                <tr><td className="table-main">Lan dang nhap cuoi</td><td>{detail?.lastLoginAt ? new Date(detail.lastLoginAt).toLocaleString("vi-VN") : "-"}</td></tr>
-                <tr><td className="table-main">Lan lay du lieu cuoi</td><td>{detail?.lastFetchAt ? new Date(detail.lastFetchAt).toLocaleString("vi-VN") : "-"}</td></tr>
+                <tr><td className="table-main">Ngày tạo</td><td>{detail ? new Date(detail.createdAt).toLocaleString("vi-VN") : "-"}</td></tr>
+                <tr><td className="table-main">Cập nhật</td><td>{detail ? new Date(detail.updatedAt).toLocaleString("vi-VN") : "-"}</td></tr>
+                <tr><td className="table-main">Lần đăng nhập cuối</td><td>{detail?.lastLoginAt ? new Date(detail.lastLoginAt).toLocaleString("vi-VN") : "-"}</td></tr>
+                <tr><td className="table-main">Lần lấy dữ liệu cuối</td><td>{detail?.lastFetchAt ? new Date(detail.lastFetchAt).toLocaleString("vi-VN") : "-"}</td></tr>
               </tbody>
             </table>
           </article>
 
           <article className="panel table-panel">
-            <div className="panel-head"><h2>Tac vu gan nhat</h2></div>
+            <div className="panel-head"><h2>Tác vụ gần nhất</h2></div>
             <table className="table">
-              <thead><tr><th>Ma</th><th>Loai</th><th>Nen tang</th><th>Che do</th><th>Trang thai</th></tr></thead>
+              <thead><tr><th>Mã</th><th>Loại</th><th>Nền tảng</th><th>Chế độ</th><th>Trạng thái</th></tr></thead>
               <tbody>
                 {detail?.jobs.length ? detail.jobs.map((job) => (
                   <tr key={job.id}>
@@ -225,15 +225,15 @@ export default function AdminAccountDetailClient({ accountId }: { accountId: str
                     <td>{formatJobMode(job.mode)}</td>
                     <td>{formatJobStatus(job.status)}</td>
                   </tr>
-                )) : <tr><td colSpan={5}>Khong co tac vu.</td></tr>}
+                )) : <tr><td colSpan={5}>Không có tác vụ.</td></tr>}
               </tbody>
             </table>
           </article>
 
           <article className="panel table-panel" style={{ gridColumn: "1 / -1" }}>
-            <div className="panel-head"><h2>Audit log</h2><span className="badge badge-green">{detail?.auditLogs.length ?? 0} muc</span></div>
+            <div className="panel-head"><h2>Audit log</h2><span className="badge badge-green">{detail?.auditLogs.length ?? 0} mục</span></div>
             <table className="table">
-              <thead><tr><th>Thoi gian</th><th>Hanh dong</th><th>Doi tuong</th><th>Nguoi thuc hien</th></tr></thead>
+              <thead><tr><th>Thời gian</th><th>Hành động</th><th>Đối tượng</th><th>Người thực hiện</th></tr></thead>
               <tbody>
                 {detail?.auditLogs.length ? detail.auditLogs.map((log) => (
                   <tr key={log.id}>
@@ -242,7 +242,7 @@ export default function AdminAccountDetailClient({ accountId }: { accountId: str
                     <td>{log.entityType}</td>
                     <td>{log.user?.email ?? "-"}</td>
                   </tr>
-                )) : <tr><td colSpan={4}>Khong co log.</td></tr>}
+                )) : <tr><td colSpan={4}>Không có log.</td></tr>}
               </tbody>
             </table>
           </article>

@@ -180,7 +180,7 @@ const BANK_OPTIONS = [
 ] as const;
 
 function normalizeSection(value: string | null | undefined): AdminSection { return sections.includes(value as AdminSection) ? (value as AdminSection) : "dashboard"; }
-function parsePage<T>(data: PageData<T> | T[]): { items: T[]; meta: PageMeta } { return Array.isArray(data) ? { items: data, meta: { total: data.length, page: 1, pageSize, pageCount: Math.max(1, Math.ceil(data.length / pageSize)) } } : { items: data.items, meta: { total: data.total, page: data.page, pageSize: data.pageSize, pageCount: data.pageCount } }; }
+function parsePage<T>(data: PageData<T> | T[]): { items: T[]; meta: PageMeta } { return Array.isArray(data) ? { items: data, meta: { total: data.length, page: 1, pageSize, pageCount: Mãth.max(1, Mãth.ceil(data.length / pageSize)) } } : { items: data.items, meta: { total: data.total, page: data.page, pageSize: data.pageSize, pageCount: data.pageCount } }; }
 function safeSetter<T>(setter: (items: T[]) => void, section: AdminSection, data: PageData<T> | T[], setMeta: React.Dispatch<React.SetStateAction<Partial<Record<AdminSection, PageMeta>>>>) { const parsed = parsePage(data); setter(parsed.items); setMeta((current) => ({ ...current, [section]: parsed.meta })); }
 function selectedOrEmpty(value?: string[]) { return value ?? []; }
 function noop() { return undefined; }
@@ -361,7 +361,7 @@ function SystemHubSection({
   const [tab, setTab] = useState<SystemTab>("payment");
 
   const tabs: Array<{ key: SystemTab; label: string; hint: string }> = [
-    { key: "payment", label: "Thanh toan", hint: "Ngan hang va giao dich" },
+    { key: "payment", label: "Thanh toán", hint: "Ngan hang va giao dich" },
     { key: "worker-queue", label: "Worker / Queue", hint: "Redis va runtime" },
     { key: "connectivity", label: "Ket noi", hint: "Test API / Socket" },
     { key: "storage", label: "Asset / Storage", hint: "CDN va upload" },
@@ -454,7 +454,7 @@ function SystemPaymentTab({ system, request }: { system: AdminSystem | null; req
   return (
     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "start" }}>
       <div className="panel" style={{ padding: 24 }}>
-        <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Thong tin tai khoan thanh toan</h3>
+        <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Thông tin tai khoan thanh toan</h3>
         <div style={{ display: "grid", gap: 16 }}>
           <div className="input-group">
             <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Chon ngan hang</label>
@@ -476,15 +476,15 @@ function SystemPaymentTab({ system, request }: { system: AdminSystem | null; req
             </select>
           </div>
           <div className="input-group">
-            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Ma ngan hang</label>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Mã ngan hang</label>
             <input value={bankCode} readOnly style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "rgba(255,255,255,0.03)", border: "1px solid var(--border)", color: "#fff", outline: "none", opacity: 0.9 }} />
           </div>
           <div className="input-group">
-            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Ten chu tai khoan</label>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Tên chu tai khoan</label>
             <input value={accountName} onChange={(event) => setAccountName(event.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
           </div>
           <div className="input-group">
-            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>So tai khoan</label>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Số tài khoản</label>
             <input value={accountNumber} onChange={(event) => setAccountNumber(event.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
           </div>
           <div className="input-group">
@@ -492,12 +492,12 @@ function SystemPaymentTab({ system, request }: { system: AdminSystem | null; req
             <input value={transferPrefix} onChange={(event) => setTransferPrefix(event.target.value)} placeholder="MMO" style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
           </div>
           <div className="input-group">
-            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Ghi chu</label>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Ghi chú</label>
             <textarea value={note} onChange={(event) => setNote(event.target.value)} rows={4} style={{ width: "100%", padding: 14, borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none", resize: "vertical" }} />
           </div>
           <label style={{ display: "flex", gap: 10, alignItems: "center", fontSize: 13, color: "var(--text-muted)" }}>
             <input type="checkbox" checked={isActive} onChange={(event) => setIsActive(event.target.checked)} />
-            Kich hoat cau hinh thanh toan nay
+            Kích hoạt cau hinh thanh toan nay
           </label>
           <button className="button button-primary" style={{ height: 48, borderRadius: 12, fontWeight: 800 }} onClick={savePaymentSettings}>
             Luu cau hinh thanh toan
@@ -525,7 +525,7 @@ function SystemPaymentTab({ system, request }: { system: AdminSystem | null; req
                     So tien: <b style={{ color: "var(--primary)" }}>{transaction.amount.toLocaleString("vi-VN")}đ</b>
                   </div>
                   <div>
-                    Thoi gian: <b>{new Date(transaction.createdAt).toLocaleString("vi-VN")}</b>
+                    Thời gian: <b>{new Date(transaction.createdAt).toLocaleString("vi-VN")}</b>
                   </div>
                   <div style={{ gridColumn: "1 / -1" }}>
                     Noi dung: <b>{transaction.transferContent}</b>
@@ -625,12 +625,12 @@ function SystemWorkerQueueTab({ system, request }: { system: AdminSystem | null;
 
         <div style={{ display: "grid", gap: 16, marginTop: 16 }}>
           <div className="input-group">
-            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Ghi chu</label>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Ghi chú</label>
             <textarea value={integrationNote} onChange={(event) => setIntegrationNote(event.target.value)} rows={4} style={{ width: "100%", padding: 14, borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none", resize: "vertical" }} />
           </div>
           <label style={{ display: "flex", gap: 10, alignItems: "center", fontSize: 13, color: "var(--text-muted)" }}>
             <input type="checkbox" checked={integrationActive} onChange={(event) => setIntegrationActive(event.target.checked)} />
-            Kich hoat cau hinh worker / queue nay
+            Kích hoạt cau hinh worker / queue nay
           </label>
           <button className="button button-primary" style={{ height: 48, borderRadius: 12, fontWeight: 800 }} onClick={saveIntegrationSettings}>
             Luu cau hinh worker
@@ -640,7 +640,7 @@ function SystemWorkerQueueTab({ system, request }: { system: AdminSystem | null;
 
       <div style={{ display: "grid", gap: 24 }}>
         <div className="panel" style={{ padding: 24 }}>
-          <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Trang thai runtime</h3>
+          <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Trạng thái runtime</h3>
           <div className="metric-grid">
             <article className="metric-card">
               <div className="metric-label">Queue status</div>
@@ -992,7 +992,7 @@ function SystemStorageTab({ system, request }: { system: AdminSystem | null; req
 type SystemStorageMode = "LOCAL" | "CDN" | "HYBRID";
 
 function SystemSecurityTab({ system, request }: { system: AdminSystem | null; request: RequestFn }) {
-  const [maintenanceMode, setMaintenanceMode] = useState(system?.security.maintenanceMode ?? false);
+  const [maintenanceMode, setMãintenanceMode] = useState(system?.security.maintenanceMode ?? false);
   const [requireTwoFactor, setRequireTwoFactor] = useState(system?.security.requireTwoFactor ?? false);
   const [apiRateLimitPerMinute, setApiRateLimitPerMinute] = useState(String(system?.security.apiRateLimitPerMinute ?? 120));
   const [sessionTtlHours, setSessionTtlHours] = useState(String(system?.security.sessionTtlHours ?? 72));
@@ -1001,7 +1001,7 @@ function SystemSecurityTab({ system, request }: { system: AdminSystem | null; re
   const [isActive, setIsActive] = useState(system?.security.isActive ?? true);
 
   useEffect(() => {
-    setMaintenanceMode(system?.security.maintenanceMode ?? false);
+    setMãintenanceMode(system?.security.maintenanceMode ?? false);
     setRequireTwoFactor(system?.security.requireTwoFactor ?? false);
     setApiRateLimitPerMinute(String(system?.security.apiRateLimitPerMinute ?? 120));
     setSessionTtlHours(String(system?.security.sessionTtlHours ?? 72));
@@ -1028,8 +1028,8 @@ function SystemSecurityTab({ system, request }: { system: AdminSystem | null; re
         <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>Cấu hình Bảo mật</h3>
         <div style={{ display: "grid", gap: 16 }}>
           <label style={{ display: "flex", gap: 10, alignItems: "center", fontSize: 13, color: "var(--text-muted)" }}>
-            <input type="checkbox" checked={maintenanceMode} onChange={(event) => setMaintenanceMode(event.target.checked)} />
-            Chế độ bảo trì (Maintenance mode)
+            <input type="checkbox" checked={maintenanceMode} onChange={(event) => setMãintenanceMode(event.target.checked)} />
+            Chế độ bảo trì (Mãintenance mode)
           </label>
           <label style={{ display: "flex", gap: 10, alignItems: "center", fontSize: 13, color: "var(--text-muted)" }}>
             <input type="checkbox" checked={requireTwoFactor} onChange={(event) => setRequireTwoFactor(event.target.checked)} />
@@ -1148,11 +1148,11 @@ function SearchBox({ value, onChange, label }: { value: string; onChange: (value
 function Pager({ meta, page, setPage }: { meta: PageMeta; page: number; setPage: (value: number) => void }) { 
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, marginTop: 32, padding: "0 16px" }}>
-      <div style={{ fontSize: 13, color: "var(--text-dim)" }}>Hiển thị <b>{Math.min(meta.total, meta.pageSize)}</b> trong số <b>{meta.total}</b> bản ghi</div>
+      <div style={{ fontSize: 13, color: "var(--text-dim)" }}>Hiển thị <b>{Mãth.min(meta.total, meta.pageSize)}</b> trong số <b>{meta.total}</b> bản ghi</div>
       <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
         <span style={{ fontSize: 12, marginRight: 8, color: "var(--text-dim)" }}>Trang {page} / {meta.pageCount}</span>
-        <button className="button button-soft" style={{ width: 40, height: 40, padding: 0, borderRadius: 12 }} disabled={page <= 1} onClick={() => setPage(Math.max(1, page - 1))}>◀</button>
-        <button className="button button-soft" style={{ width: 40, height: 40, padding: 0, borderRadius: 12 }} disabled={page >= meta.pageCount} onClick={() => setPage(Math.min(meta.pageCount, page + 1))}>▶</button>
+        <button className="button button-soft" style={{ width: 40, height: 40, padding: 0, borderRadius: 12 }} disabled={page <= 1} onClick={() => setPage(Mãth.max(1, page - 1))}>◀</button>
+        <button className="button button-soft" style={{ width: 40, height: 40, padding: 0, borderRadius: 12 }} disabled={page >= meta.pageCount} onClick={() => setPage(Mãth.min(meta.pageCount, page + 1))}>▶</button>
       </div>
     </div>
   ); 
@@ -1219,7 +1219,7 @@ function DashboardSection({ tools, plans, auditLogs, system, onSectionChange }: 
             <span style={{ fontSize: 24 }}>{c.icon}</span>
             <div style={{ textAlign: "left" }}>
               <div style={{ fontWeight: 800, fontSize: 15 }}>{c.label}</div>
-              <div style={{ fontSize: 11, color: "var(--text-dim)", textTransform: "uppercase" }}>Management</div>
+              <div style={{ fontSize: 11, color: "var(--text-dim)", textTransform: "uppercase" }}>Mãnagement</div>
             </div>
           </button>
         ))}
@@ -1312,10 +1312,10 @@ function PlansSection({ plans, request }: { plans: AdminPlan[]; request: Request
   const [selectedCode, setSelectedCode] = useState<AdminPlan["code"] | "">("");
   const [name, setName] = useState("");
   const [priceMonthly, setPriceMonthly] = useState("");
-  const [maxAccounts, setMaxAccounts] = useState("0");
-  const [maxRunningJobs, setMaxRunningJobs] = useState("0");
-  const [maxWorkspaces, setMaxWorkspaces] = useState("0");
-  const [maxDailyFetches, setMaxDailyFetches] = useState("0");
+  const [maxAccounts, setMãxAccounts] = useState("0");
+  const [maxRunningJobs, setMãxRunningJobs] = useState("0");
+  const [maxWorkspaces, setMãxWorkspaces] = useState("0");
+  const [maxDailyFetches, setMãxDailyFetches] = useState("0");
   const [featuresJson, setFeaturesJson] = useState("[]");
 
   useEffect(() => {
@@ -1324,10 +1324,10 @@ function PlansSection({ plans, request }: { plans: AdminPlan[]; request: Request
     setSelectedCode(selected.code);
     setName(selected.name);
     setPriceMonthly(selected.priceMonthly);
-    setMaxAccounts(String(selected.maxAccounts));
-    setMaxRunningJobs(String(selected.maxRunningJobs));
-    setMaxWorkspaces(String(selected.maxWorkspaces));
-    setMaxDailyFetches(String(selected.maxDailyFetches));
+    setMãxAccounts(String(selected.maxAccounts));
+    setMãxRunningJobs(String(selected.maxRunningJobs));
+    setMãxWorkspaces(String(selected.maxWorkspaces));
+    setMãxDailyFetches(String(selected.maxDailyFetches));
     setFeaturesJson(selected.featuresJson || "[]");
   }, [plans, selectedCode]);
 
@@ -1371,20 +1371,20 @@ function PlansSection({ plans, request }: { plans: AdminPlan[]; request: Request
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
                  <div className="input-group">
-                    <label style={{ display: "block", fontSize: 10, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Max Accounts</label>
-                    <input type="number" value={maxAccounts} onChange={(e) => setMaxAccounts(e.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
+                    <label style={{ display: "block", fontSize: 10, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Mãx Accounts</label>
+                    <input type="number" value={maxAccounts} onChange={(e) => setMãxAccounts(e.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
                  </div>
                  <div className="input-group">
-                    <label style={{ display: "block", fontSize: 10, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Max Running Jobs</label>
-                    <input type="number" value={maxRunningJobs} onChange={(e) => setMaxRunningJobs(e.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
+                    <label style={{ display: "block", fontSize: 10, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Mãx Running Jobs</label>
+                    <input type="number" value={maxRunningJobs} onChange={(e) => setMãxRunningJobs(e.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
                  </div>
                  <div className="input-group">
-                    <label style={{ display: "block", fontSize: 10, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Max Workspaces</label>
-                    <input type="number" value={maxWorkspaces} onChange={(e) => setMaxWorkspaces(e.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
+                    <label style={{ display: "block", fontSize: 10, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Mãx Workspaces</label>
+                    <input type="number" value={maxWorkspaces} onChange={(e) => setMãxWorkspaces(e.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
                  </div>
                  <div className="input-group">
                     <label style={{ display: "block", fontSize: 10, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Lượt Fetch / ngày</label>
-                    <input type="number" value={maxDailyFetches} onChange={(e) => setMaxDailyFetches(e.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
+                    <input type="number" value={maxDailyFetches} onChange={(e) => setMãxDailyFetches(e.target.value)} style={{ width: "100%", height: 44, padding: "0 14px", borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none" }} />
                  </div>
               </div>
               <div className="input-group">
@@ -1748,12 +1748,12 @@ function SystemPaymentSection({ system, request }: { system: AdminSystem | null;
 
         <div style={{ display: "grid", gap: 16, marginTop: 16 }}>
           <div className="input-group">
-            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Ghi chu</label>
+            <label style={{ display: "block", fontSize: 11, fontWeight: 800, textTransform: "uppercase", marginBottom: 8, color: "var(--text-dim)" }}>Ghi chú</label>
             <textarea value={integrationNote} onChange={(event) => setIntegrationNote(event.target.value)} rows={4} style={{ width: "100%", padding: 14, borderRadius: 12, background: "var(--bg-elevated)", border: "1px solid var(--border)", color: "#fff", outline: "none", resize: "vertical" }} />
           </div>
           <label style={{ display: "flex", gap: 10, alignItems: "center", fontSize: 13, color: "var(--text-muted)" }}>
             <input type="checkbox" checked={integrationActive} onChange={(event) => setIntegrationActive(event.target.checked)} />
-            Kich hoat cau hinh API nay
+            Kích hoạt cau hinh API nay
           </label>
           <button className="button button-primary" style={{ height: 48, borderRadius: 12, fontWeight: 800 }} onClick={saveIntegrationSettings}>
             Luu cau hinh API & tich hop

@@ -48,13 +48,13 @@ export default function JobDetailClient({ jobId }: { jobId: string }) {
   const [runs, setRuns] = useState<RunDetail[]>([]);
   const [selectedRunId, setSelectedRunId] = useState<string | null>(null);
   const [selectedRun, setSelectedRun] = useState<RunDetail | null>(null);
-  const [message, setMessage] = useState("Dang tai chi tiet tac vu...");
+  const [message, setMessage] = useState("Đang tải chi tiết tác vụ...");
   const [busyAction, setBusyAction] = useState<string | null>(null);
 
   async function loadData(nextSelectedRunId?: string | null) {
     const session = loadSession();
     if (!session) {
-      setMessage("Ban can dang nhap truoc khi xem chi tiet tac vu.");
+      setMessage("Bạn cần đăng nhập trước khi xem chi tiết tác vụ.");
       return;
     }
 
@@ -69,9 +69,9 @@ export default function JobDetailClient({ jobId }: { jobId: string }) {
       const resolvedSelectedRunId = nextSelectedRunId ?? runsRes.data[0]?.id ?? null;
       setSelectedRunId(resolvedSelectedRunId);
       setSelectedRun(resolvedSelectedRunId ? runsRes.data.find((run) => run.id === resolvedSelectedRunId) ?? runsRes.data[0] ?? null : runsRes.data[0] ?? null);
-      setMessage("Da tai chi tiet tac vu.");
+      setMessage("Đã tải chi tiết tác vụ.");
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Khong the tai chi tiet tac vu.");
+      setMessage(error instanceof Error ? error.message : "Không thể tải chi tiết tác vụ.");
     }
   }
 
@@ -81,7 +81,7 @@ export default function JobDetailClient({ jobId }: { jobId: string }) {
 
   const selectedRunLabel = useMemo(() => {
     if (!selectedRun) {
-      return "Chua co lan chay nao.";
+      return "Chưa có lần chạy nào.";
     }
     return `${selectedRun.status} | ${new Date(selectedRun.createdAt).toLocaleString("vi-VN")}`;
   }, [selectedRun]);
@@ -92,10 +92,10 @@ export default function JobDetailClient({ jobId }: { jobId: string }) {
       await apiRequest(`/jobs/${jobId}/run`, {
         method: "POST"
       });
-      setMessage("Da dua tac vu vao hang doi.");
+      setMessage("Đã đưa tác vụ vào hàng đợi.");
       await loadData();
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Khong the chay tac vu.");
+      setMessage(error instanceof Error ? error.message : "Không thể chạy tác vụ.");
     } finally {
       setBusyAction(null);
     }
@@ -108,7 +108,7 @@ export default function JobDetailClient({ jobId }: { jobId: string }) {
       setMessage(res.message);
       await loadData(selectedRunId);
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Khong the tam dung tac vu.");
+      setMessage(error instanceof Error ? error.message : "Không thể tạm dừng tác vụ.");
     } finally {
       setBusyAction(null);
     }
@@ -121,7 +121,7 @@ export default function JobDetailClient({ jobId }: { jobId: string }) {
       setMessage(res.message);
       await loadData(selectedRunId);
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Khong the tiep tuc tac vu.");
+      setMessage(error instanceof Error ? error.message : "Không thể tiếp tục tác vụ.");
     } finally {
       setBusyAction(null);
     }
@@ -146,7 +146,7 @@ export default function JobDetailClient({ jobId }: { jobId: string }) {
       setMessage(res.message);
       await loadData(res.data.id);
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Khong the retry lan chay.");
+      setMessage(error instanceof Error ? error.message : "Không thể retry lần chạy.");
     } finally {
       setBusyAction(null);
     }
@@ -158,41 +158,41 @@ export default function JobDetailClient({ jobId }: { jobId: string }) {
         <div className="brand">
           <div className="brand-mark">MMO</div>
           <div>
-            <div className="brand-title">Chi tiet tac vu</div>
+            <div className="brand-title">Chi tiết tác vụ</div>
             <div className="brand-sub">Xem job, run, log</div>
           </div>
         </div>
 
         <nav className="nav">
-          <Link className="nav-item" href="/">Bang dieu khien</Link>
-          <Link className="nav-item" href="/cong-cu">Cong cu</Link>
-          <Link className="nav-item active" href="/tao-tac-vu">Tao tac vu</Link>
-          <Link className="nav-item" href="/thanh-toan">Thanh toan</Link>
-          <Link className="nav-item" href="/admin">Admin</Link>
+          <Link className="nav-item" href="/">Bảng điều khiển</Link>
+          <Link className="nav-item" href="/cong-cu">Công cụ</Link>
+          <Link className="nav-item active" href="/tao-tac-vu">Tạo tác vụ</Link>
+          <Link className="nav-item" href="/thanh-toan">Thanh toán</Link>
+          <Link className="nav-item" href="/admin">Admin Hub</Link>
         </nav>
       </aside>
 
       <main className="main">
         <header className="topbar">
           <div>
-            <h1>Chi tiet tac vu</h1>
-            <p>Job, lan chay va log duoc hien thi trong mot man.</p>
+            <h1>Chi tiết tác vụ</h1>
+            <p>Job, lần chạy và log được hiển thị trong một màn.</p>
           </div>
           <div className="topbar-actions">
             <button className="button button-ghost" type="button" onClick={() => loadData()}>
-              Tai lai
+              Tải lại
             </button>
             {job?.status === "PAUSED" ? (
               <button className="button button-primary" type="button" onClick={resumeJob} disabled={busyAction !== null}>
-                {busyAction === "resume" ? "Dang tiep tuc..." : "Tiep tuc"}
+                {busyAction === "resume" ? "Đang tiếp tục..." : "Tiếp tục"}
               </button>
             ) : (
               <button className="button button-soft" type="button" onClick={pauseJob} disabled={busyAction !== null}>
-                {busyAction === "pause" ? "Dang tam dung..." : "Tam dung"}
+                {busyAction === "pause" ? "Đang tạm dừng..." : "Tạm dừng"}
               </button>
             )}
             <button className="button button-primary" type="button" onClick={runJob} disabled={busyAction === "run"}>
-              {busyAction === "run" ? "Dang chay..." : "Chay lai"}
+              {busyAction === "run" ? "Đang chạy..." : "Chạy lại"}
             </button>
           </div>
         </header>
@@ -200,24 +200,24 @@ export default function JobDetailClient({ jobId }: { jobId: string }) {
         <div className="auth-note" style={{ color: "var(--muted)", marginBottom: 16 }}>{message}</div>
 
         <section className="metric-grid">
-          <article className="metric-card"><div className="metric-label">Ma job</div><div className="metric-value">{job?.id.slice(0, 8) ?? "-"}</div></article>
-          <article className="metric-card"><div className="metric-label">Nen tang</div><div className="metric-value">{job ? formatPlatform(job.platform) : "-"}</div></article>
-          <article className="metric-card"><div className="metric-label">Loai</div><div className="metric-value">{job ? formatJobType(job.jobType) : "-"}</div></article>
-          <article className="metric-card"><div className="metric-label">Trang thai</div><div className="metric-value">{job ? formatJobStatus(job.status) : "-"}</div></article>
+          <article className="metric-card"><div className="metric-label">Mã job</div><div className="metric-value">{job?.id.slice(0, 8) ?? "-"}</div></article>
+          <article className="metric-card"><div className="metric-label">Nền tảng</div><div className="metric-value">{job ? formatPlatform(job.platform) : "-"}</div></article>
+          <article className="metric-card"><div className="metric-label">Loại</div><div className="metric-value">{job ? formatJobType(job.jobType) : "-"}</div></article>
+          <article className="metric-card"><div className="metric-label">Trạng thái</div><div className="metric-value">{job ? formatJobStatus(job.status) : "-"}</div></article>
         </section>
 
         <section className="content-grid">
           <article className="panel table-panel">
             <div className="panel-head">
-              <h2>Thong tin job</h2>
+              <h2>Thông tin job</h2>
               <span className="badge badge-green">{job ? formatJobMode(job.mode) : "-"}</span>
             </div>
             <table className="table">
               <tbody>
-                <tr><td className="table-main">Lenh cron</td><td>{job?.scheduleCron ?? "-"}</td></tr>
-                <tr><td className="table-main">Account</td><td>{job?.accountId ?? "-"}</td></tr>
-                <tr><td className="table-main">Tao luc</td><td>{job ? new Date(job.createdAt).toLocaleString("vi-VN") : "-"}</td></tr>
-                <tr><td className="table-main">Cap nhat luc</td><td>{job ? new Date(job.updatedAt).toLocaleString("vi-VN") : "-"}</td></tr>
+                <tr><td className="table-main">Lệnh cron</td><td>{job?.scheduleCron ?? "-"}</td></tr>
+                <tr><td className="table-main">Tài khoản</td><td>{job?.accountId ?? "-"}</td></tr>
+                <tr><td className="table-main">Tạo lúc</td><td>{job ? new Date(job.createdAt).toLocaleString("vi-VN") : "-"}</td></tr>
+                <tr><td className="table-main">Cập nhật lúc</td><td>{job ? new Date(job.updatedAt).toLocaleString("vi-VN") : "-"}</td></tr>
                 <tr><td className="table-main">Options</td><td><pre style={{ margin: 0, whiteSpace: "pre-wrap" }}>{job?.optionsJson ?? "{}"}</pre></td></tr>
               </tbody>
             </table>
@@ -225,17 +225,17 @@ export default function JobDetailClient({ jobId }: { jobId: string }) {
 
           <article className="panel table-panel">
             <div className="panel-head">
-              <h2>Lan chay</h2>
-              <span className="badge badge-green">{runs.length} muc</span>
+              <h2>Lần chạy</h2>
+              <span className="badge badge-green">{runs.length} mục</span>
             </div>
 
             <table className="table">
               <thead>
                 <tr>
-                  <th>Ma</th>
-                  <th>Trang thai</th>
-                  <th>Bat dau</th>
-                  <th>Ket thuc</th>
+                  <th>Mã</th>
+                  <th>Trạng thái</th>
+                  <th>Bắt đầu</th>
+                  <th>Kết thúc</th>
                   <th></th>
                 </tr>
               </thead>
@@ -253,14 +253,14 @@ export default function JobDetailClient({ jobId }: { jobId: string }) {
                         </button>
                         {run.status === "FAILED" ? (
                           <button className="button button-soft" type="button" onClick={() => retryRun(run.id)} disabled={busyAction === run.id}>
-                            {busyAction === run.id ? "Dang retry..." : "Retry"}
+                            {busyAction === run.id ? "Đang retry..." : "Retry"}
                           </button>
                         ) : null}
                       </div>
                     </td>
                   </tr>
                 )) : (
-                  <tr><td colSpan={5}>Chua co lan chay nao.</td></tr>
+                  <tr><td colSpan={5}>Chưa có lần chạy nào.</td></tr>
                 )}
               </tbody>
             </table>
@@ -268,11 +268,11 @@ export default function JobDetailClient({ jobId }: { jobId: string }) {
 
           <article className="panel table-panel" style={{ gridColumn: "1 / -1" }}>
             <div className="panel-head">
-              <h2>Log lan chay</h2>
+              <h2>Log lần chạy</h2>
               <span className="badge badge-green">{selectedRunLabel}</span>
               {selectedRun?.status === "FAILED" ? (
                 <button className="button button-soft" type="button" onClick={() => retryRun(selectedRun.id)} disabled={busyAction === selectedRun.id}>
-                  {busyAction === selectedRun.id ? "Dang retry..." : "Retry run nay"}
+                  {busyAction === selectedRun.id ? "Đang retry..." : "Retry run này"}
                 </button>
               ) : null}
             </div>
@@ -281,9 +281,9 @@ export default function JobDetailClient({ jobId }: { jobId: string }) {
               <table className="table">
                 <thead>
                   <tr>
-                    <th>Thoi gian</th>
-                    <th>Muc</th>
-                    <th>Thong diep</th>
+                    <th>Thời gian</th>
+                    <th>Mức</th>
+                    <th>Thông điệp</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -297,12 +297,12 @@ export default function JobDetailClient({ jobId }: { jobId: string }) {
                       </td>
                     </tr>
                   )) : (
-                    <tr><td colSpan={3}>Lan chay nay chua co log.</td></tr>
+                    <tr><td colSpan={3}>Lần chạy này chưa có log.</td></tr>
                   )}
                 </tbody>
               </table>
             ) : (
-              <div className="auth-note" style={{ color: "var(--muted)" }}>Chon mot lan chay de xem log.</div>
+              <div className="auth-note" style={{ color: "var(--muted)" }}>Chọn một lần chạy để xem log.</div>
             )}
           </article>
         </section>
