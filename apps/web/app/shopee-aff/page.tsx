@@ -794,15 +794,15 @@ export default function ShopeeAffPage() {
         const latestRun = sortedRuns[0] ?? null;
         return latestRun
           ? [
-              {
-                jobId: job.id,
-                title: getJobDisplayName(job),
-                jobType: job.jobType,
-                status: latestRun.status,
-                createdAt: latestRun.createdAt,
-                note: normalizeRunMetrics(latestRun).note ?? latestRun.errorMessage ?? "-"
-              }
-            ]
+            {
+              jobId: job.id,
+              title: getJobDisplayName(job),
+              jobType: job.jobType,
+              status: latestRun.status,
+              createdAt: latestRun.createdAt,
+              note: normalizeRunMetrics(latestRun).note ?? latestRun.errorMessage ?? "-"
+            }
+          ]
           : [];
       })
       .sort((left, right) => new Date(right.createdAt).getTime() - new Date(left.createdAt).getTime())
@@ -1699,8 +1699,8 @@ export default function ShopeeAffPage() {
                   <label className="field">
                     <span>Chế độ vận hành</span>
                     <select className="input" value={form.mode} onChange={(event) => setField("mode", event.target.value as JobModeValue)}>
-                      <option value="scheduled">Ch蘯｡y theo l盻議h ch盻・ﾄ黛ｻ杵h</option>
-                      <option value="recurring">Ch蘯｡y l蘯ｷp l蘯｡i ﾄ黛ｻ杵h k盻ｳ</option>
+                      <option value="scheduled">Chạy theo lịch cố định</option>
+                      <option value="recurring">Chạy lặp lại định kỳ</option>
                     </select>
                   </label>
                 </div>
@@ -1708,18 +1708,18 @@ export default function ShopeeAffPage() {
                 {form.mode !== "once" && (
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", padding: "20px", borderRadius: "16px", background: "rgba(255,255,255,0.03)", border: "1px solid var(--border)" }}>
                     <label className="field">
-                      <span>L盻議h trﾃｬnh m蘯ｫu</span>
+                      <span>Lịch trình mẫu</span>
                       <select className="input" value={form.schedulePreset} onChange={(event) => setField("schedulePreset", event.target.value as SchedulePresetValue)}>
-                        <option value="immediate">Ngay l蘯ｭp t盻ｩc</option>
-                        <option value="daily_morning">M盻擁 sﾃ｡ng (08:00)</option>
-                        <option value="daily_evening">M盻擁 t盻訴 (18:00)</option>
-                        <option value="weekdays_morning">Ngﾃy thﾆｰ盻拵g (09:00)</option>
-                        <option value="weekends_morning">Cu盻訴 tu蘯ｧn (10:00)</option>
-                        <option value="custom">Tﾃｹy ch盻穎h Cron</option>
+                        <option value="immediate">Ngay lập tức</option>
+                        <option value="daily_morning">Mỗi sáng (08:00)</option>
+                        <option value="daily_evening">Mỗi tối (18:00)</option>
+                        <option value="weekdays_morning">Ngày thường (09:00)</option>
+                        <option value="weekends_morning">Cuối tuần (10:00)</option>
+                        <option value="custom">Tùy chỉnh Cron</option>
                       </select>
                     </label>
                     <label className="field">
-                      <span>Bi盻ブ th盻ｩc Cron</span>
+                      <span>Biểu thức Cron</span>
                       <input className="input" value={form.scheduleCron} onChange={(event) => setField("scheduleCron", event.target.value)} placeholder="0 8 * * *" />
                     </label>
                   </div>
@@ -1888,7 +1888,7 @@ export default function ShopeeAffPage() {
                 <h4 style={{ margin: 0, fontSize: "1rem", fontWeight: 800 }}>Video Pipeline Preview</h4>
                 <span className="badge" style={{ background: "var(--primary)", color: "#fff" }}>{videoPreview.sourceType}</span>
               </div>
-              
+
               <div style={{ display: "grid", gap: "12px" }}>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
                   <div style={{ padding: "16px", borderRadius: "14px", background: "rgba(0,0,0,0.2)", border: "1px solid var(--border)" }}>
@@ -1979,14 +1979,14 @@ export default function ShopeeAffPage() {
                         <span className="badge" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid var(--border)" }}>{formatJobType(job.jobType).split(" ")[1]}</span>
                       </div>
                       <h3 style={{ margin: "0 0 12px", fontSize: "1.4rem", fontWeight: 800 }}>{getJobDisplayName(job)}</h3>
-                      
+
                       <div style={{ display: "flex", gap: "20px", color: "var(--text-muted)", fontSize: "0.9rem" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                          <span style={{ opacity: 0.5 }}>葡</span> {job.mode === "once" ? "Ch蘯｡y 1 l蘯ｧn" : "Ch蘯｡y ﾄ黛ｻ杵h k盻ｳ"}
+                          <span style={{ opacity: 0.5 }}>🕒</span> {job.mode === "once" ? "Chạy 1 lần" : "Chạy định kỳ"}
                         </div>
                         {job.scheduleCron && (
                           <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                            <span style={{ opacity: 0.5 }}>套</span> <code>{job.scheduleCron}</code>
+                            <span style={{ opacity: 0.5 }}>📅</span> <code>{job.scheduleCron}</code>
                           </div>
                         )}
                       </div>
@@ -2077,7 +2077,7 @@ export default function ShopeeAffPage() {
                   <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", opacity: 0.5 }}>🔍</span>
                 </div>
               </label>
-              
+
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
                 <div style={{ padding: "20px", borderRadius: "16px", background: "rgba(139, 92, 246, 0.05)", border: "1px solid var(--primary-border)" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
@@ -2097,7 +2097,7 @@ export default function ShopeeAffPage() {
                     onChange={(event) => setAssetImportText(event.target.value)}
                     rows={1}
                     style={{ fontSize: "0.75rem", background: "rgba(0,0,0,0.2)" }}
-                    placeholder="CSV ho蘯ｷc JSON data..."
+                    placeholder="CSV hoặc JSON data..."
                   />
                 </div>
               </div>
@@ -2135,7 +2135,7 @@ export default function ShopeeAffPage() {
                       <div style={{ fontSize: "0.75rem", color: "var(--text-dim)", marginBottom: "8px", overflow: "hidden", textOverflow: "ellipsis" }}>{asset.sourceUrl}</div>
                       <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
                         <span className="badge" style={{ fontSize: "0.65rem", padding: "2px 6px" }}>{asset.assetType}</span>
-                        <span className="badge" style={{ fontSize: "0.65rem", padding: "2px 6px" }}>Dﾃｹng: {asset.usageCount}</span>
+                        <span className="badge" style={{ fontSize: "0.65rem", padding: "2px 6px" }}>Dùng: {asset.usageCount}</span>
                         {asset.tags?.slice(0, 2).map(tag => (
                           <span key={tag} className="badge" style={{ fontSize: "0.65rem", padding: "2px 6px", background: "rgba(139, 92, 246, 0.1)" }}>#{tag}</span>
                         ))}
@@ -2161,7 +2161,7 @@ export default function ShopeeAffPage() {
             <h2 style={{ margin: 0 }}>{editingAssetId ? "Cập nhật tài nguyên" : "Khai báo tài nguyên mới"}</h2>
             <button type="button" className="button button-ghost" onClick={() => { setEditingAssetId(null); setAssetForm(createDefaultAssetForm()); }}>Làm mới form</button>
           </div>
-          
+
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               <label className="field">
@@ -2187,7 +2187,7 @@ export default function ShopeeAffPage() {
                 </label>
               </div>
             </div>
-            
+
             <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               <label className="field">
                 <span>Đường dẫn nguồn (URL)</span>
@@ -2201,9 +2201,9 @@ export default function ShopeeAffPage() {
           </div>
 
           <div style={{ marginTop: "24px", display: "flex", gap: "16px" }}>
-             <button type="submit" className="button button-primary" style={{ flex: 1, padding: "14px" }} disabled={isSubmitting}>
-               {isSubmitting ? "Hệ thống đang lưu..." : editingAssetId ? "Lưu thay đổi" : "Khai báo Asset"}
-             </button>
+            <button type="submit" className="button button-primary" style={{ flex: 1, padding: "14px" }} disabled={isSubmitting}>
+              {isSubmitting ? "Hệ thống đang lưu..." : editingAssetId ? "Lưu thay đổi" : "Khai báo Asset"}
+            </button>
           </div>
         </form>
       </div>
@@ -2562,11 +2562,11 @@ export default function ShopeeAffPage() {
         </div>
       </div>
     );
-  }  if (!verified) {
+  } if (!verified) {
     return (
       <div className="auth-shell">
         <div className="pulse" style={{ color: "var(--primary)", fontWeight: 700 }}>
-          ﾄ紳ng t蘯｣i Shopee Aff dashboard...
+          Đang tải Shopee Aff dashboard...
         </div>
       </div>
     );
@@ -2584,60 +2584,60 @@ export default function ShopeeAffPage() {
               Shopee <span style={{ color: "var(--primary)" }}>Affiliate</span> Hub
             </h1>
             <p style={{ fontSize: "1.1rem", color: "var(--text-muted)", maxWidth: "600px" }}>
-              H盻・th盻創g t盻ｱ ﾄ黛ｻ冢g hﾃｳa v蘯ｭn hﾃnh, qu蘯｣n lﾃｽ k盻議h b蘯｣n vﾃ t盻訴 ﾆｰu hﾃｳa chuy盻ハ ﾄ黛ｻ品 Shopee Affiliate th蘯ｿ h盻・m盻嬖.
+              Hệ thống quản trị chiến dịch Affiliate Shopee.
             </p>
           </div>
 
           <div className="topbar-actions">
             <button type="button" className="button button-ghost" style={{ padding: "12px 20px" }} onClick={refreshRuntimeStatus} disabled={runtimeLoading || userRole !== "ADMIN"}>
-              {runtimeLoading ? "Dang kiem tra..." : "Kiem tra he thong"}
+              {runtimeLoading ? "Đang kiểm tra..." : "Kiểm tra hệ thống"}
             </button>
             <span className="badge" style={serviceStatusStyle(runtimeSystem?.queue.status ?? "OFFLINE")}>
               Queue {runtimeSystem?.queue.status ?? "OFFLINE"}
             </span>
             <button type="button" className="button button-soft" style={{ padding: "12px 24px" }} onClick={() => refreshJobs(workspaceId, selectedJobId)} disabled={isLoading}>
-              {isLoading ? "Synchronizing..." : "Lﾃm m盻嬖 d盻ｯ li盻㎡"}
+              {isLoading ? "Synchronizing..." : "Làm mới dữ liệu"}
             </button>
             <button type="button" className="button button-primary" style={{ padding: "12px 28px" }} onClick={() => { setActiveTab("config"); openCreateForm(); }}>
-              + Kh盻殃 t蘯｡o Chi蘯ｿn d盻議h
+              + Khởi tạo Chiến dịch
             </button>
           </div>
         </header>
 
         {message && (
-          <div className="panel" style={{ 
-            marginBottom: "32px", 
-            padding: "20px 24px", 
-            background: "rgba(139, 92, 246, 0.08)", 
+          <div className="panel" style={{
+            marginBottom: "32px",
+            padding: "20px 24px",
+            background: "rgba(139, 92, 246, 0.08)",
             border: "1px solid var(--primary-border)",
             display: "flex",
             alignItems: "center",
             gap: "16px",
             animation: "fadeIn 0.5s ease"
           }}>
-            <span style={{ fontSize: "1.4rem" }}>粕</span>
+            <span style={{ fontSize: "1.4rem" }}>🔔</span>
             <div style={{ fontWeight: 600, color: "var(--text-muted)" }}>{message}</div>
           </div>
         )}
 
-        <div style={{ 
-          display: "flex", 
-          gap: "8px", 
-          padding: "8px", 
-          borderRadius: "20px", 
-          background: "rgba(255,255,255,0.03)", 
-          border: "1px solid var(--border)", 
+        <div style={{
+          display: "flex",
+          gap: "8px",
+          padding: "8px",
+          borderRadius: "20px",
+          background: "rgba(255,255,255,0.03)",
+          border: "1px solid var(--border)",
           width: "fit-content",
           marginBottom: "40px",
           backdropFilter: "blur(10px)"
         }}>
           {([
-            ["overview", "T盻貧g quan"],
-            ["created", "Chi蘯ｿn d盻議h"],
-            ["assets", "Thﾆｰ vi盻㌻ Asset"],
-            ["config", "Thi蘯ｿt l蘯ｭp"],
-            ["detail", "Phﾃ｢n tﾃｭch Job"],
-            ["guide", "Tﾃi li盻㎡"]
+            ["overview", "Tổng quan"],
+            ["created", "Chiến dịch"],
+            ["assets", "Thư viện Asset"],
+            ["config", "Thiết lập"],
+            ["detail", "Phân tích Job"],
+            ["guide", "Tài liệu"]
           ] as const).map(([key, label]) => (
             <button
               key={key}
